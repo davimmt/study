@@ -10,6 +10,8 @@
 * [Serverless (Lambda)](#serverless-lambda)
 * Security and Compliance Services
 
+---
+
 ## What Are Clouds Made Of?
 * Within the **traditional client-server architecture**, data is centralized in a local server storage, so that all client computers that use those informations are always updated equally.
 
