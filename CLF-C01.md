@@ -3,8 +3,8 @@
 * [Overview of Identity and Access Management (IAM)](#overview-of-identity-and-access-management-iam)
 * [Virtual Private Cloud (VPC)](#virtual-private-cloud-vpc)
 * [Elastic Compute Cloud (EC2)](#elastic-compute-cloud-ec2)
-* AWS Storage Services
-* ELB and Auto Scaling
+* [AWS Storage Services](#aws-storage-services)
+* [ELB and Auto Scaling](#elb-and-auto-scaling)
 * CloudFront and DNS
 * SQL and NoSQL
 * [Serverless (Lambda)](#serverless-lambda)
@@ -151,10 +151,10 @@ Hypervisor: software layer between the hardware and the operating system, respon
 * Nível de Região -> VPC, Route Table, IGW
 
 ## Elastic Compute Cloud (EC2)
-* **EC2** = it's a basic computer. It's a virtual computer, meaning that it's a logical computer or software based computer as opposed to a hardware based computer.
+* **EC2**: it's a basic computer. It's a virtual computer, meaning that it's a logical computer or software based computer as opposed to a hardware based computer.
   * AWS's definition is that EC2 provides scalable computing capacity in the AWS Cloud.
 * Using EC2 eliminates your need to invest in hardware upfront so you can deploy and develop applications faster.
-* **EBS** stands for elastic block storage, the storage drive of your EC2.
+* **EBS** stands for elastic block storage, the storage drive of your EC2, highly available and reliable storage volume..
 * When purchasing a EC2 instance, there are 3 basic types:
   * **On demand**: allows you to purchase an instance type and provision it at any time and terminate it at any time. You're only charged for that instance, while it's running and is billed by the hour, you can provision and terminate an on demand instance, at any time.
   * **Reserved instances**: allow you to purchase an instance for a period of one or three years at a significant discount. But you're required or responsible for the cost of that instance for that entire period. It doesn't matter if you're instance is on or off.
@@ -207,11 +207,21 @@ Hypervisor: software layer between the hardware and the operating system, respon
   * **Tape GW**: designed for long term, off site data archiving. A virtual tape library talks to the customer's backup software. (?)
 
 ## ELB and Auto Scaling
+* **Elastic Load Balancing**: evenly distributes traffic bettwen EC2 instances that are associeted with it.
+  * AWS definition: a load balancer distibutes incoming application traffic across multiple EC2 instances in multiple AZ. This increases the fault tolerance. Detects unhealthy instances and routes traffic only to healthy instances.
+  
+ * **Auto Scaling**: automates the process of adding and removing instances based on traffic demand for your application.
+   * We set a policy or rules that actually say what determines when to add more instances and what determines when to remove those instances.
+   
+* **AWS Load Balancers**
+  * **Classic Load Balancer**:  previous generation load balancer that managed HTTP, HTTPS, and TCP traffic. It is now used primarily for anyone utilizing the EC2-Classic network.
+  * **Application Load Balancer**: used for balancing traffic over HTTP and HTTPS.
+
 ## CloudFront and DNS
 ## SQL and NoSQL
 
 ## Serverless (Lambda)
-* Lambda = serverless compute.
+* **Lambda**: serverless compute.
 * Lambda will replace EC2 instances, for the most part.
   * With EC2 instance you have to provide all of its settings.
   * With Lambda, you simply upload your code, everything else runs on the background.
