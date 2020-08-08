@@ -119,8 +119,10 @@ Hypervisor: software layer between the hardware and the operating system, respon
 
 ## Virtual Private Cloud (VPC)
 * A private subsection of AWS that you control and you can place AWS resources such as an EC2 instance or a database inside of the VPC. You have full control over who has access to the resources that you place inside of your VPC and then we have the AWS definition Amazon virtual private cloud lets you provision a logically isolated section of the AWS cloud, where you can launch AWS resources in a virtual network that you define. You have complete control over your virtual networking environment, including selection of your own IP address ranges, creation of subnets, and configuration of route tables as well as network gateways.
+  * An EC2 instance can only be attached to 1 VPC at a time.
 
 * **Subnet**: is shorthand for a subnetwork, which is a subsection of a network, generally a subnet includes all of the computers in a specific location. This will be the same as all of the computers being on the same subnetwork. So they would share some common characteristics in their addresses.
+  * A subnet cannot span Availability Zones, it must reside within a single Availability Zone.
 
 * **Internet Gateway**: it's a combination of hardware and software that provides your private network with a route to the outside world, the internet. AWS's definition is that an internet gateway is a horizontally scaled, redundant, and highly available VPC component that allows communication between instances in your VPC and the internet. It therefore imposes no availability risks or bandwidth constraints on your network traffic.
   * It's redundant and highly available, meaning that if it were to experience some type of a hardware or software failure that the internet gateway would continue to function. 
