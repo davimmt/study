@@ -184,6 +184,26 @@ Hypervisor: software layer between the hardware and the operating system, respon
   * **Security groups** are at the instance layer and they determine whether or not that traffic, once it's in the subnet, is allowed to talk to those individual instances.
 
 ## AWS Storage Services
+* **S3 Storage Class**
+  * **Standard**: most expensive because it has the most overall flexibility.
+  * **Standard-IA**: data that is infrequently accessed but we still want that millisecond type latency (minimun of 3 AV).
+  * **One-Zone-IA**: data that is infrequently accessed but we still want that millisecond type latency (minimun of 1 AV).
+  * **Inteligent Tiering**: for data where you're not quite sure what the access pattern is going to look like. So intelligent tiering will then look at the patterns for how the file is being accessed and then it's able to move that data between the various storage classes you can see again.
+  * **Glacier**: is for long term archival of data. So this is data that you are not going to need very frequently, maybe for the foreseeable future you don't see a reason why you would need access unless maybe you had an audit or for compliance reasons you had to keep that data.
+  * **Glacier Deep Archive**: more cost effective than regular Glacier. But your retrieval times are much, much bigger.
+ 
+ * **Object Lifecycles**: set of rules used to automatically transfer objects between storage classes at time (like conjobs).
+
+* **AWS Storage Gateway**: a way for you to integrate your existing application services with AWS storage services without fully migrating to the AWS cloud your applications that are running within your corporate data center environment, connect to the AWS cloud using a virtual server or hardware device.
+  * The AWS definition: hybrid storage service that enables your on-premises applications to seamlessly use AWS cloud. You can use the services for backup in archive, disaster recovery, cloud data processing, storage tiering, and migration.
+  
+* **SGW Deployment Types**
+  * **File GW**: where data is uploaded to S3 for use with object based workloads.
+  * **Volume GW**
+    * **Stored volumes**: give you the ability to keep the customer data on the customer premises location. That data can then periodically be backed up to AWS based on snapshots.
+    * **Cached volumes**: store data in AWS Cloud and then the data that's most frequently accessed by the customer is actually cached in the customer's data center for fastest access (so this gives the customer the best of both worlds).
+  * **Tape GW**: designed for long term, off site data archiving. A virtual tape library talks to the customer's backup software. (?)
+
 ## ELB and Auto Scaling
 ## CloudFront and DNS
 ## SQL and NoSQL
