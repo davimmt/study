@@ -5,10 +5,10 @@
 * [Elastic Compute Cloud (EC2)](#elastic-compute-cloud-ec2)
 * [AWS Storage Services](#aws-storage-services)
 * [ELB and Auto Scaling](#elb-and-auto-scaling)
-* CloudFront and DNS
-* SQL and NoSQL
+* [CloudFront and DNS](#cloud-front-and-dns)
+* [SQL and NoSQL](#sql-and-nosql)
 * [Serverless (Lambda)](#serverless-lambda)
-* Security and Compliance Services
+* [Security and Compliance Services](#security-and-compliance-services)
 
 ---
 
