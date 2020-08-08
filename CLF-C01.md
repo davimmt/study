@@ -115,6 +115,7 @@ Hypervisor: software layer between the hardware and the operating system, respon
 ## Overview of Identity and Access Management (IAM)
 * It’s a service within AWS that you use to manage user accounts and groups. In addition to managing uses and groups, some additional things you can do with IAM include managing access policies that you apply to your users and groups, roles, user credentials, password policies, multi factor authentication, and API keys for programmatic access.
 * **MFA (Multi-Factor Authentication)**: 6 random digits that changes from every login to grant secure access to one’s account.
+* **IAM groups** refers to users and permissions to resources, whereas **IAM roles** refers to resources permisions to another resources.
 
 ## Virtual Private Cloud (VPC)
 * A private subsection of AWS that you control and you can place AWS resources such as an EC2 instance or a database inside of the VPC. You have full control over who has access to the resources that you place inside of your VPC and then we have the AWS definition Amazon virtual private cloud lets you provision a logically isolated section of the AWS cloud, where you can launch AWS resources in a virtual network that you define. You have complete control over your virtual networking environment, including selection of your own IP address ranges, creation of subnets, and configuration of route tables as well as network gateways.
@@ -125,6 +126,8 @@ Hypervisor: software layer between the hardware and the operating system, respon
   * It's redundant and highly available, meaning that if it were to experience some type of a hardware or software failure that the internet gateway would continue to function. 
   * The internet gateway's purpose is to allow our instances or our resources within our VPC to be able to communicate with resources on the internet. The internet gateway's purpose is to allow our instances or our resources within our VPC to be able to communicate with resources on the internet. So if we were setting up a web server on our EC2 instance, the traffic from our users would cross the internet gateway into our VPC in order to access the web server.
   * It does not have any type of bandwidth constraints on it, meaning that it won't be a bottleneck for traffic going into and out of your VPC to and from the internet. So it means that your internet gateway is not going to slow down your traffic as it tries to cross back and forth to and from the internet.
+  
+ * A subnet is public when it has a route to the IGW, and it's private whent it doesn't.
 
 * **Route Table**: contains a set of rules called routes that are used to determine where network traffic is directed. 
   * GPS of the VPC.
@@ -142,10 +145,44 @@ Hypervisor: software layer between the hardware and the operating system, respon
 
 * Nível de instância -> Security Group
 * Nível de subnet -> EC2
-* Nível de VPC -> NACL, Route Table, IGW
+* Nível de VPC -> NACL, Route Table, (IGW)
 * Nível de Região -> VPC, Route Table, IGW
 
 ## Elastic Compute Cloud (EC2)
+* **EC2** = it's a basic computer. It's a virtual computer, meaning that it's a logical computer or software based computer as opposed to a hardware based computer.
+  * AWS's definition is that EC2 provides scalable computing capacity in the AWS Cloud.
+* Using EC2 eliminates your need to invest in hardware upfront so you can deploy and develop applications faster.
+* **EBS** stands for elastic block storage, the storage drive of your EC2.
+* When purchasing a EC2 instance, there are 3 basic types:
+  * **On demand**: allows you to purchase an instance type and provision it at any time and terminate it at any time. You're only charged for that instance, while it's running and is billed by the hour, you can provision and terminate an on demand instance, at any time.
+  * **Reserved instances**: allow you to purchase an instance for a period of one or three years at a significant discount. But you're required or responsible for the cost of that instance for that entire period. It doesn't matter if you're instance is on or off.
+  * **Spot instances**: You bid a price, and you're saying I don't want to pay any more than this price, and as long as the price is equal to or below that price, you have access to that instance. So it gives you a substantial discount for the use of unused instances that AWS has available. For spot instances you're charged by the minute. So when your bid is accepted, meaning the price is equal to or below your bid price an instance is provisioned for you, and that instance will stay online until the price is higher than your bid price. When that happens, the instance will automatically terminate. (*outdated: you no longer have to bid. You pay the spot price that is in effect for the hour the instances are launched*).
+
+* **Charged based on**: purchasing options, instance type, EBS Optimized, AMI Type (OS), Data Transfer, Region.
+* **Benefits**: 
+  * Elastic web-scaling computing
+  * Full root control
+  * Flexible options
+  * Integrates with most AWS services
+  * Reliable
+  * High level built-in security
+  * Inexpensive
+  * Easy to create
+  
+* **Primary Use Cases**:
+  * Web applications
+  * Web servers
+  * Bach processing
+  * Video processing
+  * GPU intensive workload
+  
+* **Instance Types**: basically the CPU of your instance. 
+  * The AWS definition is when you launch an instance the instance type that you specify determines the hardware of the host computer. That's the computer that's running your virtual server. Each instance type offers different compute, memory, and storage capabilities and our grouped in instance families based on these capabilities select an instance type based on the requirements of the application or software that you planned to run on that instance.
+
+* **Difference between your security groups and NACLs**: 
+  * The **NACLS** are at the subnet layer. They determine if the traffic can enter into the subnet at all.
+  * **Security groups** are at the instance layer and they determine whether or not that traffic, once it's in the subnet, is allowed to talk to those individual instances.
+
 ## AWS Storage Services
 ## ELB and Auto Scaling
 ## CloudFront and DNS
