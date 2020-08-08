@@ -218,6 +218,12 @@ Hypervisor: software layer between the hardware and the operating system, respon
   * **Application Load Balancer**: used for balancing traffic over HTTP and HTTPS.
 
 ## CloudFront and DNS
+* **Route 53** where you configure and manage web domains for websites or applications that you host on AWS. 
+* Route 53 has three main functions
+  * Domain registration: let's you register domain names.
+  * Domain name system service (DNS): translated friendly domain names into IP addresses. Responds to DNS queries using global network, wich reduces latency.
+  * Health checking: R53 sends automated requests over the internet .
+
 ## SQL and NoSQL
 
 ## Serverless (Lambda)
