@@ -222,7 +222,7 @@ Hypervisor: software layer between the hardware and the operating system, respon
 * Route 53 has three main functions
   * Domain registration: let's you register domain names.
   * Domain name system service (DNS): translated friendly domain names into IP addresses. Responds to DNS queries using global network, wich reduces latency.
-  * Health checking: R53 sends automated requests over the internet .
+  * Health checking: R53 sends automated requests over the internet to your application to verufy that it's reacheble, available and functional..
 
 ## SQL and NoSQL
 
