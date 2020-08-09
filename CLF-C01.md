@@ -222,7 +222,12 @@ Hypervisor: software layer between the hardware and the operating system, respon
 * Route 53 has three main functions
   * Domain registration: let's you register domain names.
   * Domain name system service (DNS): translated friendly domain names into IP addresses. Responds to DNS queries using global network, wich reduces latency.
-  * Health checking: R53 sends automated requests over the internet to your application to verufy that it's reacheble, available and functional..
+  * Health checking: R53 sends automated requests over the internet to your application to verufy that it's reacheble, available and functional.
+  
+* **CloudFront** is known as a content delivery network or a CDN. CDNs are locations that cache your content at what's known as edge locations that are located around the world.   * The benefit of using a CDN like CloudFront is that you allow your customers to get access to the content more quickly, and it also provides additional security.
+  * CloudFront it's a content delivery network. What that does is as a user goes to access that data is, it pulls that data from the origin, which is your source server, and loads it onto a CloudFront edge location that's closest to the user.
+  
+* **Points of presence** are basically CloudFront edge locations. CloudFront edge locations provide fast access to content such as data, videos, applications, and APIs. The advantage is that it replicates that data to the various points that are in different places around the world to ensure that your customers don't experience a lot of latency when they try to access the data.
 
 ## SQL and NoSQL
 
