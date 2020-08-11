@@ -1,18 +1,19 @@
 ## Sumário
-- [Modelos de Rede](#modelos-de-rede)
+- [Introdução à administração de redes e arquitetura TCP/IP (parte 1)](#cap1)
 
-## Modelos de Rede
+<h2 id="cap1">Introdução à administração de redes e arquitetura TCP/IP (parte 1)</h2>
 
+### Modelos de Rede
 - **Conceito de camadas**
   - São responsaveis por prover conectividade ao computador e rotear caminhos para que os pacotes de dados possam trafegar entre fonte e destino;
   - Nenhuma camada oferece os serviços suportados por outra camada;
   - Cada camada possui uma forma de identificação (endereçamento) de seus próprios dados que, por sua vez, encapsulam dados das camadas superiores.
   - Cada camada recebe e envia requisições à camada imediatamente superior ou inferior e se comunica com a mesma camada em outro host.
 
-### Modelo ISO/OSI (Open Systems Interconnection)
+#### Modelo ISO/OSI (Open Systems Interconnection)
 ![](img/administração-de-sistemas-linux_redes-e-segurança/modelo-iso_osi.png)
 
-### Modelo TCP/IP
+#### Modelo TCP/IP
 ![](img/administração-de-sistemas-linux_redes-e-segurança/tcp_ip-x-iso_osi.png)
 
 - **Tipos de camada**
