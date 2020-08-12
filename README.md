@@ -1,8 +1,8 @@
 # Material de apoio ao estudo de redes.
 
 ## [Resumos](resumos)
-- [AWS Cloud Practitioner (CLF-C01)](CLF-C01.md)
-- [Administração de Sistemas Linux: Redes e Segurança](administração-de-sistemas-linux_redes-e-segurança.md)
+- [AWS Cloud Practitioner (CLF-C01)](resumos/aws-cloud-practitioner--clf-c01.md)
+- [Administração de Sistemas Linux: Redes e Segurança](resumos/administração-de-sistemas-linux_redes-e-segurança.md)
 
 ## [Livros](https://drive.google.com/drive/folders/19pyt81Qm5ygVRHpevNqcqLwvvppklfLn?usp=sharing)
 - [Administração de Sistemas Linux: Redes e Segurança](https://drive.google.com/file/d/1hK7o4Go3z5NS8Os__xEnUvgcHTOSY2bh/view)
