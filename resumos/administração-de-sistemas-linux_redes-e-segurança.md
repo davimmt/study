@@ -11,11 +11,11 @@
   - Cada camada possui uma forma de identificação (endereçamento) de seus próprios dados que, por sua vez, encapsulam dados das camadas superiores.
   - Cada camada recebe e envia requisições à camada imediatamente superior ou inferior e se comunica com a mesma camada em outro host.
 
-#### Modelo ISO/OSI (Open Systems Interconnection)
-![](img/administração-de-sistemas-linux_redes-e-segurança/modelo-iso_osi.png)
+- **Modelo ISO/OSI (Open Systems Interconnection)**
+![](/redes/img/administração-de-sistemas-linux_redes-e-segurança/modelo-iso_osi.png)
 
-#### Modelo TCP/IP
-![](img/administração-de-sistemas-linux_redes-e-segurança/tcp_ip-x-iso_osi.png)
+- **Modelo TCP/IP**
+![](/redes/img/administração-de-sistemas-linux_redes-e-segurança/tcp_ip-x-iso_osi.png)
 
 - **Tipos de camada**
   - Física: transforma bits em sinais elétricos, ópticos e ondas de rádio.
@@ -51,7 +51,7 @@
     - pertencem a esse nível as aplicações de propósitos gerais, como transferência de arquivos, correio eletrônico e terminal remoto.
   
 - **Funcionameto/relacionamento das camadas**
-![](img/administração-de-sistemas-linux_redes-e-segurança/encapsulamento-em-camadas.png)
+![](/redes/img/administração-de-sistemas-linux_redes-e-segurança/encapsulamento-em-camadas.png)
 
   - Cada camada possui uma forma de identificação e/ou endereçamento, e cada uma delas encapsula dados das camadas superiores.
   - Os dados que trafegam pelas camadas são organizados em pacotes, cada um contém um cabeçalho (header) e uma área de dados.
@@ -70,7 +70,7 @@
     - broadcast (todos os computadores na rede).
     
   - Seu formato é composto por:
-  ![](img/administração-de-sistemas-linux_redes-e-segurança/quadro-ethernet.png)
+  ![](/redes/img/administração-de-sistemas-linux_redes-e-segurança/quadro-ethernet.png)
   
     - Preâmbulo: serve para sincronizar os relógios do receptor e do transmissor.
       - não é considerado para efeito de cálculo do tamanho do quadro.
@@ -83,7 +83,7 @@
   - Não é orientado à conexão: não existe um mecanismo que indique a (des)ordem de recebimento dos pacotes referente ao seu envio.
   
 - **Datagrama IP**
-![](img/administração-de-sistemas-linux_redes-e-segurança/datagrama-ip.png)
+![](/redes/img/administração-de-sistemas-linux_redes-e-segurança/datagrama-ip.png)
   - VERS: versão;
   - HLEN: comprimento do cabeçalho;
   - Tipo de serviço: qualidade do serviço (prioridade, retardo, vazão e confiabilidade);
@@ -100,7 +100,7 @@
   - O protocolo IP foi definido em classes A, B, C, D e E, que definem diferentes quantidades de bits para o endereço IP.
     - no TCP/IP, o endereço recebe o nome de endereço IP e é constituído por 32 bits.
  
-![](img/administração-de-sistemas-linux_redes-e-segurança/enderecamento-classful.png)
+![](/redes/img/administração-de-sistemas-linux_redes-e-segurança/enderecamento-classful.png)
     
   - O endereço IP está associado ao nível de rede. 
   - O nível IP define uma associação entre um endereço IP e um endereço físico. 
@@ -125,7 +125,7 @@
   - Utilização de bits HostId como NetId (nnnnnnnn.nnnnnnnn.ssssssss.hhhhhhhh).
     - Exemplo: dividir uma classe C em 2 (192.168.0.0 dividido do 192.168.0.0 – 192.168.0.127 e 192.168.0.128 – 192.168.0.255).
     
-![](img/administração-de-sistemas-linux_redes-e-segurança/subredes.png)
+![](/redes/img/administração-de-sistemas-linux_redes-e-segurança/subredes.png)
 
 - **Razões para a adoção do Classless Inter Domain Routing (CIDR)**
   - Com o crescimento da internet e o uso não escalonável da alocação em classe (classful), surgiram sérios problemas de endereçamento, tais como:
@@ -153,3 +153,65 @@
       - Também permite a configuração de outros parâmetros de rede além do endereço IP das máquinas.
   
 <h2 id="cap2">Introdução à administração de redes e arquitetura TCP/IP (parte 2)</h2>
+
+### Roteamento 
+- Processo de escolha das rotas para alcançar um determinado destino.
+  - Encaminhamento direto: o SO verifica se o IP de destino pertence ou não à mesma rede física e transmite os pacotes diretamente para a máquina destino.
+  - Encaminhamento indireto: se o destino não estiver na mesma rede física, o transmissor deve passar os pacotes para um roteador encarregado de encaminhá-los ao destinatário.
+
+- **Tabela de roteamento**
+  - O roteamento IP utiliza o que se denomina de tabela de roteamento. Cada máquina e cada roteador possuem pelo menos uma tabela de roteamento IP. Essa tabela contém possíveis destinos e modos para acessá-los.
+
+- **Nex-hop**
+  - É praticamente impossível manter nas tabelas de roteamento todo o caminho para um determinado destino. Como os roteadores trabalham de forma colaborativa, basta que na tabela tenhamos o endereço do próximo passo (next-hop), ou seja, do próximo roteador no caminho até o destino final.
+
+- **Rotas estáticas**: configuradas pelo administrador.
+- **Rotas dinâmicas**: protocolos de roteamento.
+- Open Shortest Path First (OSPF);
+- Border Gateway Protocol (BGP).
+
+- **Algoritmo de roteamento**
+  - ALGORITMO DE TRANSMISSÃO
+    - Datagrama pronto para ser transmitido
+    - Caso: Endereço Destino = Endereço Transmissor
+      - Entrega datagrama pela interface loopback (127.0.0.1)
+      - Fim
+    - Caso: Endereço de rede do destino = endereço de rede local
+      - Descobre o endereço físico do destino (ARP)
+      - Transmite datagrama pela interface correta
+      - Fim
+    - Caso: Endereço de rede do destino != endereço de rede local
+      - Verifica tabela de rotas
+      - Descobre rota que se encaixa com a rede destino
+      - Descobre o endereço físico do gateway (ARP)
+      - Transmite o datagrama para o gateway
+      - Fim
+    - Fim
+  - ALGORITMO DE RECEPÇÃO
+    - Datagrama recebido da camada intra-rede, defragmentado e testado
+    - Caso: Endereço Destino = Endereço do Host || outras interfaces do Host || Broadcast
+      - Passa datagrama para níveis superiores
+      - Fim
+    - Caso: Máquina que recebeu não é roteador
+      - Descarta datagrama
+      - Fim
+    - Caso: Máquina que recebeu é roteador (possui mais de uma interface IP)
+      - Caso :Endereço IP destino = Rede IPcom interface direta
+        - Descobre o endereço físico do destino (ARP)
+        - Transmite datagrama pela interface respectiva
+        - Fim
+    - Caso: Endereço de rede do destino = endereço de rede local
+      - Verifica tabela de rotas
+      - Descobre o endereço físico do gateway (ARP)
+      - Transmite o datagrama para o gateway
+      - Fim
+  - Fim
+
+- **Internet Control Message Protocol (ICMP)**
+  - Protocolo utilizado por todos os hosts TCP/IP para trocarem informações de controle e erro.
+  - Mensagens ICMP encapsuladas dentro de datagramas IP.
+  - Faz parte da camada de rede.
+  - Uma mensagem ICMP é transmitida na parte de dados do pacote IP.
+
+![](/redes/img/administração-de-sistemas-linux_redes-e-segurança/icmp.png)
+
