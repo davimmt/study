@@ -1,5 +1,6 @@
 ## Sumário
 - [Introdução à administração de redes e arquitetura TCP/IP (parte 1)](#cap1)
+- [Introdução à administração de redes e arquitetura TCP/IP (parte 2)](#cap2)
 
 <h2 id="cap1">Introdução à administração de redes e arquitetura TCP/IP (parte 1)</h2>
 
@@ -110,6 +111,45 @@
     - nnnnnnnn.nnnnnnnn.nnnnnnnn.hhhhhhhh = nnn.nnn.nnn.hhh
   -  Todas as máquinas de uma determinada rede compartilham um prefixo nos seus endereços IP denominado endereço de rede.
     - Os endereços IP 192.168.0.10, 192.168.0.30 e 192.168.0.50 pertencem a máquinas da mesma rede 192.168.0.0.
-    
-   
+  - **Broadcast**: possibilita o envio de um determinado pacote a todas as máquinas conectadas à rede. O endereço de broadcast é constituído pelo endereço de rede e por todos os bits do HostId iguais a 1 (veremos mais detalhes no item seguinte, sub-redes). Exemplo de um endereço de broadcast em uma rede classe B: rede 130.239.0.0; endereço de broadcast 130.239.255.255.
   
+- Alocação baseada em classes gerou problemas.
+  -  Por exemplo, um provedor que deseja alocar apenas alguns endereços para um pequeno cliente é obrigado a ceder pelo menos 256 endereços de uma classe C.
+  - Soluções
+    - Proxy ARP;
+    - Subredes;
+    - Classless Inter Domain Routing (CIDR).
+
+### Sub-redes
+  - Divisão dos endereços de uma classe em subconjuntos.
+  - Utilização de bits HostId como NetId (nnnnnnnn.nnnnnnnn.ssssssss.hhhhhhhh).
+    - Exemplo: dividir uma classe C em 2 (192.168.0.0 dividido do 192.168.0.0 – 192.168.0.127 e 192.168.0.128 – 192.168.0.255).
+    
+![](img/administração-de-sistemas-linux_redes-e-segurança/subredes.png)
+
+- **Razões para a adoção do Classless Inter Domain Routing (CIDR)**
+  - Com o crescimento da internet e o uso não escalonável da alocação em classe (classful), surgiram sérios problemas de endereçamento, tais como:
+    - Exaustão de endereços classes B: a qualquer instituição que necessitasse mais do que 254 endereços IP, era fornecido um endereço classe B, no qual é possível endereçar até 65.533 hosts. Em alguns casos ainda era esbanjada uma classe A, o que significa dizer que em uma única rede era possível alocar 16 milhões de endereços;
+    - Explosão da tabela de roteamento: como cada classe alocada era uma entrada na tabela de roteamento, e não havia um método de agregar endereços, as tabelas de roteamento se tornaram muito grandes e os roteadores mais sobrecarregados;
+    - Possível exaustão de endereços: como o método por classe não era otimizado para funcionar com redes de qualquer tamanho, havia a possibilidade de não existirem mais classes B ou A para alocação.
+    
+### CIDR
+- CIDR => Endereço de Rede/Número de bits do NetId.
+  - 200.245.120.0/255.255.255.252 = 200.245.120.0/30.
+  
+### Resolução de Endereços
+- A resolução de um endereço IP para o seu respectivo endereço físico é realizada pelo protocolo Address Resolution Protocol (ARP), que associa endereços IP e endereços físicos (MAC, no caso da tecnologia Ethernet) em tabelas mantidas no kernel do sistema.
+  - O mapeamento é feito de forma dinâmica, onde uma requisição é enviada para o endereço de broadcast solicitando o endereço MAC de um determinado IP. Dessa forma todos os hosts da rede vão capturar a mensagem e apenas o host que possui o endereço IP da requisição informará a todos o seu endereço MAC. As informações de IP x MAC são mantidas pelo Sistema Operacional em uma tabela, e é possível tanto consultá-la como modificar alguns de seus valores.
+
+### Atribuição de endereços (IP)
+- Estática: configurada manualmente.
+- Dinâmica: usados protocolos especiais que permitem que a máquina solicite a um servidor o endereço IP que ela deverá usar.
+  - Protocolos:
+    - Bootp;
+    - PPP;
+    - RARP;
+    - Dynamic Host Configuration Protocol (DHCP): aloca endereços dinamicamente a partir de um bloco de endereços especificados pelo administrador. 
+      - Esse protocolo simplifica o processo de atribuição de endereços, permitindo a configuração de uma grande rede de forma centralizada.
+      - Também permite a configuração de outros parâmetros de rede além do endereço IP das máquinas.
+  
+<h2 id="cap2">Introdução à administração de redes e arquitetura TCP/IP (parte 2)</h2>
