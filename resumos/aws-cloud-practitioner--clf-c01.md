@@ -259,9 +259,45 @@ Hypervisor: software layer between the hardware and the operating system, respon
 * With Lambda, your code starts, it executes, it stops, and you only pay for the time that your code is running and it scales automatically based on load to execute as many of the Lambda functions as it needs to.
 
 ## Security and Compliance Services
-
-
-
+* **Shared responsibility model** defines what the customer is responsible for and what AWS is responsible for when it comes to security and compliance.
+* AWS is responsible for operating, managing, and controlling the components from the physical layer, meaning from the actual hardware that resides in the AWS data center up through the virtualization layer.
+  * AWS is also responsible for things like physical security of that data center.
+* The virtualization layer is where you as the customer then take over.
+  *  So if you set up an EC2 instance, you install an operating system on that you're responsible for updating and patching that guest operating system. You're also responsible for any applications that you might install on to that instance as well.
+  * Any data that you have or your ability to encrypt that data, that's all your responsibility as the client as well. Any type of network traffic protection that you would like to implement related to the VPC that's assigned to you. You as the customer are responsible for that. Your NACLS, your security groups, how your user accounts are managed. All of these things are your responsibility as the customer.
+  
+* Security Assessments or Penetration tests
+  * Cans
+    * EC2, NAT GW, ELB
+    * RDS
+    * CloudFront
+    * Aurora
+    * API GW
+    * Lambda funcitons
+    * Lightsail resources
+    * Amazon Elastic Beanstal environments
+  * Can'ts
+    * DNS zones with R53
+    * Denial of service (DoS), Distributed Denial of service (DDoS) simulated
+    * Port, protocol, request flooding
+    
+* **AWS security related services** 
+  * **AWS Oganizations**: allows you to *centrally manage your accounts and billing* but it also defines policies that can restrict access at the account level. So at the account level we can say what services and what actions different member accounts within that organization can take. So AWS Organizations is where you have a parent organization and then beneath that parent organization there are additional AWS accounts. 
+  * **GuardDuty**: *a threat detection service that constantly monitors the AWS account and the workloads*, it uses threat intelligence feeds to detect threats to the environment. It's a proactive service that monitors for things that potentially could impact your environment.
+  * **AWS Inspector**: *analyzes VPC environments for potential security issues*, so it uses a predefined template, and then it matches the environment to that template. And if it finds any differences between the two, then it's able to provide you with recommendations to help you resolve those potential security issues. 
+  * **AWS Shield**: provides managed DDOS protection. 
+  * **AWS Web Application Firewall (WAF)**: *monitors web requests that are forwarded to your ELB to CloudFront or API Gateway.* WAF half allows or denies access to the content based on the conditions that you specify and then you have AWS Artifact. 
+  * **AWS Artifact**: is a portal that *provides access to compliance documentation.*
+  
+* **AWS Key Management Service (KMS)**: enables encryption of the data and provides centralized encryption, key storage, management, and auditing.
+  * May be generated in the key management service or by a **cloud hardware security module or cloud HSM** (a hardware appliance that can be used to generate and manage your encryption keys).
+  * Services that support KMS
+    * S3 and Glacier
+    * Storage Gateway
+    * EBS
+    * RDS, DynamoDB
+    * SMS
+    * CloudTrail
 ---
 
 [1] “So what type of cloud is AWS? It is infrastructure has a service, meaning that all of this underlying hardware is provided by AWS and AWS provides you with access so that you can set up your platform. You can set up your virtual machines to install your operating system and your applications. AWS also provides some of their services in what looks more like software as a service. So as an example, AWS provides storage using something called Simple Storage Service, or S3, S3 is a bulk storage service where you can upload virtually any type of file. Think about how you have an external hard drive, may be on your computer or you might have a Dropbox as a service, S3 gives you that ability to save your data up into the cloud. AWS provides infrastructure as a service, but they also provide additional services that provide applications as a frontend to those infrastructure services to simplify your ability to utilize AWS. They basically want their interface to be presented to you in a way that makes it easy for you to use but they provide all of those infrastructure services necessary to support the overall environment. The compute, the storage, networking. They also provide the ability for you to use their virtualization services, databases. They have hundreds of tools that you can utilize to build and support your environment, everything from setting up your own platform with virtual machines to support your applications, to providing developer tools that help application developers make applications that can run on the AWS infrastructure.”
