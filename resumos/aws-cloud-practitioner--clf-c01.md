@@ -258,6 +258,14 @@ Hypervisor: software layer between the hardware and the operating system, respon
 * Lambda can support from a few requests per day to thousands per second, and you only pay for what compute time that your code consumes. There's no charge when your code is not running.
 * With EC2 instances we have to keep those servers up and running all the time.
 * With Lambda, your code starts, it executes, it stops, and you only pay for the time that your code is running and it scales automatically based on load to execute as many of the Lambda functions as it needs to.
+* Suported languages
+  * Node
+  * Java
+  * C#
+  * Ruby
+  *  Go
+  * .NET Core
+  * Python
 
 ## Security and Compliance Services
 * **Shared responsibility model** defines what the customer is responsible for and what AWS is responsible for when it comes to security and compliance.
