@@ -9,6 +9,7 @@
 * [SQL and NoSQL](#sql-and-nosql)
 * [Serverless (Lambda)](#serverless-lambda)
 * [Security and Compliance Services](#security-and-compliance-services)
+* [Noteworthy AWS Services](#noteworthy-aws-services)
 
 ---
 
@@ -299,6 +300,19 @@ Hypervisor: software layer between the hardware and the operating system, respon
     * SMS
     * CloudTrail
 ---
+
+## Noteworthy AWS Services
+*  **Quick start**: gives you the ability to use templates provided by AWS to help you get quickly set up and running within the AWS environment for a specific configuration.
+  * **Linux Bastion Host**: quick start guide is designed to help you get a Bastion host set up and running so that you can get that connectivity into your instances that are in a private subnet.
+* **Amazon Athena**: serveless interactive query service used to analyze data in S3 using standad SQL (billed only for the queries you run).
+* **Amazon EMR**: provides a managed Hadoop framework, designed for processing broad sets of big data (web indexing, machine learning, log and financial analysis).
+* **Amazon Lightsail**: VPServer instance aimed at developers to provide everything needed to launch a service quickly.
+* **Amazon Rekognition**: provides video/image analysis.
+* **Amazon Device Farm**: provides physical devices that can be used to test and troubleshoot application on mobile devices.
+* **Amazon Mechanical Turk**: crowdsourcing marketplace that simplifies outsourcing of process and jobs to a distributed workforce, great for manual and time-consuming tasks.
+
+---
+
 
 [1] “So what type of cloud is AWS? It is infrastructure has a service, meaning that all of this underlying hardware is provided by AWS and AWS provides you with access so that you can set up your platform. You can set up your virtual machines to install your operating system and your applications. AWS also provides some of their services in what looks more like software as a service. So as an example, AWS provides storage using something called Simple Storage Service, or S3, S3 is a bulk storage service where you can upload virtually any type of file. Think about how you have an external hard drive, may be on your computer or you might have a Dropbox as a service, S3 gives you that ability to save your data up into the cloud. AWS provides infrastructure as a service, but they also provide additional services that provide applications as a frontend to those infrastructure services to simplify your ability to utilize AWS. They basically want their interface to be presented to you in a way that makes it easy for you to use but they provide all of those infrastructure services necessary to support the overall environment. The compute, the storage, networking. They also provide the ability for you to use their virtualization services, databases. They have hundreds of tools that you can utilize to build and support your environment, everything from setting up your own platform with virtual machines to support your applications, to providing developer tools that help application developers make applications that can run on the AWS infrastructure.”
 
