@@ -5,7 +5,7 @@
 * [Elastic Compute Cloud (EC2)](#elastic-compute-cloud-ec2)
 * [AWS Storage Services](#aws-storage-services)
 * [ELB and Auto Scaling](#elb-and-auto-scaling)
-* [CloudFront and DNS](#cloud-front-and-dns)
+* [CloudFront and DNS](#cloudfront-and-dns)
 * [SQL and NoSQL](#sql-and-nosql)
 * [Serverless (Lambda)](#serverless-lambda)
 * [Security and Compliance Services](#security-and-compliance-services)
@@ -230,6 +230,24 @@ Hypervisor: software layer between the hardware and the operating system, respon
 * **Points of presence** are basically CloudFront edge locations. CloudFront edge locations provide fast access to content such as data, videos, applications, and APIs. The advantage is that it replicates that data to the various points that are in different places around the world to ensure that your customers don't experience a lot of latency when they try to access the data.
 
 ## SQL and NoSQL
+* **Relational databases** => SQL => RDS (Relational Database Service): used for structured data in rows and columns.
+  * Amazon Aurora
+  * MySQL
+  * MariaDB
+  * PostgreSQL
+  * Oracle
+  
+* **Non-relational databases** => NoSQL => DynamoDB: used for non structured data in key and values.
+  * DDB only
+  * Replaces MongoDB or Oracle NoSQL, e.g.
+  
+* **ElastiCache**: data caching (in memory data store) service used to help improve speed/performance of web applications running on AWS.
+  * Memcached: memory object caching system
+  * Redis: fast, open source, in-memory data store an cache
+  
+* **Redshift**: data warehouse database service designed to handle petabytes of data for analysis.
+  * Allows you to run complex queries of standart SQL and BI tools.
+
 
 ## Serverless (Lambda)
 * **Lambda**: serverless compute.
