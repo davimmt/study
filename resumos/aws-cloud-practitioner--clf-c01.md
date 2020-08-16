@@ -357,6 +357,9 @@ Hypervisor: software layer between the hardware and the operating system, respon
   * Dependens on Instance Type
   * Dependens on AMI Type
   * Dependens on Region
+  
+* RDS can be purchased at a discounted rate for a term, and this purchasing option is RDS reserved instances.
+* EC2 can be purchased at a discounted rate for a term, and this purchasing option is EC2 reserved instances.
 
 * **Total Cost of Ownership (TCO)**: allows you to do a comparison of what costs are like when you have an on-premises location versus supporting those same resources on AWS cloud. 
   * Provide directional guidance on cost savings.
