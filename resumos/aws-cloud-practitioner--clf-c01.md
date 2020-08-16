@@ -10,6 +10,7 @@
 * [Serverless (Lambda)](#serverless-lambda)
 * [Security and Compliance Services](#security-and-compliance-services)
 * [Noteworthy AWS Services](#noteworthy-aws-services)
+* [AWS Pricing, Billing, and Support Services](#aws-pricing-billing-and-support-services)
 
 ---
 
@@ -321,6 +322,79 @@ Hypervisor: software layer between the hardware and the operating system, respon
 
 ---
 
+## AWS Pricing, Billing, and Support Services
+* **AWS organizations** allows you or your company to manage billing across multiple AWS accounts in one user interface.
+  * AWS definition: Organizations offer policy based management for multiple accounts. You can create groups of accounts and apply policies to those accounts. You can also essentially manage policies across multiple accounts *without requiring custom scripts or manual processes.* You can create service control policies that centrally control services using multiple AWS accounts. So you can use SCP and based on things like what services you want your accounts to have access to or not have access to. You can create these policies that will then be pushed to all of the accounts within your organization. You can also use organizations to help automate the creation of new accounts using an API. And you can simplify billing for your multiple accounts by enabling you to set up a single payment method for all accounts in your organization through consolidated building, AWS organizations is available to all customers at no charge.
+* Benefits
+  * Centrally manage access policies across multiple AWS accounts
+  * Controll access to AWS services
+  * Automate AWS account creation and management
+  * Consolidate billing across multiple AWS accounts
+    * Allows you to view, manage, and pay bills for multiple AWS accounts in a single interface. 
+    * With consolidated billing, you can see a combined view of charges incurred by all your accounts, as well as taking advantage of pricing benefits from aggregated use.
+
+* **AWS Pricing Model**
+  * Pay-as-you-go (few exceptions)
+  * No long-term contract or complex licensing (few exceptions)
+  * Volume discounts, the more you use a service, the cheaper it can get
+  * No termination fees
+  * Free Tier for new accounts for 1 year.
+  
+* S3
+  * How much data you store
+    * Data at rest
+    * Charged per GB
+    * Varies based on region and storage class
+  * Requests
+    * Moving data in/out S3
+    * PUT, POST, LIST, GET requests
+    * Lifecycle transitions
+    * Data retrival, archive, restore
+    
+* EC2
+  * Per second running
+  * Dependens on pursaching option
+  * Dependens on Instance Type
+  * Dependens on AMI Type
+  * Dependens on Region
+
+* **Total Cost of Ownership (TCO)**: allows you to do a comparison of what costs are like when you have an on-premises location versus supporting those same resources on AWS cloud. 
+  * Provide directional guidance on cost savings.
+  * Also does a comparison with colocation. A colocation means that you are renting space like Rackspace from somebody else who owned the data center, so you're able to put your compute in network and storage resources into their data center, and you pay them a rental fee.
+* **Simple Calculator**: estimates your monthly bill and it can provide you a per service breakdown of actual costs.
+  * Replaced by AWS pricing calculator. 
+* **Pricing Calculator**: estimates costs for services based on use cases.
+  * Helps you identify the most cost effective use case for your instance, and service costs may also be compared on a per region basis.
+* **Cost Explorer**: a free tool that allows you to view charts of your costs. 
+  * You're able to view costs for a period of up to 13 months.
+  * Forecasts how much you're likely to spin over the next three months.  
+
+* **Trust Advisor**: service that advices and helps optimize aspects of one's AWS account.
+  * Categories
+    * Cost Optimization
+    * Performance
+    * Security
+    * Fault tolerance
+  * 7 core benefits
+    * Security groups (port check) 
+    * IAM use,
+    * Multi factor authentication on root account
+    * EBS snapshots 
+    * RDS snapshots
+    * Service limits 
+    * S3 bucket permissions
+
+* **Account compromised?**
+  * Change AWS root account password
+  * Change all IAM users' passwords
+  * Delete or rotate all API access keys
+  * Delete any resource in your account you did not create
+  * Respond to AWS notifications and/or contact AWS Support
+  
+* **AWS Whitepapers**: a collection of technical documents that outlines many AWS relevant topics, including architectural best practices, security best practices, cloud computing economics, and serverless architecture.
+* **AWS Services Documentation**: case use documentation for helping and guidance.
+
+---
 
 [1] “So what type of cloud is AWS? It is infrastructure has a service, meaning that all of this underlying hardware is provided by AWS and AWS provides you with access so that you can set up your platform. You can set up your virtual machines to install your operating system and your applications. AWS also provides some of their services in what looks more like software as a service. So as an example, AWS provides storage using something called Simple Storage Service, or S3, S3 is a bulk storage service where you can upload virtually any type of file. Think about how you have an external hard drive, may be on your computer or you might have a Dropbox as a service, S3 gives you that ability to save your data up into the cloud. AWS provides infrastructure as a service, but they also provide additional services that provide applications as a frontend to those infrastructure services to simplify your ability to utilize AWS. They basically want their interface to be presented to you in a way that makes it easy for you to use but they provide all of those infrastructure services necessary to support the overall environment. The compute, the storage, networking. They also provide the ability for you to use their virtualization services, databases. They have hundreds of tools that you can utilize to build and support your environment, everything from setting up your own platform with virtual machines to support your applications, to providing developer tools that help application developers make applications that can run on the AWS infrastructure.”
 
