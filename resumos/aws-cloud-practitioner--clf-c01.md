@@ -5,10 +5,12 @@
 * [Elastic Compute Cloud (EC2)](#elastic-compute-cloud-ec2)
 * [AWS Storage Services](#aws-storage-services)
 * [ELB and Auto Scaling](#elb-and-auto-scaling)
-* [CloudFront and DNS](#cloud-front-and-dns)
+* [CloudFront and DNS](#cloudfront-and-dns)
 * [SQL and NoSQL](#sql-and-nosql)
 * [Serverless (Lambda)](#serverless-lambda)
 * [Security and Compliance Services](#security-and-compliance-services)
+* [Noteworthy AWS Services](#noteworthy-aws-services)
+* [AWS Pricing, Billing, and Support Services](#aws-pricing-billing-and-support-services)
 
 ---
 
@@ -230,6 +232,24 @@ Hypervisor: software layer between the hardware and the operating system, respon
 * **Points of presence** are basically CloudFront edge locations. CloudFront edge locations provide fast access to content such as data, videos, applications, and APIs. The advantage is that it replicates that data to the various points that are in different places around the world to ensure that your customers don't experience a lot of latency when they try to access the data.
 
 ## SQL and NoSQL
+* **Relational databases** => SQL => RDS (Relational Database Service): used for structured data in rows and columns.
+  * Amazon Aurora
+  * MySQL
+  * MariaDB
+  * PostgreSQL
+  * Oracle
+  
+* **Non-relational databases** => NoSQL => DynamoDB: used for non structured data in key and values.
+  * DDB only
+  * Replaces MongoDB or Oracle NoSQL, e.g.
+  
+* **ElastiCache**: data caching (in memory data store) service used to help improve speed/performance of web applications running on AWS.
+  * Memcached: memory object caching system
+  * Redis: fast, open source, in-memory data store an cache
+  
+* **Redshift**: data warehouse database service designed to handle petabytes of data for analysis.
+  * Allows you to run complex queries of standart SQL and BI tools.
+
 
 ## Serverless (Lambda)
 * **Lambda**: serverless compute.
@@ -239,10 +259,143 @@ Hypervisor: software layer between the hardware and the operating system, respon
 * Lambda can support from a few requests per day to thousands per second, and you only pay for what compute time that your code consumes. There's no charge when your code is not running.
 * With EC2 instances we have to keep those servers up and running all the time.
 * With Lambda, your code starts, it executes, it stops, and you only pay for the time that your code is running and it scales automatically based on load to execute as many of the Lambda functions as it needs to.
+* Suported languages
+  * Node
+  * Java
+  * C#
+  * Ruby
+  *  Go
+  * .NET Core
+  * Python
 
 ## Security and Compliance Services
+* **Shared responsibility model** defines what the customer is responsible for and what AWS is responsible for when it comes to security and compliance.
+* AWS is responsible for operating, managing, and controlling the components from the physical layer, meaning from the actual hardware that resides in the AWS data center up through the virtualization layer.
+  * AWS is also responsible for things like physical security of that data center.
+* The virtualization layer is where you as the customer then take over.
+  *  So if you set up an EC2 instance, you install an operating system on that you're responsible for updating and patching that guest operating system. You're also responsible for any applications that you might install on to that instance as well.
+  * Any data that you have or your ability to encrypt that data, that's all your responsibility as the client as well. Any type of network traffic protection that you would like to implement related to the VPC that's assigned to you. You as the customer are responsible for that. Your NACLS, your security groups, how your user accounts are managed. All of these things are your responsibility as the customer.
+  
+* Security Assessments or Penetration tests
+  * Cans
+    * EC2, NAT GW, ELB
+    * RDS
+    * CloudFront
+    * Aurora
+    * API GW
+    * Lambda funcitons
+    * Lightsail resources
+    * Amazon Elastic Beanstal environments
+  * Can'ts
+    * DNS zones with R53
+    * Denial of service (DoS), Distributed Denial of service (DDoS) simulated
+    * Port, protocol, request flooding
+    
+* **AWS security related services** 
+  * **AWS Oganizations**: allows you to *centrally manage your accounts and billing* but it also defines policies that can restrict access at the account level. So at the account level we can say what services and what actions different member accounts within that organization can take. So AWS Organizations is where you have a parent organization and then beneath that parent organization there are additional AWS accounts. 
+  * **GuardDuty**: *a threat detection service that constantly monitors the AWS account and the workloads*, it uses threat intelligence feeds to detect threats to the environment. It's a proactive service that monitors for things that potentially could impact your environment.
+  * **AWS Inspector**: *analyzes VPC environments for potential security issues*, so it uses a predefined template, and then it matches the environment to that template. And if it finds any differences between the two, then it's able to provide you with recommendations to help you resolve those potential security issues. 
+  * **AWS Shield**: provides managed DDOS protection. 
+  * **AWS Web Application Firewall (WAF)**: *monitors web requests that are forwarded to your ELB to CloudFront or API Gateway.* WAF half allows or denies access to the content based on the conditions that you specify and then you have AWS Artifact. 
+  * **AWS Artifact**: is a portal that *provides access to compliance documentation.*
+  
+* **AWS Key Management Service (KMS)**: enables encryption of the data and provides centralized encryption, key storage, management, and auditing.
+  * May be generated in the key management service or by a **cloud hardware security module or cloud HSM** (a hardware appliance that can be used to generate and manage your encryption keys).
+  * Services that support KMS
+    * S3 and Glacier
+    * Storage Gateway
+    * EBS
+    * RDS, DynamoDB
+    * SMS
+    * CloudTrail
+---
 
+## Noteworthy AWS Services
+*  **Quick start**: gives you the ability to use templates provided by AWS to help you get quickly set up and running within the AWS environment for a specific configuration.
+  * **Linux Bastion Host**: quick start guide is designed to help you get a Bastion host set up and running so that you can get that connectivity into your instances that are in a private subnet.
+* **Amazon Athena**: serveless interactive query service used to analyze data in S3 using standad SQL (billed only for the queries you run).
+* **Amazon EMR**: provides a managed Hadoop framework, designed for processing broad sets of big data (web indexing, machine learning, log and financial analysis).
+* **Amazon Lightsail**: VPServer instance aimed at developers to provide everything needed to launch a service quickly.
+* **Amazon Rekognition**: provides video/image analysis.
+* **Amazon Device Farm**: provides physical devices that can be used to test and troubleshoot application on mobile devices.
+* **Amazon Mechanical Turk**: crowdsourcing marketplace that simplifies outsourcing of process and jobs to a distributed workforce, great for manual and time-consuming tasks.
 
+---
+
+## AWS Pricing, Billing, and Support Services
+* **AWS organizations** allows you or your company to manage billing across multiple AWS accounts in one user interface.
+  * AWS definition: Organizations offer policy based management for multiple accounts. You can create groups of accounts and apply policies to those accounts. You can also essentially manage policies across multiple accounts *without requiring custom scripts or manual processes.* You can create service control policies that centrally control services using multiple AWS accounts. So you can use SCP and based on things like what services you want your accounts to have access to or not have access to. You can create these policies that will then be pushed to all of the accounts within your organization. You can also use organizations to help automate the creation of new accounts using an API. And you can simplify billing for your multiple accounts by enabling you to set up a single payment method for all accounts in your organization through consolidated building, AWS organizations is available to all customers at no charge.
+* Benefits
+  * Centrally manage access policies across multiple AWS accounts
+  * Controll access to AWS services
+  * Automate AWS account creation and management
+  * Consolidate billing across multiple AWS accounts
+    * Allows you to view, manage, and pay bills for multiple AWS accounts in a single interface. 
+    * With consolidated billing, you can see a combined view of charges incurred by all your accounts, as well as taking advantage of pricing benefits from aggregated use.
+
+* **AWS Pricing Model**
+  * Pay-as-you-go (few exceptions)
+  * No long-term contract or complex licensing (few exceptions)
+  * Volume discounts, the more you use a service, the cheaper it can get
+  * No termination fees
+  * Free Tier for new accounts for 1 year.
+  
+* S3
+  * How much data you store
+    * Data at rest
+    * Charged per GB
+    * Varies based on region and storage class
+  * Requests
+    * Moving data in/out S3
+    * PUT, POST, LIST, GET requests
+    * Lifecycle transitions
+    * Data retrival, archive, restore
+    
+* EC2
+  * Per second running
+  * Dependens on pursaching option
+  * Dependens on Instance Type
+  * Dependens on AMI Type
+  * Dependens on Region
+  
+* RDS can be purchased at a discounted rate for a term, and this purchasing option is RDS reserved instances.
+* EC2 can be purchased at a discounted rate for a term, and this purchasing option is EC2 reserved instances.
+
+* **Total Cost of Ownership (TCO)**: allows you to do a comparison of what costs are like when you have an on-premises location versus supporting those same resources on AWS cloud. 
+  * Provide directional guidance on cost savings.
+  * Also does a comparison with colocation. A colocation means that you are renting space like Rackspace from somebody else who owned the data center, so you're able to put your compute in network and storage resources into their data center, and you pay them a rental fee.
+* **Simple Calculator**: estimates your monthly bill and it can provide you a per service breakdown of actual costs.
+  * Replaced by AWS pricing calculator. 
+* **Pricing Calculator**: estimates costs for services based on use cases.
+  * Helps you identify the most cost effective use case for your instance, and service costs may also be compared on a per region basis.
+* **Cost Explorer**: a free tool that allows you to view charts of your costs. 
+  * You're able to view costs for a period of up to 13 months.
+  * Forecasts how much you're likely to spin over the next three months.  
+
+* **Trust Advisor**: service that advices and helps optimize aspects of one's AWS account.
+  * Categories
+    * Cost Optimization
+    * Performance
+    * Security
+    * Fault tolerance
+  * 7 core benefits
+    * Security groups (port check) 
+    * IAM use,
+    * Multi factor authentication on root account
+    * EBS snapshots 
+    * RDS snapshots
+    * Service limits 
+    * S3 bucket permissions
+
+* **Account compromised?**
+  * Change AWS root account password
+  * Change all IAM users' passwords
+  * Delete or rotate all API access keys
+  * Delete any resource in your account you did not create
+  * Respond to AWS notifications and/or contact AWS Support
+  
+* **AWS Whitepapers**: a collection of technical documents that outlines many AWS relevant topics, including architectural best practices, security best practices, cloud computing economics, and serverless architecture.
+* **AWS Services Documentation**: case use documentation for helping and guidance.
 
 ---
 
