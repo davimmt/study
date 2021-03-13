@@ -12,9 +12,11 @@
   - Cada camada recebe e envia requisições à camada imediatamente superior ou inferior e se comunica com a mesma camada em outro host.
 
 - **Modelo ISO/OSI (Open Systems Interconnection)**
+
 ![](../img/administração-de-sistemas-linux_redes-e-segurança/modelo-iso_osi.png)
 
 - **Modelo TCP/IP**
+
 ![](../img/administração-de-sistemas-linux_redes-e-segurança/tcp_ip-x-iso_osi.png)
 
 - **Tipos de camada**
