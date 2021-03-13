@@ -12,10 +12,10 @@
   - Cada camada recebe e envia requisições à camada imediatamente superior ou inferior e se comunica com a mesma camada em outro host.
 
 - **Modelo ISO/OSI (Open Systems Interconnection)**
-![](/redes/img/administração-de-sistemas-linux_redes-e-segurança/modelo-iso_osi.png)
+![](../img/administração-de-sistemas-linux_redes-e-segurança/modelo-iso_osi.png)
 
 - **Modelo TCP/IP**
-![](/redes/img/administração-de-sistemas-linux_redes-e-segurança/tcp_ip-x-iso_osi.png)
+![](../img/administração-de-sistemas-linux_redes-e-segurança/tcp_ip-x-iso_osi.png)
 
 - **Tipos de camada**
   - Física: transforma bits em sinais elétricos, ópticos e ondas de rádio.
@@ -51,7 +51,7 @@
     - pertencem a esse nível as aplicações de propósitos gerais, como transferência de arquivos, correio eletrônico e terminal remoto.
   
 - **Funcionameto/relacionamento das camadas**
-![](/redes/img/administração-de-sistemas-linux_redes-e-segurança/encapsulamento-em-camadas.png)
+![](../img/administração-de-sistemas-linux_redes-e-segurança/encapsulamento-em-camadas.png)
 
   - Cada camada possui uma forma de identificação e/ou endereçamento, e cada uma delas encapsula dados das camadas superiores.
   - Os dados que trafegam pelas camadas são organizados em pacotes, cada um contém um cabeçalho (header) e uma área de dados.
@@ -70,7 +70,7 @@
     - broadcast (todos os computadores na rede).
     
   - Seu formato é composto por:
-  ![](/redes/img/administração-de-sistemas-linux_redes-e-segurança/quadro-ethernet.png)
+  ![](../img/administração-de-sistemas-linux_redes-e-segurança/quadro-ethernet.png)
   
     - Preâmbulo: serve para sincronizar os relógios do receptor e do transmissor.
       - não é considerado para efeito de cálculo do tamanho do quadro.
@@ -83,7 +83,7 @@
   - Não é orientado à conexão: não existe um mecanismo que indique a (des)ordem de recebimento dos pacotes referente ao seu envio.
   
 - **Datagrama IP**
-![](/redes/img/administração-de-sistemas-linux_redes-e-segurança/datagrama-ip.png)
+![](../img/administração-de-sistemas-linux_redes-e-segurança/datagrama-ip.png)
   - VERS: versão;
   - HLEN: comprimento do cabeçalho;
   - Tipo de serviço: qualidade do serviço (prioridade, retardo, vazão e confiabilidade);
@@ -100,7 +100,7 @@
   - O protocolo IP foi definido em classes A, B, C, D e E, que definem diferentes quantidades de bits para o endereço IP.
     - no TCP/IP, o endereço recebe o nome de endereço IP e é constituído por 32 bits.
  
-![](/redes/img/administração-de-sistemas-linux_redes-e-segurança/enderecamento-classful.png)
+![](../img/administração-de-sistemas-linux_redes-e-segurança/enderecamento-classful.png)
     
   - O endereço IP está associado ao nível de rede. 
   - O nível IP define uma associação entre um endereço IP e um endereço físico. 
@@ -125,7 +125,7 @@
   - Utilização de bits HostId como NetId (nnnnnnnn.nnnnnnnn.ssssssss.hhhhhhhh).
     - Exemplo: dividir uma classe C em 2 (192.168.0.0 dividido do 192.168.0.0 – 192.168.0.127 e 192.168.0.128 – 192.168.0.255).
     
-![](/redes/img/administração-de-sistemas-linux_redes-e-segurança/subredes.png)
+![](../img/administração-de-sistemas-linux_redes-e-segurança/subredes.png)
 
 - **Razões para a adoção do Classless Inter Domain Routing (CIDR)**
   - Com o crescimento da internet e o uso não escalonável da alocação em classe (classful), surgiram sérios problemas de endereçamento, tais como:
@@ -213,5 +213,5 @@
   - Faz parte da camada de rede.
   - Uma mensagem ICMP é transmitida na parte de dados do pacote IP.
 
-![](/redes/img/administração-de-sistemas-linux_redes-e-segurança/icmp.png)
+![](../img/administração-de-sistemas-linux_redes-e-segurança/icmp.png)
 

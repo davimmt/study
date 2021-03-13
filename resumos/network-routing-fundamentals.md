@@ -33,7 +33,7 @@
 
 ---
 
-![](/redes/img/network-routing-fundamentals/ipv4-header.png)
+![](../img/network-routing-fundamentals/ipv4-header.png)
 * **Version**: the IP protocol version, which for IPv4 is going to be four.
 * **Internet Header Length (IHL)**: the length of the entire IP header. 
 * **Differentiated Services Code Point (DSCP)**: classify the different type of network traffic and also provide some quality of service. 
@@ -50,7 +50,7 @@
 * **Options**: contain additional options for the packet (such as setting the timestamp); in order to use this field, the value of the IHL must be greater than five.
 
 
-![](/redes/img/network-routing-fundamentals/ipv6-header.png)
+![](../img/network-routing-fundamentals/ipv6-header.png)
 * **Version**: the IP protocol version, which for IPv4 is going to be four.
 * **Traffic Class**: first six bits used to classify the packets (help ensure the quality of service) and the last two bits are used for explicit congestion control (ECN).
 * **Flow Label**: indicates which packets belonged to which communication (helps with packets sequencing by preventing packets from being reordered). 
