@@ -31,7 +31,7 @@
     - implementa mecanismos de identificação de dos quadros de dados, mecanismos de endereçamento, protocolos para acessar o meio e protocolos para detectar e opcionalmente corrigir erros de quadros.
    
   - Rede: define e encaminha a unidade básica de transferência (datagrama).
-    - define e roteia de datagramas (unidade básica de transferência de rede) entre máquinas que podem estar conectadas em redes físicas distintas;
+    - define e roteia datagramas (unidade básica de transferência de rede) entre máquinas que podem estar conectadas em redes físicas distintas;
     - o roteamento é baseado em mecanismos de endereçamento globais que identificam cada máquina da rede de forma única;
     - uma vez que os pacotes trafegam através de redes com diferentes capacidades de transmissão, esse nível também pode implementar mecanismos de controle de congestionamento.
    

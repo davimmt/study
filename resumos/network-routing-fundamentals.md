@@ -1,10 +1,12 @@
 ## Sumário
 * [Network Addressing](#network-addressing)
+* [Network Traffic](#network-traffic)
+* [Network Routing](#network-routing)
+* [Policy-Based Routing](#policy-based-routing)
 
 ---
 
 ## Network Addressing
-### IPv4 and IPv6
 
 * **IP**: connectionless protocol that allows computers on a network to communicate with each other.
   * The communication is accomplished in a few different ways:
@@ -31,7 +33,30 @@
   * ::FFFF:192.168.0.21;
   * First 8 bits set to 0, the next 16 bits set to 1, and the last 32 bits cotain the actual IPv4 address.
 
+* **Reserved IP addresses**:
+  * **Private**: can't be routed to internet; used in LAN.
+    * **IPv4**:
+      * 10.0.0.0 - 10.255.255.255;
+      * 172.16.0.0 - 172.31.255.255;
+      * 192.168.0.0 - 192.168.255.255.
+    * **IPv6**:
+      * fd00::/8.
+  * **Loopback**: reserved for localhost; managed my the OS.
+    * **IPv4**: 127.0.0.0 - 127.255.255.255;
+    * **IPv6**: ::1/128.
+  * **Link-local**: used in the absence of DHCP or static addresses; can only communicate within its own network segment; routers will not foward packets from a loopback; uses ARP.
+    * **IPv4**: 169.254.0.0 - 169.254.255.255;
+    * **IPv6**: fe80::/10.
+
+![](../img/network-routing-fundamentals/binary-decimal-hexadecimal.png)
+
+![](../img/network-routing-fundamentals/ip-binary.png)
+
+![](../img/network-routing-fundamentals/subnet-mask.png)
+
 ---
+
+## Network Traffic
 
 ![](../img/network-routing-fundamentals/ipv4-header.png)
 * **Version**: the IP protocol version, which for IPv4 is going to be four.
@@ -62,17 +87,34 @@
 
 ---
 
-* **Reserved IP addresses**:
-  * **Private**: can't be routed to internet; used in LAN.
-    * **IPv4**:
-      * 10.0.0.0 - 10.255.255.255;
-      * 172.16.0.0 - 172.31.255.255;
-      * 192.168.0.0 - 192.168.255.255.
-    * **IPv6**:
-      * fd00::/8.
-  * **Loopback**: reserved for localhost; managed my the OS.
-    * **IPv4**: 127.0.0.0 - 127.255.255.255;
-    * **IPv6**: ::1/128.
-  * **Link-local**: used in the absence of DHCP or static addresses; can only communicate within its own network segment; routers will not foward packets from a loopback; uses ARP.
-    * **IPv4**: 169.254.0.0 - 169.254.255.255;
-    * **IPv6**: fe80::/10.
+## Network Routing
+
+* **Static routing**
+
+![](../img/network-routing-fundamentals/static-routing.png)
+
+* **Dynamic routing**
+
+![](../img/network-routing-fundamentals/dynamic-routing.png)
+
+* **Route selection criteria**
+
+![](../img/network-routing-fundamentals/route-selection-criteria.png)
+
+* **IP Forwarding (Linux)**
+
+![](../img/network-routing-fundamentals/ip-fowarding-linux.png)
+
+---
+
+## Policy-Based Routing
+
+![](../img/network-routing-fundamentals/policy-based-routing.png)
+
+* **route-map / match / set**
+
+![](../img/network-routing-fundamentals/implementing-policy-based-routing.png)
+
+* **Routing Policy Database (RPDB, Linux)**
+
+![](../img/network-routing-fundamentals/rpdb.png)
