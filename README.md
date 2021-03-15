@@ -4,6 +4,7 @@
 - [AWS Cloud Practitioner (CLF-C01)](resumos/aws-cloud-practitioner--clf-c01.md)
 - [Administração de Sistemas Linux: Redes e Segurança](resumos/administração-de-sistemas-linux_redes-e-segurança.md)
 - [Network Routing Fundamentals](resumos/network-routing-fundamentals.md)
+- [Subnetting Fundamentals](resumos/subnetting-fundamentals.md)
 
 ## [Livros](https://drive.google.com/drive/folders/19pyt81Qm5ygVRHpevNqcqLwvvppklfLn?usp=sharing)
 - [Administração de Sistemas Linux: Redes e Segurança](https://drive.google.com/file/d/1hK7o4Go3z5NS8Os__xEnUvgcHTOSY2bh/view)
