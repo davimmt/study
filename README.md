@@ -7,6 +7,12 @@
 - [Subnetting Fundamentals](resumos/subnetting-fundamentals.md)
 - [Advanced Storage and Device Administration in Linux](resumos/advanced-storage-and-device-administration-in-linux.md)
 
+## [How to](how-to)
+- [Configuring routing on a Linux host](how-to/configuring-routing-on-a-linux-host.md)
+- [Permitting and Blocking Traffic with the IPTables Firewall](how-to/permitting-and-blocking-traffic-with-the-iptables-firewall.md)
+- [Port Forwarding with the Firewal](how-to/port-fowarding-firewalld.md)
+- [Create a Firewall Service](how-to/create-a-firewalld-service.md)
+
 ## [Livros](https://drive.google.com/drive/folders/19pyt81Qm5ygVRHpevNqcqLwvvppklfLn?usp=sharing)
 - [Administração de Sistemas Linux: Redes e Segurança](https://drive.google.com/file/d/1hK7o4Go3z5NS8Os__xEnUvgcHTOSY2bh/view)
 - [Arquitetura e Protocolos de Rede TCP/IP](https://drive.google.com/file/d/10zhQW9v6mNNwHj4aUDDD3sf6R9o7onx8/view)
