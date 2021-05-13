@@ -1,11 +1,12 @@
 # Material de apoio ao estudo de redes.
 
 ## [Resumos](resumos)
-- [AWS Cloud Practitioner (CLF-C01)](resumos/aws-cloud-practitioner--clf-c01.md)
+- [AWS Cloud Practitioner Exam Overview](resumos/aws-cloud-practitioner--clf-c01.md)
+- [AWS Cloud Practitioner (CLF-C01) - Linux Academy](resumos/aws-cloud-practitioner--clf-c01.md)
 - [Administração de Sistemas Linux: Redes e Segurança](resumos/administração-de-sistemas-linux_redes-e-segurança.md)
-- [Network Routing Fundamentals](resumos/network-routing-fundamentals.md)
-- [Subnetting Fundamentals](resumos/subnetting-fundamentals.md)
-- [Advanced Storage and Device Administration in Linux](resumos/advanced-storage-and-device-administration-in-linux.md)
+- [Network Routing Fundamentals - Linux Academy](resumos/network-routing-fundamentals.md)
+- [Subnetting Fundamentals - Linux Academy](resumos/subnetting-fundamentals.md)
+- [Advanced Storage and Device Administration in Linux - Linux Academy](resumos/advanced-storage-and-device-administration-in-linux.md)
 
 ## [How to](how-to)
 - [Configuring routing on a Linux host](how-to/configuring-routing-on-a-linux-host.md)
