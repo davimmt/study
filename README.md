@@ -1,7 +1,7 @@
 # Material de apoio ao estudo de redes.
 
 ## [Resumos](resumos)
-- [AWS Cloud Practitioner Exam Overview](resumos/aws-cloud-practitioner--clf-c01.md)
+- [AWS Cloud Practitioner Exam Overview](resumos/cloud_practitioner_exam_overview.md)
 - [AWS Cloud Practitioner (CLF-C01) - Linux Academy](resumos/aws-cloud-practitioner--clf-c01.md)
 - [Administração de Sistemas Linux: Redes e Segurança](resumos/administração-de-sistemas-linux_redes-e-segurança.md)
 - [Network Routing Fundamentals - Linux Academy](resumos/network-routing-fundamentals.md)
