@@ -136,3 +136,8 @@
  - **QuickSight**: Fast Business Analytics Service
  - **Simple Notification Service (SNS)**: Pub/Sub, Mobile Push and SMS
  - **Simple Queue Service (SQS)**: Managed Message Queues
+
+---
+
+## AWS Shared Responsability Model
+![](../img/share_responsability_model.png)
