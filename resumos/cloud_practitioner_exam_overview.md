@@ -57,9 +57,10 @@
  - **Compute Optimizer**: Analyzes (machine learning) metrics of utilization and makes recommendations
 
 ### Cost Management
- - **Cost Explorer**: Analyze Your AWS Cost and Usage
+ - **Cost Explorer**: Analyze Your AWS Cost and Usage, provides usage-based forecasts of estimated billing for the next month
  - **Budgets**: Set Custom Cost and Usage Budgets (alerts)
- - **Cost and Usage Report**: Access Comprehensive Cost and Usage Information, tracks your usage and provides estimated charges
+ - **Cost and Usage Report**: Access Granular Comprehensive Cost and Usage Information, tracks your usage and provides estimated charges (without usage-based forecasts)]
+ - **Bills**: List the Historical Cost that would have been ocurried over the past month
  - **Savings Plans**: Save up to 72% on compute usage with flexible pricing
  - **Pricing Calculator**: create an estimate for the cost of your use cases
 
@@ -73,7 +74,7 @@
 
 ### Database
  - **Aurora**: High Performance fully-managed Relational Database
- - **DynamoDB**: fully-managed NoSQL Database
+ - **DynamoDB**: fully-managed serverless NoSQL Database
   - **Redshift**: Fast, Simple, Cost-effective Data Warehousing, BI Tools, optimized for analysis and reporting of large amounts of data
  - **DocumentDB**: fully-managed document database
  - **ElastiCache**: In-memory Caching System
@@ -95,14 +96,14 @@
 ### Management
  - **CloudWatch**: Monitor Resources and Applications metrics
  - **CloudFormation**: Create and Manage Resources with Templates
- - **CloudTrail**: Track User Activity and API Usage
+ - **CloudTrail**: Track User Activity and API Usage, enables governance, compliance and risk auditing
  - **Config**: Track Resource Inventory and Changes
- - **OpsWorks**: Automate Operations with Chef and Puppet
+ - **OpsWorks**: Automate Operations (replication and deployment) with Chef and Puppet
  - **Organizations**: Central governance and management across accounts
  - **Personal Health Dashboard**: Personalized View of Services Health
  - **Service Health Dashboard**: Up-to-minute health info
  - **Service Catalog**: Create and Use Standardized Products (IAM, Config)
- - **Trusted Advisor**: Optimize Performance and Security, check service limits and provide guidance to provision resources
+ - **Trusted Advisor**: Optimize Performance and Security, check service limits and provide guidance to provision resources (P,CO,S,FT,SL)
  - **Well-Architected Tool**: Review and improve your workloads
 
 ### Networking and Content Delivery
@@ -134,7 +135,7 @@
  - **CloudEndure Disaster Recovery**: Highly automated disaster recovery
  - **QuickSight**: Fast Business Analytics Service
  - **Simple Notification Service (SNS)**: Pub/Sub, Mobile Push and SMS
- - **Simple Queue Service (SQS)**: Managed Message Queues
+ - **Simple Queue Service (SQS)**: Managed Message Queues, helps decoupling app components
 
 ---
 
