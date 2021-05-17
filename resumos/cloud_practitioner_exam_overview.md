@@ -102,7 +102,7 @@
  - **Organizations**: Central governance and management across accounts
  - **Personal Health Dashboard**: Personalized View of Services Health
  - **Service Health Dashboard**: Up-to-minute health info
- - **Service Catalog**: Create and Use Standardized Products (IAM, Config)
+ - **Service Catalog**: Create and Use Standardized Products (IAM, CloudFormation)
  - **Trusted Advisor**: Optimize Performance and Security, check service limits and provide guidance to provision resources (P,CO,S,FT,SL)
  - **Well-Architected Tool**: Review and improve your workloads
 
