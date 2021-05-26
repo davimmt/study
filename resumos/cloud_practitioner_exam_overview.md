@@ -59,7 +59,7 @@
 ### Cost Management
  - **Cost Explorer**: Analyze Your AWS Cost and Usage, provides usage-based forecasts of estimated billing for the next month
  - **Budgets**: Set Custom Cost and Usage Budgets (alerts)
- - **Cost and Usage Report**: Access Granular Comprehensive Cost and Usage Information, tracks your usage and provides estimated charges (without usage-based forecasts)]
+ - **Cost and Usage Report**: Access Granular Comprehensive Cost and Usage Information, tracks your usage and provides estimated charges (without usage-based forecasts)
  - **Bills**: List the Historical Cost that would have been ocurried over the past month
  - **Savings Plans**: Save up to 72% on compute usage with flexible pricing
  - **Pricing Calculator**: create an estimate for the cost of your use cases
