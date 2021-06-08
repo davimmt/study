@@ -25,13 +25,13 @@
     - Enable traceability
     - Apply security at all layers
     - Automate security best practices
-    - Protectdataintransit and at rest
-    - Keeppeople away from data
-    - Preparefor security events
+    - Protect data in transit and at rest
+    - Keep people away from data
+    - Prepare for security events
 
   - **Reliability:**
     - Automatically recover from failure
-    - Testrecovery procedures
+    - Test recovery procedures
     - Scale horizontally to increase aggregate workload availability
     - Stop guessing capacity
     - Manage change in automation
@@ -54,32 +54,32 @@
 ### Analytics
  - **Athena**: Query Data in S3 using SQL
  - **EMR**: Simplifies running big data frameworks (Apache Hadoop)
- - **Redshift**: Fast, Simple, Cost-effective Data Warehousing, BI Tools, optimized for analysis and reporting of large amounts of data
  - **Compute Optimizer**: Analyzes (machine learning) metrics of utilization and makes recommendations
 
 ### Cost Management
- - **Cost Explorer**: Analyze Your AWS Cost and Usage
+ - **Cost Explorer**: Analyze Your AWS Cost and Usage, provides usage-based forecasts of estimated billing for the next month
  - **Budgets**: Set Custom Cost and Usage Budgets (alerts)
- - **Cost and Usage Report**: Access Comprehensive Cost and Usage Information, tracks your usage and provides estimated charges
+ - **Cost and Usage Report**: Access Granular Comprehensive Cost and Usage Information, tracks your usage and provides estimated charges (without usage-based forecasts)
+ - **Bills**: List the Historical Cost that would have been ocurried over the past month
  - **Savings Plans**: Save up to 72% on compute usage with flexible pricing
  - **Pricing Calculator**: create an estimate for the cost of your use cases
 
 ### Compute
  - **Elastic Container Registry**: Store and Retrieve Docker Images
  - **Elastic Container Service**: Run and Manage Docker Containers, simple API
- - **Lightsail**: Non-t**ech Launch and Manage Virtual Private Servers, saving doest not apply
+ - **Lightsail**: Non-tech Launch and Manage Virtual Private Servers, saving doest not apply
  - **Elastic Beanstalk**: Run and Manage Web Apps (.NET, Node, Python)
  - **Fargate**: Run Containers without Managing Servers or Clusters, serverless
  - **Outposts**: Run AWS services on-premises
 
 ### Database
  - **Aurora**: High Performance fully-managed Relational Database
- - **DynamoDB**: fully-managed NoSQL Database
+ - **DynamoDB**: fully-managed serverless NoSQL Database
+  - **Redshift**: Fast, Simple, Cost-effective Data Warehousing, BI Tools, optimized for analysis and reporting of large amounts of data
  - **DocumentDB**: fully-managed document database
  - **ElastiCache**: In-memory Caching System
  - **RDS**: Managed Relational Database Service for MySQL, PostgreSQL, Oracle, SQL Server, and MariaDB
  - **RDS on VMware**: Automate on-premises database management
- - **Redshift**: Fast, Simple, Cost-effective Data Warehousing
  - **Database Migration Service**: Migrate Databases with Minimal Downtime
  - **Schema Conversion Tool**: Makes heterogeneous database migrations by automatically converting the source database schema
 
@@ -94,16 +94,16 @@
  - **CodeGuru**: Provides intelligent recommendations for improving code quality (machine learning)
 
 ### Management
- - **CloudWatch**: Monitor Resources and Applications
+ - **CloudWatch**: Monitor Resources and Applications metrics
  - **CloudFormation**: Create and Manage Resources with Templates
- - **CloudTrail**: Track User Activity and API Usage
+ - **CloudTrail**: Track User Activity and API Usage, enables governance, compliance and risk auditing
  - **Config**: Track Resource Inventory and Changes
- - **OpsWorks**: Automate Operations with Chef and Puppet
+ - **OpsWorks**: Automate Operations (replication and deployment) with Chef and Puppet
  - **Organizations**: Central governance and management across accounts
  - **Personal Health Dashboard**: Personalized View of Services Health
  - **Service Health Dashboard**: Up-to-minute health info
- - **Service Catalog**: Create and Use Standardized Products (IAM, Config)
- - **Trusted Advisor**: Optimize Performance and Security, check service limits
+ - **Service Catalog**: Create and Use Standardized Products (IAM, CloudFormation)
+ - **Trusted Advisor**: Optimize Performance and Security, check service limits and provide guidance to provision resources (P,CO,S,FT,SL)
  - **Well-Architected Tool**: Review and improve your workloads
 
 ### Networking and Content Delivery
@@ -115,10 +115,10 @@
 
 ### Security and Compliance
  - **IAM**: Manage User Access and Encryption Keys
- - **Cognito**: Identity Management for your (mobile) Apps
+ - **Cognito**: Identity Management for your Apps (mobile, web)
  - **Detective**: Investigate potential security issues, machine learning
  - **GuardDuty**: Managed Threat Detection Service, continuously monitors for malicious activity (accounts, workloads, and data stored in S3)
- - **Inspector**: Analyze Application Security
+ - **Inspector**: Analyze Application Security (create assessment template)
  - **Macie**: Discover, Classify, and Protect your Data (machine learning)
  - **CloudHSM**: Hardware-based Key Storage for Regulatory Compliance
  - **Key Management Service**: Managed Creation and Control of Encryption Keys
@@ -135,7 +135,7 @@
  - **CloudEndure Disaster Recovery**: Highly automated disaster recovery
  - **QuickSight**: Fast Business Analytics Service
  - **Simple Notification Service (SNS)**: Pub/Sub, Mobile Push and SMS
- - **Simple Queue Service (SQS)**: Managed Message Queues
+ - **Simple Queue Service (SQS)**: Managed Message Queues, helps decoupling app components
 
 ---
 
