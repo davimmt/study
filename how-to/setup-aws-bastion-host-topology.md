@@ -21,10 +21,6 @@
         ```
         #!/bin/bash
         yum update -y
-        yum install httpd -y
-        service httpd start
-        chkconfig httpd on
-        echo "Bastion Host" > /var/www/html/index.html
         yum install firewalld -y
         service firewalld start
         chkconfig firewalld on
@@ -38,8 +34,10 @@
         firewall-cmd --permanent --add-forward-port=port=80:proto=tcp:toport=80:toaddr=<ec2_web_server_1_ip>
         firewall-cmd --reload
         ```
-1. Criar security group bastion-host
-    - SSH <my_ip/mask>
-    - HTTP all 
 1. Criar security group private-web-server
+    - SSH <bastion_host_ip/mask>
     - HTTP <bastion_host_ip/mask>
+1. Criar NACL acl-private-subnet
+    - SSH <bastion_host_ip/mask> ALLOW
+    - HTTP <bastion_host_ip/mask> ALLOW
+    - \* All DENY
