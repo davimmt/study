@@ -9,9 +9,10 @@
 - [Advanced Storage and Device Administration in Linux - Linux Academy](resumos/advanced-storage-and-device-administration-in-linux.md)
 
 ## [How to](how-to)
+- [Setup AWS Bastion Host Topology](how-to/setup-aws-bastion-host-topology.md)
 - [Configuring routing on a Linux host](how-to/configuring-routing-on-a-linux-host.md)
 - [Permitting and Blocking Traffic with the IPTables Firewall](how-to/permitting-and-blocking-traffic-with-the-iptables-firewall.md)
-- [Port Forwarding with the Firewal](how-to/port-fowarding-firewalld.md)
+- [Port Forwarding with Firewalld](how-to/port-fowarding-firewalld.md)
 - [Create a Firewall Service](how-to/create-a-firewalld-service.md)
 
 ## [Livros](https://drive.google.com/drive/folders/19pyt81Qm5ygVRHpevNqcqLwvvppklfLn?usp=sharing)
