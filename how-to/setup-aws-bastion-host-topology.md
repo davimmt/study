@@ -16,6 +16,7 @@
         chkconfig httpd on
         echo "dataRain 01" > /var/www/html/index.html
         ```
+    - Chek output: ```/var/log/cloud-init-output.log```
 1. Criar EC2 (bastion host 1) dentro da public subnet 1
     - Bootstrap:
         ```
@@ -25,7 +26,8 @@
         service firewalld start
         chkconfig firewalld on
         firewall-cmd --permanent --new-zone=web-server-01
-        firewall-cmd --permanent --set-default-zone=web-server-01
+        firewall-cmd --reload
+        firewall-cmd --set-default-zone=web-server-01
         firewall-cmd --reload
         firewall-cmd --permanent --add-port=80/tcp
         firewall-cmd --permanent --add-service=http
@@ -33,6 +35,7 @@
         firewall-cmd --permanent --add-source=<ec2_web_server_1_ip/mask>
         firewall-cmd --permanent --add-forward-port=port=80:proto=tcp:toport=80:toaddr=<ec2_web_server_1_ip>
         firewall-cmd --reload
+        iptables -A INPUT -p tcp --dport 80 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
         ```
 1. Criar security group private-web-server
     - SSH <bastion_host_ip/mask>
