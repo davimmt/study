@@ -12,8 +12,8 @@
         #!/bin/bash
         yum update -y
         yum install httpd -y
-        service httpd start
-        chkconfig httpd on
+        systemctl start httpd
+        systemctl enable httpd
         echo "dataRain 01" > /var/www/html/index.html
         ```
     - Chek output: ```/var/log/cloud-init-output.log```
@@ -23,8 +23,8 @@
         #!/bin/bash
         yum update -y
         yum install firewalld -y
-        service firewalld start
-        chkconfig firewalld on
+        systemctl start firewalld
+        systemctl enable firewalld
         firewall-cmd --permanent --new-zone=web-server-01
         firewall-cmd --reload
         firewall-cmd --set-default-zone=web-server-01
@@ -35,8 +35,8 @@
         firewall-cmd --permanent --add-source=<ec2_web_server_1_ip/mask>
         firewall-cmd --permanent --add-forward-port=port=80:proto=tcp:toport=80:toaddr=<ec2_web_server_1_ip>
         firewall-cmd --reload
-        iptables -A INPUT -p tcp --dport 80 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
         ```
+    - Talvez seja necessário: ```iptables -A INPUT -p tcp --dport 80 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT```
 1. Criar security group private-web-server
     - SSH <bastion_host_ip/mask>
     - HTTP <bastion_host_ip/mask>
