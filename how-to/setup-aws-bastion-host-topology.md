@@ -5,8 +5,8 @@
 1. Criar VPC
    - Adicionar CIDRs necessários
 1. Criar IG; alocar na VPC; adicionar na Route Table
-1. Criar public subnet 1 e private subnet 1
-1. Criar EC2 (web server 1) dentro da private subnet 1
+1. Criar public subnet e private subnet
+1. Criar EC2 (web server) dentro da private subnet
    - Bootstrap:
         ```
         #!/bin/bash
@@ -14,10 +14,10 @@
         yum install httpd -y
         systemctl start httpd
         systemctl enable httpd
-        echo "dataRain 01" > /var/www/html/index.html
+        echo "dataRain" > /var/www/html/index.html
         ```
     - Chek output: ```/var/log/cloud-init-output.log```
-1. Criar EC2 (bastion host 1) dentro da public subnet 1
+1. Criar EC2 (proxy server) dentro da public subnet
     - Bootstrap:
         ```
         #!/bin/bash
@@ -29,21 +29,37 @@
         firewall-cmd --reload
         firewall-cmd --set-default-zone=web-server-01
         firewall-cmd --reload
+        firewall-cmd --permanent --add-port=443/tcp
         firewall-cmd --permanent --add-port=80/tcp
+        firewall-cmd --permanent --add-port=22/tcp
+        firewall-cmd --permanent --add-service=https
         firewall-cmd --permanent --add-service=http
+        firewall-cmd --permanent --add-service=ssh
         firewall-cmd --permanent --add-masquerade
         firewall-cmd --permanent --add-source=<ec2_web_server_1_ip/mask>
         firewall-cmd --permanent --add-forward-port=port=80:proto=tcp:toport=80:toaddr=<ec2_web_server_1_ip>
+        firewall-cmd --permanent --add-forward-port=port=443:proto=tcp:toport=443:toaddr=<ec2_web_server_1_ip>
         firewall-cmd --reload
         ```
-    - Talvez seja necessário: ```iptables -A INPUT -p tcp --dport 80 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT```
+    - Caso o firewalld dê algum problema na porta 80: ```iptables -A INPUT -p tcp --dport 80 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT```
+1. Criar security group bastion-host
+    - SSH <your_ip/mask>
+1. Criar security group proxy-server
+    - SSH <bastion_host_ip/mask>
+    - HTTP ALL
 1. Criar security group private-web-server
     - SSH <bastion_host_ip/mask>
-    - HTTP <bastion_host_ip/mask>
-1. Criar NACL acl-private-subnet
+    - HTTP <proxy_server_ip/mask>
+1. Criar NACL private-subnet
     - INPUT
         - SSH <bastion_host_ip/mask> ALLOW
-        - HTTP <bastion_host_ip/mask> ALLOW
+        - HTTP <proxy_server_ip/mask> ALLOW
+        - HTTPS <proxy_server_ip/mask> ALLOW
         - \* All DENY
-    - OUTPUT (fora as acima, adicionar saída efêmera)
+    - OUTPUT
       - Custom TCP 32768 - 65535 <bastion_host_ip/mask> ALLOW
+      - Custom TCP 32768 - 65535 <proxy_server_ip/mask> ALLOW
+      - \* All DENY
+
+1. Após configurar o R53, pode-se fazer o redirecionamento da requisição na porta 80 para a 443 dentro do ALB, ou também pelo Proxy Server:
+  - firewall-cmd --permanent --add-forward-port=port=80:proto=tcp:toport=443:toaddr=<ec2_web_server_1_ip>
