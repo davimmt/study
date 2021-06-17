@@ -3,7 +3,7 @@
 
 ## Passo-a-passo
 1. Criar VPC
-   - Adicionar CIDRs necessÃ¡rios
+   - Adicionar CIDRs necessários
 1. Criar IG; alocar na VPC; adicionar na Route Table
 1. Criar public subnet 1 e private subnet 1
 1. Criar EC2 (web server 1) dentro da private subnet 1
@@ -36,11 +36,14 @@
         firewall-cmd --permanent --add-forward-port=port=80:proto=tcp:toport=80:toaddr=<ec2_web_server_1_ip>
         firewall-cmd --reload
         ```
-    - Talvez seja necessÃ¡rio: ```iptables -A INPUT -p tcp --dport 80 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT```
+    - Talvez seja necessário: ```iptables -A INPUT -p tcp --dport 80 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT```
 1. Criar security group private-web-server
     - SSH <bastion_host_ip/mask>
     - HTTP <bastion_host_ip/mask>
 1. Criar NACL acl-private-subnet
-    - SSH <bastion_host_ip/mask> ALLOW
-    - HTTP <bastion_host_ip/mask> ALLOW
-    - \* All DENY
+    - INPUT
+        - SSH <bastion_host_ip/mask> ALLOW
+        - HTTP <bastion_host_ip/mask> ALLOW
+        - \* All DENY
+    - OUTPUT (fora as acima, adicionar saída efêmera)
+      - Custom TCP 32768 - 65535 <bastion_host_ip/mask> ALLOW
