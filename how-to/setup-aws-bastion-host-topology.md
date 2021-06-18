@@ -16,6 +16,18 @@
         systemctl enable httpd
         echo "dataRain" > /var/www/html/index.html
         ```
+        - Para usar PHP:
+          ```
+          yum install amazon-linux-extras -y
+          amazon-linux-extras enable php8.0
+          yum clean metadata
+          yum install -y php php-pear
+          yum install php-{cgi,curl,mbstring,gd,mysqlnd,gettext,json,xml,fpm,intl,zip}
+          sed -i 's/DirectoryIndex index.html/DirectoryIndex index.php index.html/' /etc/httpd/conf/httpd.conf
+          echo '<?php echo "X-Forwarded-For: " .  $_SERVER["HTTP_X_FORWARDED_FOR"]; echo "<br>Client IP: " .  $_SERVER["HTTP_CLIENT_IP"]; echo "<br>HTTP Host: " .  $_SERVER["HTTP_HOST"]; echo "<br>Server Name: " . $_SERVER["SERVER_NAME"]; echo "<br>Remote Address: " . $_SERVER["REMOTE_ADDR"]; echo "<br>Server Address: " . $_SERVER["SERVER_ADDR"]; ?>' > /var/www/html/index.php
+          systemctl restart httpd
+          ```
+          - Para saber a versão mais recente do php: ```amazon-linux-extras | grep php```
     - Chek output: ```/var/log/cloud-init-output.log```
 1. Criar EC2 (proxy server) dentro da public subnet
     - Bootstrap:
