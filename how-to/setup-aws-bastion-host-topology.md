@@ -1,77 +1,87 @@
-## Topologia
+## Topologia 00
 ![](../img//setup-aws-bastion-host-topology/topology.png)
 
 ## Passo-a-passo
-1. Criar VPC
-   - Adicionar CIDRs necessários
-1. Criar IG; alocar na VPC; adicionar na Route Table
-1. Criar public subnet e private subnet
-1. Criar EC2 (web server) dentro da private subnet
+1. Criar AMI User _ec2-manager_ com Programmatic access
+   - Attach existing policies directly: AmazonEC2FullAccess
+   - Salvar Acess key ID e Secret access key
+1. Criar VPC _vpc-topology-00_
+   - Adicionar CIDR _10.0.0.0/16_
+1. Criar IG _igw-topology-00_; alocar na VPC _topology-00_; adicionar na Route Table gerada automaticamente
+1. Criar subnets:
+   - sn-public-0-topology-00 / 1a / 10.0.0.0/24
+   - sn-private-0-topology-00 / 1a / 10.0.1.0/24
+   - sn-public-1-topology-00 / 1b / 10.0.2.0/24
+   - sn-private-1-topology-00 / 1b / 10.0.3.0/24
+      - Habilitar auto-assign public ip
+1. Criar NACL _nacl-private-subnet_
+    - INPUT
+        - 100 SSH 10.0.0.0/24 ALLOW
+        - 200 HTTP 10.0.0.0/24 ALLOW
+        - 201 HTTP 10.0.2.0/24 ALLOW
+        - \* All DENY
+    - OUTPUT
+       - 100 Custom TCP 32768 - 65535 10.0.0.0/24 ALLOW
+       - 101 Custom TCP 32768 - 65535 10.0.2.0/24 ALLOW
+       - \* All DENY
+1. Mudar o default security group
+    - SSH My IP
+    - SSH 10.0.0.0/16
+    - HTTP My IP
+    - HTTP 10.0.0.0/16
+1. Criar security group _secg-bastion-host_
+    - SSH My IP
+1. Criar security group _secg-proxy-server_
+    - SSH secg-bastion-host
+    - HTTP 0.0.0.0/0
+1. Criar security group _secg-private-web-server_
+    - SSH secg-bastion-host
+    - HTTP secg-proxy-server
+1. Criar EC2 _ec2-bastion-host_ dentro da _sn-public-0_
+1. Criar EC2 _ec2-web-server_ dentro da _sn-private-0_
    - Bootstrap:
         ```
         #!/bin/bash
         yum update -y
-        yum install httpd -y
+        amazon-linux-extras enable php8.0
+        yum install php httpd -y
         systemctl start httpd
         systemctl enable httpd
-        echo "dataRain" > /var/www/html/index.html
+        echo '<?php echo "Server Address: " . $_SERVER["SERVER_ADDR"]; ?>' > /var/www/html/index.php
+        ip=$(curl http://169.254.169.254/latest/meta-data/local-ipv4)
+        mac=$(curl http://169.254.169.254/latest/meta-data/mac)
+        nif_id=$(curl http://169.254.169.254/latest/meta-data/network/interfaces/macs/"$mac"/interface-id)
+        new_ip="10.0.${ip:5:1}.50"
+        echo "IP = $ip"
+        echo "MAC = $mac"
+        echo "NIF = $nif_id"
+        echo "New IP = $new_ip"
+        aws configure set aws_access_key_id {Acess key ID}
+        aws configure set aws_secret_access_key {Secret acess key}
+        aws configure set default.region {Region ID}
+        aws ec2 assign-private-ip-addresses --network-interface-id "$nif_id" --private-ip-addresses "$new_ip"
+        systemctl restart httpd
+        systemctl restart network
         ```
-        - Para usar PHP:
-          ```
-          yum install amazon-linux-extras -y
-          amazon-linux-extras enable php8.0
-          yum clean metadata
-          yum install -y php php-pear
-          yum install php-{cgi,curl,mbstring,gd,mysqlnd,gettext,json,xml,fpm,intl,zip}
-          sed -i 's/DirectoryIndex index.html/DirectoryIndex index.php index.html/' /etc/httpd/conf/httpd.conf
-          echo '<?php echo "X-Forwarded-For: " .  $_SERVER["HTTP_X_FORWARDED_FOR"]; echo "<br>Client IP: " .  $_SERVER["HTTP_CLIENT_IP"]; echo "<br>HTTP Host: " .  $_SERVER["HTTP_HOST"]; echo "<br>Server Name: " . $_SERVER["SERVER_NAME"]; echo "<br>Remote Address: " . $_SERVER["REMOTE_ADDR"]; echo "<br>Server Address: " . $_SERVER["SERVER_ADDR"]; ?>' > /var/www/html/index.php
-          systemctl restart httpd
-          ```
-          - Para saber a versão mais recente do php: ```amazon-linux-extras | grep php```
-    - Chek output: ```/var/log/cloud-init-output.log```
-1. Criar EC2 (proxy server) dentro da public subnet
+        - Para  saber a versão mais recente do php: ```amazon-linux-extras | grep php```
+1. Criar EC2 _ec2-proxy-server_ dentro da _sn-public-0_
     - Bootstrap:
         ```
         #!/bin/bash
         yum update -y
-        yum install firewalld -y
-        systemctl start firewalld
-        systemctl enable firewalld
-        firewall-cmd --permanent --new-zone=web-server-01
-        firewall-cmd --reload
-        firewall-cmd --set-default-zone=web-server-01
-        firewall-cmd --reload
-        firewall-cmd --permanent --add-port=443/tcp
-        firewall-cmd --permanent --add-port=80/tcp
-        firewall-cmd --permanent --add-port=22/tcp
-        firewall-cmd --permanent --add-service=https
-        firewall-cmd --permanent --add-service=http
-        firewall-cmd --permanent --add-service=ssh
-        firewall-cmd --permanent --add-masquerade
-        firewall-cmd --permanent --add-source=<ec2_web_server_1_ip/mask>
-        firewall-cmd --permanent --add-forward-port=port=80:proto=tcp:toport=80:toaddr=<ec2_web_server_1_ip>
-        firewall-cmd --permanent --add-forward-port=port=443:proto=tcp:toport=443:toaddr=<ec2_web_server_1_ip>
-        firewall-cmd --reload
+        yum install httpd -y
+        a2enmod proxy
+        a2enmod proxy_http
+        a2enmod proxy_ajp
+        a2enmod rewrite
+        a2enmod deflate
+        a2enmod headers
+        a2enmod proxy_balancer
+        a2enmod proxy_connect
+        a2enmod proxy_html
+        ip=$(curl http://169.254.169.254/latest/meta-data/local-ipv4)
+        web_server_ip="10.0.$((${ip:5:1} + 1)).50"
+        echo "Web server IP = $web_server_ip"
+        echo -e "<VirtualHost *:*>\nProxyPreserveHost On\nProxyPass / http://$web_server_ip\nProxyPassReverse / http://$web_server_ip\nServerName localhost\n</VirtualHost>" > /etc/httpd/conf.d/proxy.conf
+        systemctl restart httpd
         ```
-    - Caso o firewalld dê algum problema na porta 80: ```iptables -A INPUT -p tcp --dport 80 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT```
-1. Criar security group bastion-host
-    - SSH <your_ip/mask>
-1. Criar security group proxy-server
-    - SSH <bastion_host_ip/mask>
-    - HTTP ALL
-1. Criar security group private-web-server
-    - SSH <bastion_host_ip/mask>
-    - HTTP <proxy_server_ip/mask>
-1. Criar NACL private-subnet
-    - INPUT
-        - SSH <bastion_host_ip/mask> ALLOW
-        - HTTP <proxy_server_ip/mask> ALLOW
-        - HTTPS <proxy_server_ip/mask> ALLOW
-        - \* All DENY
-    - OUTPUT
-      - Custom TCP 32768 - 65535 <bastion_host_ip/mask> ALLOW
-      - Custom TCP 32768 - 65535 <proxy_server_ip/mask> ALLOW
-      - \* All DENY
-
-1. Após configurar o R53, pode-se fazer o redirecionamento da requisição na porta 80 para a 443 dentro do ALB, ou também pelo Proxy Server:
-  - firewall-cmd --permanent --add-forward-port=port=80:proto=tcp:toport=443:toaddr=<ec2_web_server_1_ip>
