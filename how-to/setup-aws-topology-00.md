@@ -1,5 +1,5 @@
 ## Topologia 00
-![](../img//setup-aws-bastion-host-topology/topology.png)
+![](../img/setup-aws-topology-00/topology.jpeg)
 
 ## Passo-a-passo
 1. Criar AMI User _ec2-manager_ com Programmatic access
@@ -34,11 +34,11 @@
 1. Criar security group _secg-proxy-server_
     - SSH secg-bastion-host
     - HTTP 0.0.0.0/0
-1. Criar security group _secg-private-web-server_
+1. Criar security group _secg-private-app-server_
     - SSH secg-bastion-host
     - HTTP secg-proxy-server
 1. Criar EC2 _ec2-bastion-host_ dentro da _sn-public-0_
-1. Criar EC2 _ec2-web-server_ dentro da _sn-private-0_
+1. Criar EC2 _ec2-app-server_ dentro da _sn-private-0_
    - Bootstrap:
         ```
         #!/bin/bash
