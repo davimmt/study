@@ -14,32 +14,10 @@
    - sn-public-1-topology-00 / 1b / 10.0.2.0/24
    - sn-private-1-topology-00 / 1b / 10.0.3.0/24
       - Habilitar auto-assign public ip
-1. Criar NACL _nacl-private-subnet_
-    - INPUT
-        - 100 SSH 10.0.0.0/24 ALLOW
-        - 200 HTTP 10.0.0.0/24 ALLOW
-        - 201 HTTP 10.0.2.0/24 ALLOW
-        - \* All DENY
-    - OUTPUT
-       - 100 Custom TCP 32768 - 65535 10.0.0.0/24 ALLOW
-       - 101 Custom TCP 32768 - 65535 10.0.2.0/24 ALLOW
-       - \* All DENY
-1. Mudar o default security group
-    - SSH My IP
-    - SSH 10.0.0.0/16
-    - HTTP My IP
-    - HTTP 10.0.0.0/16
-1. Criar security group _secg-bastion-host_
-    - SSH My IP
-1. Criar security group _secg-proxy-server_
-    - SSH secg-bastion-host
-    - HTTP 0.0.0.0/0
-1. Criar security group _secg-private-app-server_
-    - SSH secg-bastion-host
-    - HTTP secg-proxy-server
-1. Criar EC2 _ec2-bastion-host_ dentro da _sn-public-0_
-1. Criar EC2 _ec2-app-server_ dentro da _sn-private-0_
-   - Bootstrap:
+1. Criar EC2 Launch Template _lt-app-server_
+   - Tags: Name => _ec2-app-server_
+   - Metadata accessible: Enabled
+   - User data:
         ```
         #!/bin/bash
         yum update -y
@@ -63,13 +41,22 @@
         systemctl restart httpd
         systemctl restart network
         ```
-        - Para  saber a versão mais recente do php: ```amazon-linux-extras | grep php```
-1. Criar EC2 _ec2-proxy-server_ dentro da _sn-public-0_
-    - Bootstrap:
+        - Para  saber a versão mais recente do php: ```amazon-linux-extras | grep php``` 
+1. Criar Auto Scaling Group _asg-app-server_
+   - Selecionar subnets:
+      -  _sn-private-0_
+      -  _sn-private-1_
+   - No load balancer
+1. Criar EC2 Launch Template _lt-proxy-server_
+   - Tags: Name => _ec2-proxy-server_
+   - Metadata accessible: Enabled
+   - User data:
         ```
         #!/bin/bash
         yum update -y
         yum install httpd -y
+        systemctl start httpd
+        systemctl enable httpd
         a2enmod proxy
         a2enmod proxy_http
         a2enmod proxy_ajp
@@ -85,3 +72,36 @@
         echo -e "<VirtualHost *:*>\nProxyPreserveHost On\nProxyPass / http://$web_server_ip\nProxyPassReverse / http://$web_server_ip\nServerName localhost\n</VirtualHost>" > /etc/httpd/conf.d/proxy.conf
         systemctl restart httpd
         ```
+1. Criar Auto Scaling Group _asg-proxy-server_
+   - Selecionar subnets:
+      -  _sn-public-0_
+      -  _sn-public-1_
+   - Attach to a new load balancer
+       - Name: _lb-proxy-server_
+       - Scheme: Internet-facing
+       - Port: 80
+       - Default routing: Create target group _tg-proxy-server_
+1. EC2 _ec2-bastion-host_ dentro da _sn-public-0_
+1. Criar NACL _nacl-private-subnet_
+    - INPUT
+        - 100 SSH 10.0.0.0/24 ALLOW
+        - 200 HTTP 10.0.0.0/24 ALLOW
+        - 201 HTTP 10.0.2.0/24 ALLOW
+        - \* All DENY
+    - OUTPUT
+       - 100 Custom TCP 32768 - 65535 10.0.0.0/24 ALLOW
+       - 101 Custom TCP 32768 - 65535 10.0.2.0/24 ALLOW
+       - \* All DENY
+1. Mudar o default security group
+    - SSH My IP
+    - SSH 10.0.0.0/16
+    - HTTP My IP
+    - HTTP 10.0.0.0/16
+1. Criar security group _secg-bastion-host_
+    - SSH My IP
+1. Criar security group _secg-proxy-server_
+    - SSH secg-bastion-host
+    - HTTP 0.0.0.0/0
+1. Criar security group _secg-private-app-server_
+    - SSH secg-bastion-host
+    - HTTP secg-proxy-server
