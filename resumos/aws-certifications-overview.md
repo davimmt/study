@@ -1,4 +1,13 @@
-# AWS Cloud Practitioner Exam Overview
+# AWS Certifications Overview
+
+## Sumary
+- [Cloud Practitioner Concepts](#cloud-practitioner-concepts)
+- [Solution Architect Associate Concepts](#solution-architect-associate-concepts)
+- [Main Technologies](#main-technologies)
+
+---
+
+## Cloud Practitioner Concepts
 
 ### Define the AWS Cloud and its value proposition:
  - A secure cloud service that provides computing, networking, storaging and various services. 
@@ -47,6 +56,13 @@
     - Selecting the most appropriate and right number of resource types, analyzing spend over time
     - Scaling to meet business needs without overspending
 
+## Solution Architect Associate Concepts
+### Placement groups:
+   - **Cluster** – packs instances close together inside an Availability Zone. Used for HPC, low-latency network performance necessary for tightly-coupled node-to-node communication.
+
+   - **Partition** – spreads your instances across logical partitions such that groups of instances in one partition do not share the underlying hardware with groups of instances in different partitions. Used by large distributed and replicated workloads, such as Hadoop, Cassandra, and Kafka.
+
+   - **Spread** – strictly places a small group of instances across distinct underlying hardware to reduce correlated failures.
 ---
 
 ## Main Technologies
@@ -105,6 +121,7 @@
  - **Service Catalog**: Create and Use Standardized Products (IAM, CloudFormation)
  - **Trusted Advisor**: Optimize Performance and Security, check service limits and provide guidance to provision resources (P,CO,S,FT,SL)
  - **Well-Architected Tool**: Review and improve your workloads
+ - **AWS Control Tower**: Automated deployments in multi-account environments.
 
 ### Networking and Content Delivery
  - **CloudFront**: Global Content Delivery Network
