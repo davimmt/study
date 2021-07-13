@@ -57,35 +57,35 @@
     - Scaling to meet business needs without overspending
 
 ## Solution Architect Associate Concepts
-### Placement groups:
-   - **Cluster** � packs instances close together inside an Availability Zone. Used for HPC, low-latency network performance necessary for tightly-coupled node-to-node communication.
-
-   - **Partition** � spreads your instances across logical partitions such that groups of instances in one partition do not share the underlying hardware with groups of instances in different partitions. Used by large distributed and replicated workloads, such as Hadoop, Cassandra, and Kafka.
-
-   - **Spread** � strictly places a small group of instances across distinct underlying hardware to reduce correlated failures.
-
-### ​Configure inter-region VPC peering, then VPC endpoint for service. You cannot configure an inter-region VPC endpoint directly.
-
-### AWS creates a storage volume snapshot of the database instance during the backup window once a day, also captures transactions logs and uploads them to S3 buckets every 5 minutes.
-
-### Existing unencrypted RDS instances and their snapshots cannot be encrypted.
-
-### KMS is used for the encryption at rest instead of in transit. Data is encrypted at rest once uploaded to S3.
-
-### KMS master keys are region-specific.
-
-### When you use Amazon Redshift Enhanced VPC Routing, Amazon Redshift forces all COPY and UNLOAD traffic between your cluster and your data repositories through your Amazon VPC.
-
-### You cannot enable the sharing through the AWS Organization console, instead you use RAM.
-
 ### Gateway Storage Volumes
-   - You store your data in S3 and retain a copy of frequently accessed data subsets locally, retainging low-latency access to your frequently accessed data with minimun cost.
-   - **Cached volumes** – You store your data in S3 and retain a copy of frequently accessed data subsets locally. Cached volumes offer substantial cost savings on primary storage and "minimize the need to scale your storage on-premises. You also retain low-latency access to your frequently accessed data."
-   - **Stored volumes** – If you need low-latency access to your entire data set, first configure your on-premises gateway to store all your data locally. Then asynchronously back up point-in-time snapshots of this data to Amazon S3. "This configuration provides durable and inexpensive off-site backups that you can recover to your local data center or Amazon EC2." For example, if you need replacement capacity for disaster recovery, you can recover the backups to Amazon EC2.
+  - **Cached volumes** – You store your data in S3 and retain a copy of frequently accessed data subsets locally. Cached volumes offer substantial cost savings on primary storage and minimize the need to scale your storage on-premises. You also retain low-latency access to your frequently accessed data.
+  - **Stored volumes** – If you need low-latency access to your entire data set, first configure your on-premises gateway to store all your data locally. Then asynchronously back up point-in-time snapshots of this data to Amazon S3. This configuration provides durable and inexpensive off-site backups that you can recover to your local data center or Amazon EC2.
 
 ### AWS DMS 
-   - **Engine Conversion Tool** – Homogeneous database migration.
-   - **Schema Converton Tool** – Heterogeneous database migration
+  - **Engine Conversion Tool** – Homogeneous database migration.
+  - **Schema Converton Tool** – Heterogeneous database migration
+
+### Placement groups
+  - **Cluster** – packs instances close together inside an Availability Zone. Used for HPC, low-latency network performance necessary for tightly-coupled node-to-node communication.
+
+  - **Partition** – spreads your instances across logical partitions such that groups of instances in one partition do not share the underlying hardware with groups of instances in different partitions. Used by large distributed and replicated workloads, such as Hadoop, Cassandra, and Kafka.
+
+  - **Spread** – strictly places a small group of instances across distinct underlying hardware to reduce correlated failures.
+
+### Notes
+  - ​Configure inter-region VPC peering, then VPC endpoint for service. You cannot configure an inter-region VPC endpoint directly.
+
+  - AWS creates a storage volume snapshot of the database instance during the backup window once a day, also captures transactions logs and uploads them to S3 buckets every 5 minutes.
+
+  - Existing unencrypted RDS instances and their snapshots cannot be encrypted.
+
+  - KMS is used for the encryption at rest instead of in transit. Data is encrypted at rest once uploaded to S3.
+
+  - KMS master keys are region-specific.
+
+  - When you use Amazon Redshift Enhanced VPC Routing, Amazon Redshift forces all COPY and UNLOAD traffic between your cluster and your data repositories through your Amazon VPC.
+
+  - You cannot enable the sharing through the AWS Organization console, instead you use RAM.
 
 ---
 
