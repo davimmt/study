@@ -173,7 +173,13 @@
  
  - Instance store instance store provides temporary block-level storage for your instance. This storage is located on disks that are physically attached to the host computer.
 
+ - EBS–optimized instance provides additional, dedicated capacity for Amazon EBS I/O.
+
  - You cannot add instance store volumes once the EC2 instance is launched.
+
+ - SQS does not encrypt messages by default.
+ 
+ - The canonical name record is changed from the primary database to the standby database, when it goes down.
   
 ---
 
