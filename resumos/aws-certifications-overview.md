@@ -72,6 +72,13 @@
 
  - **Spread** – strictly places a small group of instances across distinct underlying hardware to reduce correlated failures.
 
+### AWS Glue
+ - **Catalog** – Holds the metadata and the structure of the data.
+ - **Database** – Used to create or access the database for the sources and targets.
+ - **Table** – Create tables in the database that can be used by the source and target.
+ - **Crawler** – A crawler is used to retrieve data from the source using classifiers.
+ - **Classifier** – Checks whether a given file is in a format it can handle.
+
 ### Disaster recovery options
  - **Backup & Restore**:
    - Lower priority and cost;
@@ -180,7 +187,18 @@
  - SQS does not encrypt messages by default.
  
  - The canonical name record is changed from the primary database to the standby database, when it goes down.
-  
+
+ - Using another VPC's NAT Gateway is not supported in AWS, even with VPC peering.
+
+ - The first four IP addresses and the last IP address in each subnet CIDR block are reserved by AWS.
+
+ - You can't configure client-side encryption in S3 console.
+
+ - You can't directly upload files to Glacier through the S3 console.
+
+ - Lambda Ephemeral Disk /tmp has 512MB limit.
+
+ - Lambda function policy cannot be edited from the AWS console.  
 ---
 
 ## Main Technologies
@@ -191,6 +209,7 @@
  - **Compute Optimizer**: Analyzes (machine learning) metrics of utilization and makes recommendations
  - **Elasticsearch**: Full-text search and analytics engine.
  - **Data Pipeline**: Web service used to automate data movement and transformation
+ - **AWS Glue**: Serverless service that makes Extraction, Transformation, and Loading of data to warehouses or lakes.
 
 ### Cost Management
  - **Cost Explorer**: Analyze Your AWS Cost and Usage, provides usage-based forecasts of estimated billing for the next month
