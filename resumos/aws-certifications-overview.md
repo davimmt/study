@@ -122,6 +122,8 @@
 ### Notes
  - ​Configure inter-region VPC peering, then VPC endpoint for service. You cannot configure an inter-region VPC endpoint directly.
 
+ - DynamoDB uses eventually consistent reads, unless you specify otherwise.
+
  - AWS creates a storage volume snapshot of the database instance during the backup window once a day, also captures transactions logs and uploads them to S3 buckets every 5 minutes.
 
  - Existing unencrypted RDS instances and their snapshots cannot be encrypted.
