@@ -1,104 +1,117 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<style>body{padding:auto;margin:auto;font-size:20px}p{background:black;padding-left:38px}p:hover{background:transparent}</style>
+		<style>body{margin:auto;font-size:20px}strong{margin-right:5px}.card{margin-bottom:50px}.value{background:black;padding-left:38px}.value:hover{background:transparent}</style>
 	</head>
 
 	<body style="width:1200px;display:block;">
 		<h1 style="text-align:center;margin:50px 0">SOA-C02</h1>
-		<strong>| T |</strong> CloudWatch, Terminology, Log Events<p>Event message and timestamp</p>
-		<strong>| T |</strong> CloudWatch, Terminology, Log Stream<p>Sequence of Log Events from the same origin</p>
-		<strong>| T |</strong> CloudWatch, Terminology, Log Group<p>Centralized groupping of Log Streams</p>
-		<strong>| T |</strong> CloudWatch, Log Retention, default time<p>Indefinitely</p>
-		<strong>| T |</strong> CloudWatch, Terminology, Logs Insights<p>Query log data directly</p>
-		<strong>| T |</strong> CloudWatch, EC2, standart host level metris<p>CPU, Network, Disk, Status check</p>
-		<strong>| T |</strong> CloudWatch, EC2, default storage time of logs<p>Indefinetly</p>
-		<strong>| T |</strong> CloudWatch, EC2, standard monitoring granularity<p>5 minutes</p>
-		<strong>| T |</strong> CloudWatch, EC2, detailed monitoring granularity<p>1 minute minimum</p>
-		<strong>| T |</strong> CloudWatch, EBS, main metrics<p>Volume read/write ops; Volume Queue Length (num. of read/write ops requests waiting)</p>
-		<strong>| T |</strong> CloudWatch, LoadBalancer, main metrics<p>(Un)HealthyHostCount; RequestCount; TargetResponseTime; HTTP Status Codes</p>
+		<div class="card"><p class="key"><strong>| T |</strong><span>CloudWatch, Terminology, Log Events</span></p><p class="value">Event message and timestamp</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>CloudWatch, Terminology, Log Stream</span></p><p class="value">Sequence of Log Events from the same origin</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>CloudWatch, Terminology, Log Group</span></p><p class="value">Centralized groupping of Log Streams</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>CloudWatch, Log Retention, default time</span></p><p class="value">Indefinitely</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>CloudWatch, Terminology, Logs Insights</span></p><p class="value">Query log data directly</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>CloudWatch, EC2, standart host level metris</span></p><p class="value">CPU, Network, Disk, Status check</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>CloudWatch, EC2, default storage time of logs</span></p><p class="value">Indefinetly</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>CloudWatch, EC2, standard monitoring granularity</span></p><p class="value">5 minutes</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>CloudWatch, EC2, detailed monitoring granularity</span></p><p class="value">1 minute minimum</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>CloudWatch, EBS, main metrics</span></p><p class="value">Volume read/write ops; Volume Queue Length (num. of read/write ops requests waiting)</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>CloudWatch, LoadBalancer, main metrics</span></p><p class="value">(Un)HealthyHostCount; RequestCount; TargetResponseTime; HTTP Status Codes</p></div>
 
 		   <hr>
-		<strong>| T |</strong> Service Health Dashboard<p>Up-to-the-minute information on service availability for all AWS services on a per region</p>
-		<strong>| T |</strong> AWS Health<p>Ongoing visibility into your resource health and the availability of your AWS services</p>
+		<div class="card"><p class="key"><strong>| T |</strong><span>Service Health Dashboard</span></p><p class="value">Up-to-the-minute information on service availability for all AWS services on a per region</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>AWS Health</span></p><p class="value">Ongoing visibility into your resource health and the availability of your AWS services</p></div>
 		   
 		   <hr>
-		<strong>| T |</strong> EBS, use case, SSD, General purpose<p>System boot; Low-latency; Most workloads</p>
-		<strong>| T |</strong> EBS, use case, SSD, Provisioned IOPS<p>Critical bussiness; OLTP; Latency-sensitive; Sustained IOPS (+10k); Large database workloads</p>
-		<strong>| T |</strong> EBS, use case, HDD, Throughput optimized<p>Streaming workloads: fast, consistent and low cost throughput; Big data; Data warehouse; Log processing</p>
-		<strong>| T |</strong> EBS, use case, HDD, Cold<p>Throughput-oriented storage for large volumes with infrequently access data</p>
-		<strong>| T |</strong> EBS, IOPS, SSD, General purpose<p>Volume-proportional; 3 IOPS per GiB; max of 10k IOPS with 3k3 GiB</p>
-		<strong>| P |</strong> EBS, volumes restored from snapshots are presenting slowliness on operations<p>Must be initialized and all data read beforehand</p>
-		<strong>| P |</strong> EBS, increased size, S.O. not recognizing<p>Extend volume's file system</p>
-		<strong>| T |</strong> EBS, Severly Degraded<p>Warning</p>
-		<strong>| T |</strong> EBS, Stalled or Not Available<p>Impaired</p>
+		<div class="card"><p class="key"><strong>| T |</strong><span>EBS, use case, SSD, General purpose</span></p><p class="value">System boot; Low-latency; Most workloads</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>EBS, use case, SSD, Provisioned IOPS</span></p><p class="value">Critical bussiness; OLTP; Latency-sensitive; Sustained IOPS (+10k); Large database workloads</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>EBS, use case, HDD, Throughput optimized</span></p><p class="value">Streaming workloads: fast, consistent and low cost throughput; Big data; Data warehouse; Log processing</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>EBS, use case, HDD, Cold</span></p><p class="value">Throughput-oriented storage for large volumes with infrequently access data</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>EBS, IOPS, SSD, General purpose</span></p><p class="value">Volume-proportional; 3 IOPS per GiB; max of 10k IOPS with 3k3 GiB</p></div>
+		<div class="card"><p class="key"><strong>| P |</strong><span>EBS, volumes restored from snapshots are presenting slowliness on operations</span></p><p class="value">Must be initialized and all data read beforehand</p></div>
+		<div class="card"><p class="key"><strong>| P |</strong><span>EBS, increased size, S.O. not recognizing</span></p><p class="value">Extend volume's file system</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>EBS, Severly Degraded</span></p><p class="value">Warning</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>EBS, Stalled or Not Available</span></p><p class="value">Impaired</p></div>
 		   
 		   <hr>
-		<strong>| T |</strong> Elasticache, monitoring metrics<p>CPU utilization; Swap usage; Evictions; Concurrent connections</p>
-		<strong>| T |</strong> Elasticache, Memcached, CPU utilization<p>Multi-thread; up to 90% of usage, and then add more nodes to the cluster</p>
-		<strong>| T |</strong> Elasticache, Redis, CPU utilization<p>Not multi-thread; to determine scaling, divide 90 by the num. of cores</p>
-		<strong>| P |</strong> Elasticache, Memcached, Swap usage over 50Mb<p>Increase memcached_connections_overhead</p>
-		<strong>| P |</strong> Elasticache, Memcached, how to handle evictions<p>Either scale up (increasing mem) or out (incresing num. of nodes)</p>
-		<strong>| P |</strong> Elasticache, Redis, how to handle evictions<p>Only scale out (incresing num. read replicas)</p>
-		<strong>| P |</strong> Elasticache, experiencing high number of concurrent connections<p>Either a large traffic spike or app is not realising connections as it should be (set an alarm on the num. of concurrent connections)</p>
-		<strong>| P |</strong> Elasticache, Redis, High performance with low network latency<p>Enhanced I/O</p>
-		<strong>| P |</strong> Elasticache, Redis, Enhance reliability and availability<p>Cluster Mode</p>
+		<div class="card"><p class="key"><strong>| T |</strong><span>Elasticache, monitoring metrics</span></p><p class="value">CPU utilization; Swap usage; Evictions; Concurrent connections</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>Elasticache, Memcached, CPU utilization</span></p><p class="value">Multi-thread; up to 90% of usage, and then add more nodes to the cluster</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>Elasticache, Redis, CPU utilization</span></p><p class="value">Not multi-thread; to determine scaling, divide 90 by the num. of cores</p></div>
+		<div class="card"><p class="key"><strong>| P |</strong><span>Elasticache, Memcached, Swap usage over 50Mb</span></p><p class="value">Increase memcached_connections_overhead</p></div>
+		<div class="card"><p class="key"><strong>| P |</strong><span>Elasticache, Memcached, how to handle evictions</span></p><p class="value">Either scale up (increasing mem) or out (incresing num. of nodes)</p></div>
+		<div class="card"><p class="key"><strong>| P |</strong><span>Elasticache, Redis, how to handle evictions</span></p><p class="value">Only scale out (incresing num. read replicas)</p></div>
+		<div class="card"><p class="key"><strong>| P |</strong><span>Elasticache, experiencing high number of concurrent connections</span></p><p class="value">Either a large traffic spike or app is not releasing connections as it should be (set an alarm on the num. of concurrent connections)</p></div>
+		<div class="card"><p class="key"><strong>| P |</strong><span>Elasticache, Redis, High performance with low network latency</span></p><p class="value">Enhanced I/O</p></div>
+		<div class="card"><p class="key"><strong>| P |</strong><span>Elasticache, Redis, Enhance reliability and availability</span></p><p class="value">Cluster Mode</p></div>
 		   
 		   <hr>
-		<strong>| T |</strong> EFS, Throughput Mode, Bursting<p>Default; scale with volueme size; suppor periodic bursting</p>
-		<strong>| T |</strong> EFS, Throughput Mode, Provisioned<p>Set fixed throughput</p>
-		<strong>| T |</strong> EFS, Metered Throughput<p>Ratio of 1 write to 3 read (1:3)</p>
+		<div class="card"><p class="key"><strong>| T |</strong><span>EFS, Throughput Mode, Bursting</span></p><p class="value">Default; scale with volueme size; support periodic bursting</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>EFS, Throughput Mode, Provisioned</span></p><p class="value">Set fixed throughput</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>EFS, Metered Throughput</span></p><p class="value">Ratio of 1 write to 3 read (1:3)</p></div>
 		   
 		   <hr>
-		<strong>| T |</strong> Elasticsearch, Use cases<p>App monitoring; Data & security analytics</p>
+		<div class="card"><p class="key"><strong>| T |</strong><span>Elasticsearch, Use cases</span></p><p class="value">App monitoring; Data & security analytics</p></div>
 		   
 		   <hr>
-		<strong>| P |</strong> S3, Block ou whitelist specific IP addresses<p>Bucket policies</p>
-		<strong>| P |</strong> S3, Lifecycle policies, migrate from Glacier to Standard-IA<p>Lifecycle policies can't work backwards</p>
-		<strong>| P |</strong> S3, Storage Class, Needs to be instantly retrievable, not likely to be needed soon<p>Standar-IA</p>
+		<div class="card"><p class="key"><strong>| P |</strong><span>S3, Block ou whitelist specific IP addresses</span></p><p class="value">Bucket policies</p></div>
+		<div class="card"><p class="key"><strong>| P |</strong><span>S3, Lifecycle policies, migrate from Glacier to Standard-IA</span></p><p class="value">Lifecycle policies can't work backwards</p></div>
+		<div class="card"><p class="key"><strong>| P |</strong><span>S3, Storage Class, Needs to be instantly retrievable, not likely to be needed soon</span></p><p class="value">Standar-IA</p></div>
 		   
 		   <hr>
-		<strong>| T |</strong> Storage Gateway, Types<p>File Gateway; Volume Gateway; Tape Gateway (VTL)</p>
-		<strong>| T |</strong> Storgae Gateway, File Gateway<p>Low cost; S3 storage; access using NFS or SMB mount point</p>
-		<strong>| T |</strong> Storage Gateway, Volume Gateway, Gateway Stored<p>Store all data locally with AWS storage as backup; access using iSCSI</p>
-		<strong>| T |</strong> Storage Gateway, Volume Gateway, Gateway Cached<p>Store all data in S3 and frequently access data is stored (cached) locally; access using iSCSI</p>
-		<strong>| T |</strong> Storage Gateway, Tape Gateway (VTL)<p>Virtual tape library; low-cost data backup archiving to S3 or Glacier; access using iSCSI</p>
+		<div class="card"><p class="key"><strong>| T |</strong><span>Storage Gateway, Types</span></p><p class="value">File Gateway; Volume Gateway; Tape Gateway (VTL)</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>Storage Gateway, File Gateway</span></p><p class="value">Low cost; S3 storage; access using NFS or SMB mount point</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>Storage Gateway, Volume Gateway, Gateway Stored</span></p><p class="value">Store all data locally with AWS storage as backup; access using iSCSI</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>Storage Gateway, Volume Gateway, Gateway Cached</span></p><p class="value">Store all data in S3 and frequently access data is stored (cached) locally; access using iSCSI</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>Storage Gateway, Tape Gateway (VTL)</span></p><p class="value">Virtual tape library; low-cost data backup archiving to S3 or Glacier; access using iSCSI</p></div>
 		   
 		   <hr>
-		<strong>| T |</strong> SSO, Concept<p>Federated Identity; centrally manage single sign-on for multipe AWS accounts</p>
+		<div class="card"><p class="key"><strong>| T |</strong><span>SSO, Concept</span></p><p class="value">Federated Identity; centrally manage single sign-on for multipe AWS accounts</p></div>
 		   
 		   <hr>
-		<strong>| T |</strong> Control Tower, Service<p>Create, configure and manage multiple accounts</p>
-		<strong>| T |</strong> Control Tower, Landing Zones, Framework<p>Create a multi-account architecture with default configs</p>
-		<strong>| T |</strong> Control Tower, Guardrails<p>Provide environment governance from OU</p>
+		<div class="card"><p class="key"><strong>| T |</strong><span>Control Tower, Service</span></p><p class="value">Create, configure and manage multiple accounts</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>Control Tower, Landing Zones, Framework</span></p><p class="value">Create a multi-account architecture with default configs</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>Control Tower, Guardrails</span></p><p class="value">Provide environment governance from OU</p></div>
 		   
 		   <hr>
-		<strong>| T |</strong> Inspector, Assessment template composition<p>Name; Target Name; Rules Package; Duration; SNS Topics</p>
+		<div class="card"><p class="key"><strong>| T |</strong><span>Inspector, Assessment template composition</span></p><p class="value">Name; Target Name; Rules Package; Duration; SNS Topics</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>Inspector, Use case</span></p><p class="value">Verify wheter EC2 instances are exposed to common vulnerabilities and exposues (CVEs)</p></div>
 		   
 		   <hr>
-		<strong>| T |</strong> Compute Optimizer, Concept<p>Analyzes the configuration and resource utilization of your workload to identify defining characteristics and patterns</p>
+		<div class="card"><p class="key"><strong>| T |</strong><span>Compute Optimizer, Concept</span></p><p class="value">Analyzes the configuration and resource utilization of your workload to identify defining characteristics and patterns</p></div>
 		   
 		   <hr>
-		<strong>| T |</strong> Deployment method, All at once<p>Deploy the new version to all instances simultaneously; quickest with short unavailability</p>
-		<strong>| T |</strong> Deployment method, Rolling<p>Deploy the new version to one batch of instances at a time; reduces unavailability at a cost of a longer deployment time</p>
-		<strong>| T |</strong> Deployment method, Rolling with batch<p>New batches of instances are launched, than performs a rolling deploy; avoid any unavailability at a cost of a even longer deployment time</p>
-		<strong>| T |</strong> Deployment method, Immutable<p>New app version deployed only to new instances; don't updated existing ones; a second autoscaling group is launched</p>
-		<strong>| T |</strong> Deployment method, Blue-Green<p>Having two different environments and managing the traffic to one of them by changing a load balancer</p>
-		<strong>| T |</strong> Deployment method, Canary / Traffic splitting<p>New app version deploy to few new instances; temporarily split incoming client traffic between the existing app version and the new one</p>
+		<div class="card"><p class="key"><strong>| T |</strong><span>Deployment method, All at once</span></p><p class="value">Deploy the new version to all instances simultaneously; quickest with short unavailability</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>Deployment method, Rolling</span></p><p class="value">Deploy the new version to one batch of instances at a time; reduces unavailability at a cost of a longer deployment time</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>Deployment method, Rolling with batch</span></p><p class="value">New batches of instances are launched, than performs a rolling deploy; avoid any unavailability at a cost of a even longer deployment time</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>Deployment method, Immutable</span></p><p class="value">New app version deployed only to new instances; don't updated existing ones; a second autoscaling group is launched</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>Deployment method, Blue-Green</span></p><p class="value">Having two different environments and managing the traffic to one of them by changing a load balancer</p></div>
+		<div class="card"><p class="key"><strong>| T |</strong><span>Deployment method, Canary / Traffic splitting</span></p><p class="value">New app version deploy to few new instances; temporarily split incoming client traffic between the existing app version and the new one</p></div>
 		   
 		   <hr>
-		<strong>| Q |</strong> Storing sensitive credentials that need to be rotaded regularly<p>Secrets Manager</p>
-		<strong>| Q |</strong> Test CloudWatch alarms<p>Use SetAlarmState API call, that will temporarily change the alarm state to ALARM</p>
-		<strong>| Q |</strong> Assemble the compliance, security standards and operational best practices<p>Config rules and remediation actions with Conformance Packs</p>
-		<strong>| Q |</strong> API with management and proxy funcionality<p>REST API</p>
-		<strong>| Q |</strong> API to establish persistent connection between clients and apps<p>WebSocket API</p>
-		<strong>| Q |</strong> How do clients establish connectivity using WebSocket API on CloudFront<p>Client needs to send an HTTP request with upgrade protocol header</p>
-		<strong>| Q |</strong> Ensure the uploaded files to S3 are not currupted<p>Use Content-MD5 as request header</p>
-		<strong>| Q |</strong> Maximum cost reduction when transitioning many small files from S3 to Glacier<p>Aggregate small objects into larger ones</p>
-		<strong>| Q |</strong> Gather details about documents stored in Glacier vaults<p>Use the list-vaults AWS CLI command</p>
-		<strong>| Q |</strong> Use High Availability feature of Storage Gateway<p>Cluster with vSphere HA enabled; shared datastore</p>
-		<strong>| Q |</strong> CloudWatch metric of percentage of data no uploaded to AWS with file gateway<p>CachePercentDirty</p>
-		<strong>| Q |</strong> Frequency of CloudWatch Events notificatins geerated by GuardDuty findings<p>Unique findings ID are whithin 5 minutes; subsequent fidings every 6 hours</p>
-		<strong>| Q |</strong> Assessment template Inspector<p>Name; Target Name; Rules Package; Duration; SNS Topics</p>
+		<div class="card"><p class="key"><strong>| Q |</strong><span>Storing sensitive credentials that need to be rotaded regularly</span></p><p class="value">Secrets Manager</p></div>
+		<div class="card"><p class="key"><strong>| Q |</strong><span>Test CloudWatch alarms</span></p><p class="value">Use SetAlarmState API call, that will temporarily change the alarm state to ALARM</p></div>
+		<div class="card"><p class="key"><strong>| Q |</strong><span>Assemble the compliance, security standards and operational best practices</span></p><p class="value">Config rules and remediation actions with Conformance Packs</p></div>
+		<div class="card"><p class="key"><strong>| Q |</strong><span>API with management and proxy funcionality</span></p><p class="value">REST API</p></div>
+		<div class="card"><p class="key"><strong>| Q |</strong><span>API to establish persistent connection between clients and apps</span></p><p class="value">WebSocket API</p></div>
+		<div class="card"><p class="key"><strong>| Q |</strong><span>How do clients establish connectivity using WebSocket API on CloudFront</span></p><p class="value">Client needs to send an HTTP request with upgrade protocol header</p></div>
+		<div class="card"><p class="key"><strong>| Q |</strong><span>Ensure the uploaded files to S3 are not currupted</span></p><p class="value">Use Content-MD5 as request header</p></div>
+		<div class="card"><p class="key"><strong>| Q |</strong><span>Maximum cost reduction when transitioning many small files from S3 to Glacier</span></p><p class="value">Aggregate small objects into larger ones</p></div>
+		<div class="card"><p class="key"><strong>| Q |</strong><span>Gather details about documents stored in Glacier vaults</span></p><p class="value">Use the list-vaults AWS CLI command</p></div>
+		<div class="card"><p class="key"><strong>| Q |</strong><span>Use High Availability feature of Storage Gateway</span></p><p class="value">Cluster with vSphere HA enabled; shared datastore</p></div>
+		<div class="card"><p class="key"><strong>| Q |</strong><span>CloudWatch metric of percentage of data no uploaded to AWS with file gateway</span></p><p class="value">CachePercentDirty</p></div>
+		<div class="card"><p class="key"><strong>| Q |</strong><span>Frequency of CloudWatch Events notificatins generated by GuardDuty findings</span></p><p class="value">Unique findings ID are whithin 5 minutes; subsequent fidings every 6 hours</p></div>
+		<div class="card"><p class="key"><strong>| Q |</strong><span>How to establish connectivity between on-premises AD with AWS SSO</span></p><p class="value">Configure AD Connector to redirect requests to on-premises AD; Configure AWS Managed Microsoft AD with two-wat trust relationship with on-premises AD</p></div>
+		<div class="card"><p class="key"><strong>| Q |</strong><span>What happens on CMK automatic key rotation</span></p><p class="value">Rotating CMK will change the backing key</p></div>
+		<div class="card"><p class="key"><strong>| Q |</strong><span>Cost-effective encryption solution for large number of S3 objetcs</span></p><p class="value">Configure SSE-KMS using Amazon S3 Bucket Keys</p></div>
+		<div class="card"><p class="key"><strong>| Q |</strong><span>Next step after modifing KMS CMK using Secrets Manager so that the new keys are functional</span></p><p class="value">Update the secret value with "UpdateSecret" (this decrypts de secret with the old CMK and encrypts with the new)</p></div>
+		<div class="card"><p class="key"><strong>| Q |</strong><span>Reduce FSx cost without impacting on performance</span></p><p class="value">Enable Data deduplication</p></div>
+		<div class="card"><p class="key"><strong>| Q |</strong><span>What should be done before enabling Security Hub</span></p><p class="value">Enable resource recording in Config</p></div>
+		<div class="card"><p class="key"><strong>| Q |</strong><span>Service to debug WAF web ACLs through logging</span></p><p class="value">Kineses Firehose</p></div>
+		<div class="card"><p class="key"><strong>| Q |</strong><span>How to divide a CloudFormation templates into several parts and inherit resources</span></p><p class="value">Using Stacks</p></div>
+		<div class="card"><p class="key"><strong>| Q |</strong><span>How to use the same CloudFormation templates and stacks accross multiple accounts and regions</span></p><p class="value">Using StackSets</p></div>
+		<div class="card"><p class="key"><strong>| Q |</strong><span>How to consolidate operations and security issues in a single place and generate reports across all AWS resources</span></p><p class="value">Configure Security Hub findings to Systems Manager OpsCenter to diagnose and resolve all operations and security issues using EventBridge, then use Systems Manager Explorar to view reports consisting of aggregated summary of operations and security</p></div>
+		<div class="card"><p class="key"><strong>| Q |</strong><span>Quick method to restore a single master Aurora MySQL cluster</span></p><p class="value">Restore to a specific time using Backtrack (only for single master)</p></div>
+		<div class="card"><p class="key"><strong>| Q |</strong><span>Best method to configure OpsWorks Stacks User Permissions</span></p><p class="value">Using OpsWorks Stacks Permissions</p></div>
+		<div class="card"><p class="key"><strong>| Q |</strong><span>CloudFront secondary failover origin</span></p><p class="value">Origin Gourps</p></div>
 	</body>
 </html>
