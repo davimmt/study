@@ -18,6 +18,14 @@
 		<div class="card"><div class="left">T</div><div class="right"><p class="key">CloudWatch, EC2, detailed monitoring granularity</p><p class="value">1 minute minimum</p></div></div>
 		<div class="card"><div class="left">T</div><div class="right"><p class="key">CloudWatch, EBS, main metrics</p><p class="value">Volume read/write ops; Volume Queue Length (num. of read/write ops requests waiting)</p></div></div>
 		<div class="card"><div class="left">T</div><div class="right"><p class="key">CloudWatch, LoadBalancer, main metrics</p><p class="value">(Un)HealthyHostCount; RequestCount; TargetResponseTime; HTTP Status Codes</p></div></div>
+		<div class="card"><div class="left">T</div><div class="right"><p class="key">CloudWatch Agent, Configuration file, Agent section</p><p class="value">Configurations like frequency and where to send metric</p></div></div>
+		<div class="card"><div class="left">T</div><div class="right"><p class="key">CloudWatch Agent, Configuration file, Metric section</p><p class="value">Custom metrics to be collected</p></div></div>
+		<div class="card"><div class="left">T</div><div class="right"><p class="key">CloudWatch Agent, Configuration file, Logs</p><p class="value">Log files to be published</p></div></div>
+		<hr>
+		<div class="card"><div class="left">T</div><div class="right"><p class="key">EC2, Instance Types, General purposes, Use case</p><p class="value">Balance of compute, memory and networking (T and M families)</p></div></div>
+		<div class="card"><div class="left">T</div><div class="right"><p class="key">EC2, Instance Types, Compute optimized, Use case</p><p class="value">Batch processing, media transcoding, HPC, gaming servers, ML (C family)</p></div></div>
+		<div class="card"><div class="left">T</div><div class="right"><p class="key">EC2, Instance Types, Memory optimized, Use case</p><p class="value">High-performance databases and in-memory cache storages (R, X and U family)</p></div></div>
+		<div class="card"><div class="left">T</div><div class="right"><p class="key">EC2, Instance Types, Storage optimized, Use case</p><p class="value">High, sequential read write access to very large data sets; massive parallel processing data warehouse, log/data processing apps, large data lakes, high-throughput (D, H and I family)</p></div></div>
 		<hr>
 		<div class="card"><div class="left">T</div><div class="right"><p class="key">Service Health Dashboard</p><p class="value">Up-to-the-minute information on service availability for all AWS services on a per region</p></div></div>
 		<div class="card"><div class="left">T</div><div class="right"><p class="key">AWS Health</p><p class="value">Ongoing visibility into your resource health and the availability of your AWS services</p></div></div>  
@@ -64,8 +72,10 @@
 		<div class="card"><div class="left">T</div><div class="right"><p class="key">Control Tower, Landing Zones, Framework</p><p class="value">Create a multi-account architecture with default configs</p></div></div>
 		<div class="card"><div class="left">T</div><div class="right"><p class="key">Control Tower, Guardrails</p><p class="value">Provide environment governance from OU</p></div></div>   
 		<hr>
+		<div class="card"><div class="left">T</div><div class="right"><p class="key">Inspector, Terminology</p><p class="value">Verify wheter EC2 instances are exposed to common vulnerabilities and exposues (CVEs)</p></div></div>  
 		<div class="card"><div class="left">T</div><div class="right"><p class="key">Inspector, Assessment template composition</p><p class="value">Name; Target Name; Rules Package; Duration; SNS Topics</p></div></div>
-		<div class="card"><div class="left">T</div><div class="right"><p class="key">Inspector, Use case</p><p class="value">Verify wheter EC2 instances are exposed to common vulnerabilities and exposues (CVEs)</p></div></div>  
+		<hr>
+		<div class="card"><div class="left">T</div><div class="right"><p class="key">GuardDuty, Terminology</p><p class="value">Monitors anomalous network behavior (using data from CloudTrail, VPC FLow Logs and DNS Logs)</p></div></div>  
 		<hr>
 		<div class="card"><div class="left">T</div><div class="right"><p class="key">Compute Optimizer, Concept</p><p class="value">Analyzes the configuration and resource utilization of your workload to identify defining characteristics and patterns</p></div></div>  
 		<hr>
@@ -101,5 +111,10 @@
 		<div class="card"><div class="left">Q</div><div class="right"><p class="key">Quick method to restore a single master Aurora MySQL cluster</p><p class="value">Restore to a specific time using Backtrack (only for single master)</p></div></div>
 		<div class="card"><div class="left">Q</div><div class="right"><p class="key">Best method to configure OpsWorks Stacks User Permissions</p><p class="value">Using OpsWorks Stacks Permissions</p></div></div>
 		<div class="card"><div class="left">Q</div><div class="right"><p class="key">CloudFront secondary failover origin</p><p class="value">Origin Gourps</p></div></div>
+		<div class="card"><div class="left">Q</div><div class="right"><p class="key">How to prevent any future changes in a Glacier Vault</p><p class="value">Call the Initiate Vault Lock to attach a vault lock policy to the vault and return a unique Lock ID. Take the ID and call the Complete Vault Lock within 24 hours (or the policy will be removed)</p></div></div>
+		<div class="card"><div class="left">Q</div><div class="right"><p class="key">What are the basic setup to create a task to transfer EFS data to S3 using DataSync</p><p class="value">Both storages need to be in the same account; create a task where the destination storage is</p></div></div>
+		<div class="card"><div class="left">Q</div><div class="right"><p class="key">Check if the number of resources approach the quota limit</p><p class="value">Trusted Advisor</p></div></div>
+		<div class="card"><div class="left">Q</div><div class="right"><p class="key">Check and remediate S3 public buckets to private effectively and cost-efficiently</p><p class="value">Config with Systems Manager runbook</p></div></div>
+		<div class="card"><div class="left">Q</div><div class="right"><p class="key">After adding a new node to a multi-node Memcached cluster, many cache misses are observed</p><p class="value">Use consistent hasing to move cached keys more efficiently</p></div></div>
 	</body>
 </html>
