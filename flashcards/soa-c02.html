@@ -31,7 +31,7 @@
 		<div class="card"><div class="left">T</div><div class="right"><p class="key">AWS Health</p><p class="value">Ongoing visibility into your resource health and the availability of your AWS services</p></div></div>  
 		<hr>
 		<div class="card"><div class="left">T</div><div class="right"><p class="key">EBS, use case, SSD, General purpose</p><p class="value">System boot; Low-latency; Most workloads</p></div></div>
-		<div class="card"><div class="left">T</div><div class="right"><p class="key">EBS, use case, SSD, Provisioned IOPS</p><p class="value">Critical bussiness; OLTP; Latency-sensitive; Sustained IOPS (+10k); Large database workloads</p></div></div>
+		<div class="card"><div class="left">T</div><div class="right"><p class="key">EBS, use case, SSD, Provisioned IOPS</p><p class="value">Critical bussiness; OLTP; Latency-sensitive; Sustained IOPS (+10k); Large database workloads (MongoDB, Cassanda, SQL)</p></div></div>
 		<div class="card"><div class="left">T</div><div class="right"><p class="key">EBS, use case, HDD, Throughput optimized</p><p class="value">Streaming workloads: fast, consistent and low cost throughput; Big data; Data warehouse; Log processing</p></div></div>
 		<div class="card"><div class="left">T</div><div class="right"><p class="key">EBS, use case, HDD, Cold</p><p class="value">Throughput-oriented storage for large volumes with infrequently access data</p></div></div>
 		<div class="card"><div class="left">T</div><div class="right"><p class="key">EBS, IOPS, SSD, General purpose</p><p class="value">Volume-proportional; 3 IOPS per GiB; max of 10k IOPS with 3k3 GiB</p></div></div>
@@ -67,6 +67,9 @@
 		<div class="card"><div class="left">T</div><div class="right"><p class="key">Storage Gateway, Tape Gateway (VTL)</p><p class="value">Virtual tape library; low-cost data backup archiving to S3 or Glacier; access using iSCSI</p></div></div>  
 		<hr>
 		<div class="card"><div class="left">T</div><div class="right"><p class="key">SSO, Concept</p><p class="value">Federated Identity; centrally manage single sign-on for multipe AWS accounts</p></div></div>  
+		<hr>
+		<div class="card"><div class="left">T</div><div class="right"><p class="key">AD Connector, Concept</p><p class="value">Gateway that redirects directory requests to on-premises AD; supports replication with on-premisses AD; doesn't support two-way trust with on-premisses AD</p></div></div>  
+		<div class="card"><div class="left">T</div><div class="right"><p class="key">Simple AD, Concept</p><p class="value">Standalone managed AD with core features; cannot be joined with on-premises AD; doesn't support SSO</p></div></div>  
 		<hr>
 		<div class="card"><div class="left">T</div><div class="right"><p class="key">Control Tower, Service</p><p class="value">Create, configure and manage multiple accounts</p></div></div>
 		<div class="card"><div class="left">T</div><div class="right"><p class="key">Control Tower, Landing Zones, Framework</p><p class="value">Create a multi-account architecture with default configs</p></div></div>
@@ -116,5 +119,15 @@
 		<div class="card"><div class="left">Q</div><div class="right"><p class="key">Check if the number of resources approach the quota limit</p><p class="value">Trusted Advisor</p></div></div>
 		<div class="card"><div class="left">Q</div><div class="right"><p class="key">Check and remediate S3 public buckets to private effectively and cost-efficiently</p><p class="value">Config with Systems Manager runbook</p></div></div>
 		<div class="card"><div class="left">Q</div><div class="right"><p class="key">After adding a new node to a multi-node Memcached cluster, many cache misses are observed</p><p class="value">Use consistent hasing to move cached keys more efficiently</p></div></div>
+		<div class="card"><div class="left">Q</div><div class="right"><p class="key">CloudFormation is returning "Throttling: Rate Exceeded" error, what could prevent this</p><p class="value">Add an exponential backoff between createStack calls</p></div></div>
+		<div class="card"><div class="left">Q</div><div class="right"><p class="key">How to check if security procedures, compliance standards and regulations have been correctly followed by AWS</p><p class="value">Check Artifact documents</p></div></div>
+		<div class="card"><div class="left">Q</div><div class="right"><p class="key">How to change instance type for an Auto Scaling Group</p><p class="value">Create a new launch template and replace it</p></div></div>
+		<div class="card"><div class="left">Q</div><div class="right"><p class="key">How to ensure CloudTrail log files are not changed</p><p class="value">Enable log file integrity</p></div></div>
+		<div class="card"><div class="left">Q</div><div class="right"><p class="key">How to ensure that Glacier uploaded files has the same name from its origin file</p><p class="value">Upload files to S3 and then to Glacier</p></div></div>
+		<div class="card"><div class="left">Q</div><div class="right"><p class="key">How to ensure that all traffic from RDS is encrypted in transit</p><p class="value">Set in the parameter group or use SSL in individuals connections</p></div></div>
+		<div class="card"><div class="left">Q</div><div class="right"><p class="key">What is to be done after setting up VPC peering to enable connectivity</p><p class="value">Both should manually add a route pointing to the CIDR of other VPC</p></div></div>
+		<div class="card"><div class="left">Q</div><div class="right"><p class="key">How to gather records from Glacier vaults across all regions</p><p class="value">Create Lambda to evaluate the vault and assing it to Config custom rule</p></div></div>
+		<div class="card"><div class="left">Q</div><div class="right"><p class="key">Difference between CloudTrail Events and Trail</p><p class="value">Events can be seen in the CloudTrail console; Trails are stored in S3 buckets</p></div></div>
+		<div class="card"><div class="left">Q</div><div class="right"><p class="key">On-premises AD need to be connected to cloud AD with a two-way trust relationship, what service to use</p><p class="value">Managed Microsoft AD</p></div></div>
 	</body>
 </html>
