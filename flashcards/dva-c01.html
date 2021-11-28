@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+body{width:90%;font-size:1.8em;margin:auto;display:block}.card{margin-bottom:2em;border:1px solid black;border-radius:5px;display:flex}.left{float:left;padding:0 10px;margin:auto;height:100%;font-weight:bolder}.right{float:right;padding-left:0 5px;width:100%;border-left:1px solid black}.key{margin:5px 0 0 5px;padding-bottom:12px}.hidden{background:black;}.value{margin:5px 0 0 0;padding:0 5px 4px 5px;border-radius:0 0 5px;border-top:1px solid black}.hidden:hover{background:transparent;color:#303030}hr{margin-bottom:2em;height:5px;background:grey}
+		</style>
+	</head>
+	<body>
+		<h1 style="text-align:center;margin:50px 0">SOA-C02</h1>
+		<div class="card"><div class="left">Q</div><div class="right"><p class="key">DynamoDB, how to prevent exceeding the maximum allowed provisioned throughput for a table</p><p class="value hidden">Distribute operations across more partition keys; enable DAX; increase timeout retry</p></div></div>
+		<div class="card"><div class="left">Q</div><div class="right"><p class="key">How can a Lambda deployed in a private subnet comunicate with AWS KMS</p><p class="value hidden">Through KMS VPC endpoint</p></div></div>
+		<div class="card"><div class="right"><p class="key">Lambda encypt() KMS method can be used in data with maximum <span class="hidden">4kb</span></p></div></div>
+		<div class="card"><div class="right"><p class="key">Kinesis shard has a capability of <span class="hidden">1MB</span> data input and <span class="hidden">1.000</span> PUT records per second</p></div></div>
+		<div class="card"><div class="right"><p class="key">Kineses cannot track <span class="hidden">the successful completion</span> of each item independently</p></div></div>
+		<div class="card"><div class="left">Q</div><div class="right"><p class="key">How to send an email every time someone logged in the AWS console or used AWS CLI using Administrator role</p><p class="value hidden">Create a trail in CloudTrail and send its events to CloudWatch Log Group; create a rule in CoudWatch that triggers an SNS alert if the event contains the ARN of the Administrator role</p></div></div>
