@@ -22,3 +22,7 @@
 - [Protocolos e Serviços de Redes](https://drive.google.com/file/d/1Ijhmx4HAbkE5NQaIXOHsseucASipDhKF/view)
 - [Fundamentos de Redes de Computadores](https://drive.google.com/file/d/1oweTrq5qBR-bD6pDpf1gnpHT9J9rc4ej/view)
 - [A Complete Introduction to Networks](https://drive.google.com/file/d/1RG0C3KwGqMRHJanpLj0rsGaT-m4BuBQX/view)
+
+// funcao nova
+// essa funcao eh d sexo
+// awdoi
