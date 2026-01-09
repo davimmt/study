@@ -1,11 +1,5 @@
 # Introdução à Infraestrutura de Redes
 
-**Documento Técnico**  
-**Data:** Janeiro de 2026  
-**Versão:** 1.0
-
----
-
 ## Sumário
 
 1. [Fundamentos de Hardware e Computação](#1-fundamentos-de-hardware-e-computação)
@@ -313,7 +307,19 @@ A comunicação dentro de uma LAN ocorre principalmente na **Camada 2** (Enlace)
 4. A envia quadro Ethernet diretamente para o MAC de B
 5. Switch encaminha o quadro apenas para a porta onde B está conectado
 
-![YGBgbWVybWFpZApzZXF1ZW5jZURpYWdyYW0KICAgIHBhcnRpY2lwYW50IEEgYXMgUEMgQTxici8+MTkyLjE2OC4xLjEwPGJyLz5NQUM6IEFBOkFBOkFBOkFBOkFBOkFBCiAgICBwYXJ0aWNpcGFudCBTIGFzIFN3aXRjaAogICAgcGFydGljaXBhbnQgQiBhcyBQQyBCPGJyLz4xOTIuMTY4LjEuMjA8YnIvPk1BQzogQkI6QkI6QkI6QkI6QkI6QkIKICAgIAogICAgQS0+PlM6IEFSUCBSZXF1ZXN0OiBRdWVtIHRlbSAxOTIuMTY4LjEuMjA/CiAgICBTLT4+QjogQnJvYWRjYXN0IEFSUCBSZXF1ZXN0CiAgICBCLT4+UzogQVJQIFJlcGx5OiBFdSB0ZW5obyEgTWV1IE1BQyDDqSBCQjpCQjpCQjpCQjpCQjpCQgogICAgUy0+PkE6IEFSUCBSZXBseQogICAgQS0+PlM6IERhZG9zIHBhcmEgTUFDIEJCOkJCOkJCOkJCOkJCOkJCCiAgICBTLT4+QjogRW5jYW1pbmhhIGRhZG9zCmBgYA==](../img/intro-superficial-redes/image1.png)
+```mermaid
+sequenceDiagram
+    participant A as PC A<br/>192.168.1.10<br/>MAC: AA:AA:AA:AA:AA:AA
+    participant S as Switch
+    participant B as PC B<br/>192.168.1.20<br/>MAC: BB:BB:BB:BB:BB:BB
+    
+    A->>S: ARP Request: Quem tem 192.168.1.20?
+    S->>B: Broadcast ARP Request
+    B->>S: ARP Reply: Eu tenho! Meu MAC é BB:BB:BB:BB:BB:BB
+    S->>A: ARP Reply
+    A->>S: Dados para MAC BB:BB:BB:BB:BB:BB
+    S->>B: Encaminha dados
+```
 
 **Componentes Envolvidos:**
 
@@ -332,7 +338,26 @@ Para comunicar **fora da LAN**, é necessário um **roteador** (gateway) que:
 3. Geralmente realiza **NAT** (tradução de endereços)
 4. Encaminha pacotes baseado em endereços IP
 
-![YGBgbWVybWFpZApncmFwaCBMUgogICAgc3ViZ3JhcGggTEFOWyJMQU4gKDE5Mi4xNjguMS4wLzI0KSJdCiAgICAgICAgUEMxW1BDIDE8YnIvPjE5Mi4xNjguMS4xMF0KICAgICAgICBQQzJbUEMgMjxici8+MTkyLjE2OC4xLjExXQogICAgZW5kCiAgICAKICAgIFJbUm90ZWFkb3I8YnIvPkxBTjogMTkyLjE2OC4xLjE8YnIvPldBTjogMjAwLjE1MC4xMDAuNV0KICAgIAogICAgc3ViZ3JhcGggSW50ZXJuZXRbIkludGVybmV0Il0KICAgICAgICBTUlZbU2Vydmlkb3IgV2ViPGJyLz45My4xODQuMjE2LjM0PGJyLz5leGFtcGxlLmNvbV0KICAgIGVuZAogICAgCiAgICBQQzEgLS0+IFIKICAgIFBDMiAtLT4gUgogICAgUiAtLT4gU1JWCiAgICAKICAgIHN0eWxlIFIgZmlsbDojNENBRjUwLHN0cm9rZTojMzg4RTNDLGNvbG9yOiNmZmYKICAgIHN0eWxlIFNSViBmaWxsOiNGRjU3MjIsc3Ryb2tlOiNEODQzMTUsY29sb3I6I2ZmZgpgYGA=](../img/intro-superficial-redes/image2.png)
+```mermaid
+graph LR
+    subgraph LAN["LAN (192.168.1.0/24)"]
+        PC1[PC 1<br/>192.168.1.10]
+        PC2[PC 2<br/>192.168.1.11]
+    end
+    
+    R[Roteador<br/>LAN: 192.168.1.1<br/>WAN: 200.150.100.5]
+    
+    subgraph Internet["Internet"]
+        SRV[Servidor Web<br/>93.184.216.34<br/>example.com]
+    end
+    
+    PC1 --> R
+    PC2 --> R
+    R --> SRV
+    
+    style R fill:#4CAF50,stroke:#388E3C,color:#fff
+    style SRV fill:#FF5722,stroke:#D84315,color:#fff
+```
 
 **Processo:**
 
@@ -361,7 +386,30 @@ A **Internet** é uma rede global de computadores interconectados que utilizam p
 - **APIs de programação** para desenvolvedores (sockets)
 - **Protocolos padronizados** (HTTP, SMTP, FTP, etc.)
 
-![YGBgbWVybWFpZApncmFwaCBUQgogICAgc3ViZ3JhcGggSW50ZXJuZXRbIkludGVybmV0Il0KICAgICAgICBJU1AxW0lTUCBUaWVyIDFdCiAgICAgICAgSVNQMltJU1AgVGllciAyXQogICAgICAgIElTUDNbSVNQIFRpZXIgM10KICAgICAgICBJWFBbSVhQIC0gSW50ZXJuZXQgRXhjaGFuZ2UgUG9pbnRdCiAgICBlbmQKICAgIAogICAgc3ViZ3JhcGggUmVkZXNbIlJlZGVzIExvY2FpcyJdCiAgICAgICAgTEFOMVtMQU4gRW1wcmVzYSBBXQogICAgICAgIExBTjJbTEFOIFJlc2lkw6puY2lhXQogICAgICAgIExBTjNbTEFOIFVuaXZlcnNpZGFkZV0KICAgIGVuZAogICAgCiAgICBJU1AxIDwtLT4gSVhQCiAgICBJU1AxIDwtLT4gSVNQMgogICAgSVNQMiA8LS0+IElTUDMKICAgIElTUDMgLS0+IExBTjEKICAgIElTUDMgLS0+IExBTjIKICAgIElTUDMgLS0+IExBTjMKICAgIAogICAgc3R5bGUgSVhQIGZpbGw6IzlDMjdCMCxzdHJva2U6IzdCMUZBMixjb2xvcjojZmZmCmBgYA==](../img/intro-superficial-redes/image3.png)
+```mermaid
+graph TB
+    subgraph Internet["Internet"]
+        ISP1[ISP Tier 1]
+        ISP2[ISP Tier 2]
+        ISP3[ISP Tier 3]
+        IXP[IXP - Internet Exchange Point]
+    end
+    
+    subgraph Redes["Redes Locais"]
+        LAN1[LAN Empresa A]
+        LAN2[LAN Residência]
+        LAN3[LAN Universidade]
+    end
+    
+    ISP1 <--> IXP
+    ISP1 <--> ISP2
+    ISP2 <--> ISP3
+    ISP3 --> LAN1
+    ISP3 --> LAN2
+    ISP3 --> LAN3
+    
+    style IXP fill:#9C27B0,stroke:#7B1FA2,color:#fff
+```
 
 **Características:**
 
@@ -408,9 +456,23 @@ Resolver nomes como `www.google.com` em endereços IP como `142.250.190.46`.
 
 #### Processo de Resolução DNS
 
-![](https://www.google.com/url?sa=t&source=web&rct=j&url=https%3A%2F%2Fwww.gta.ufrj.br%2Fensino%2Feel878%2Fredes1-2019-1%2Fvf%2Fdns%2Fintroduction.html&ved=0CBYQjRxqGAoTCNi7jPzF_5EDFQAAAAAdAAAAABCLAQ&opi=89978449)
-
-![YGBgbWVybWFpZApzZXF1ZW5jZURpYWdyYW0KICAgIHBhcnRpY2lwYW50IEMgYXMgQ2xpZW50ZQogICAgcGFydGljaXBhbnQgUiBhcyBSZXNvbHZlZG9yIExvY2FsCiAgICBwYXJ0aWNpcGFudCBSb290IGFzIFNlcnZpZG9yIFJvb3QKICAgIHBhcnRpY2lwYW50IFRMRCBhcyBTZXJ2aWRvciBUTEQgKC5jb20pCiAgICBwYXJ0aWNpcGFudCBBdXRoIGFzIFNlcnZpZG9yIEF1dG9yaXRhdGl2bzxici8+KGdvb2dsZS5jb20pCiAgICAKICAgIEMtPj5SOiBRdWFsIG8gSVAgZGUgd3d3Lmdvb2dsZS5jb20/CiAgICBSLT4+Um9vdDogT25kZSBlbmNvbnRybyAuY29tPwogICAgUm9vdC0+PlI6IFBlcmd1bnRlIGFvIHNlcnZpZG9yIFRMRCAuY29tCiAgICBSLT4+VExEOiBPbmRlIGVuY29udHJvIGdvb2dsZS5jb20/CiAgICBUTEQtPj5SOiBQZXJndW50ZSBhbyBzZXJ2aWRvciBhdXRvcml0YXRpdm8KICAgIFItPj5BdXRoOiBRdWFsIG8gSVAgZGUgd3d3Lmdvb2dsZS5jb20/CiAgICBBdXRoLT4+Ujogw4kgMTQyLjI1MC4xOTAuNDYKICAgIFItPj5DOiBPIElQIMOpIDE0Mi4yNTAuMTkwLjQ2CmBgYA==](../img/intro-superficial-redes/image4.png)
+```mermaid
+sequenceDiagram
+    participant C as Cliente
+    participant R as Resolvedor Local
+    participant Root as Servidor Root
+    participant TLD as Servidor TLD (.com)
+    participant Auth as Servidor Autoritativo<br/>(google.com)
+    
+    C->>R: Qual o IP de www.google.com?
+    R->>Root: Onde encontro .com?
+    Root->>R: Pergunte ao servidor TLD .com
+    R->>TLD: Onde encontro google.com?
+    TLD->>R: Pergunte ao servidor autoritativo
+    R->>Auth: Qual o IP de www.google.com?
+    Auth->>R: É 142.250.190.46
+    R->>C: O IP é 142.250.190.46
+```
 
 #### Tipos de Registros DNS
 
@@ -439,7 +501,26 @@ Resolver nomes como `www.google.com` em endereços IP como `142.250.190.46`.
 
 #### Como Funciona
 
-![YGBgbWVybWFpZApzZXF1ZW5jZURpYWdyYW0KICAgIHBhcnRpY2lwYW50IFBDIGFzIFBDIEludGVybm88YnIvPjE5Mi4xNjguMS4xMDo1MDAwCiAgICBwYXJ0aWNpcGFudCBOQVQgYXMgUm90ZWFkb3IgTkFUPGJyLz5MQU46IDE5Mi4xNjguMS4xPGJyLz5XQU46IDIwMC4xNTAuMTAwLjUKICAgIHBhcnRpY2lwYW50IFdFQiBhcyBTZXJ2aWRvciBXZWI8YnIvPjkzLjE4NC4yMTYuMzQ6ODAKICAgIAogICAgTm90ZSBvdmVyIFBDLE5BVDogMS4gUmVxdWlzacOnw6NvIFNhaW5kbwogICAgUEMtPj5OQVQ6IFNSQzogMTkyLjE2OC4xLjEwOjUwMDA8YnIvPkRTVDogOTMuMTg0LjIxNi4zNDo4MAogICAgCiAgICBOb3RlIG92ZXIgTkFUOiAyLiBUcmFkdcOnw6NvIE5BVDxici8+UmVnaXN0cmEgbWFwZWFtZW50bwogICAgCiAgICBOQVQtPj5XRUI6IFNSQzogMjAwLjE1MC4xMDAuNToxMDAwMDxici8+RFNUOiA5My4xODQuMjE2LjM0OjgwCiAgICAKICAgIE5vdGUgb3ZlciBOQVQsV0VCOiAzLiBSZXNwb3N0YSBSZXRvcm5hbmRvCiAgICBXRUItPj5OQVQ6IFNSQzogOTMuMTg0LjIxNi4zNDo4MDxici8+RFNUOiAyMDAuMTUwLjEwMC41OjEwMDAwCiAgICAKICAgIE5vdGUgb3ZlciBOQVQ6IDQuIFRyYWR1w6fDo28gUmV2ZXJzYTxici8+Q29uc3VsdGEgbWFwZWFtZW50bwogICAgCiAgICBOQVQtPj5QQzogU1JDOiA5My4xODQuMjE2LjM0OjgwPGJyLz5EU1Q6IDE5Mi4xNjguMS4xMDo1MDAwCmBgYA==](../img/intro-superficial-redes/image5.png)
+```mermaid
+sequenceDiagram
+    participant PC as PC Interno<br/>192.168.1.10:5000
+    participant NAT as Roteador NAT<br/>LAN: 192.168.1.1<br/>WAN: 200.150.100.5
+    participant WEB as Servidor Web<br/>93.184.216.34:80
+    
+    Note over PC,NAT: 1. Requisição Saindo
+    PC->>NAT: SRC: 192.168.1.10:5000<br/>DST: 93.184.216.34:80
+    
+    Note over NAT: 2. Tradução NAT<br/>Registra mapeamento
+    
+    NAT->>WEB: SRC: 200.150.100.5:10000<br/>DST: 93.184.216.34:80
+    
+    Note over NAT,WEB: 3. Resposta Retornando
+    WEB->>NAT: SRC: 93.184.216.34:80<br/>DST: 200.150.100.5:10000
+    
+    Note over NAT: 4. Tradução Reversa<br/>Consulta mapeamento
+    
+    NAT->>PC: SRC: 93.184.216.34:80<br/>DST: 192.168.1.10:5000
+```
 
 #### Tabela de Tradução NAT
 
@@ -474,7 +555,26 @@ Um **roteador** é um dispositivo de rede que opera na **Camada 3** (Rede) e é 
 3. **Interconexão**: Conectar redes diferentes
 4. **Tradução**: NAT, conversão de protocolos
 
-![Z3JhcGggVEQKICAgIHN1YmdyYXBoIFJlZGVfQVsiUmVkZSBBOiAxOTIuMTY4LjEuMC8yNCJdCiAgICAgICAgUENfQVtQQyBBPGJyLz4xOTIuMTY4LjEuMTBdCiAgICBlbmQKICAgIAogICAgc3ViZ3JhcGggUm90ZWFkb3JbIlJvdGVhZG9yIl0KICAgICAgICBJRl9BW0ludGVyZmFjZSBBPGJyLz4xOTIuMTY4LjEuMV0KICAgICAgICBJRl9CW0ludGVyZmFjZSBCPGJyLz4xMC4wLjAuMV0KICAgICAgICBJRl9XQU5bSW50ZXJmYWNlIFdBTjxici8+MjAwLjE1MC4xMDAuNV0KICAgIGVuZAogICAgCiAgICBzdWJncmFwaCBSZWRlX0JbIlJlZGUgQjogMTAuMC4wLjAvMjQiXQogICAgICAgIFBDX0JbUEMgQjxici8+MTAuMC4wLjEwXQogICAgZW5kCiAgICAKICAgIElbSW50ZXJuZXRdCiAgICAKICAgIFBDX0EgPC0tPiBJRl9BCiAgICBJRl9CIDwtLT4gUENfQgogICAgSUZfV0FOIDwtLT4gSQogICAgCiAgICBzdHlsZSBSb3RlYWRvciBmaWxsOiM0Q0FGNTAsc3Ryb2tlOiMzODhFM0MsY29sb3I6I2ZmZg==](../img/intro-superficial-redes/image6.png)
+```mermaid
+graph TD
+    subgraph Rede_A["Rede A: 192.168.1.0/24"]
+        PC_A[PC A<br/>192.168.1.10]
+    end
+    
+    R[Roteador<br/>Interface A: 192.168.1.1<br/>Interface B: 10.0.0.1<br/>Interface WAN: 200.150.100.5]
+    
+    subgraph Rede_B["Rede B: 10.0.0.0/24"]
+        PC_B[PC B<br/>10.0.0.10]
+    end
+    
+    I[Internet]
+    
+    PC_A <--> R
+    R <--> PC_B
+    R <--> I
+    
+    style R fill:#4CAF50,stroke:#388E3C,color:#fff
+```
 
 #### Tabela de Roteamento
 
@@ -551,7 +651,23 @@ O administrador configura manualmente:
 
 O **DHCP** (Dynamic Host Configuration Protocol) atribui automaticamente configurações de rede.
 
-![c2VxdWVuY2VEaWFncmFtCiAgICBwYXJ0aWNpcGFudCBDIGFzIENsaWVudGUKICAgIHBhcnRpY2lwYW50IFMgYXMgU2Vydmlkb3IgREhDUAogICAgCiAgICBOb3RlIG92ZXIgQzogMS4gREhDUCBEaXNjb3ZlcgogICAgQy0+PlM6IEJyb2FkY2FzdDogUHJlY2lzbyBkZSB1bSBJUCEKICAgIAogICAgTm90ZSBvdmVyIFM6IDIuIERIQ1AgT2ZmZXIKICAgIFMtPj5DOiBPZmVyZcOnbyAxOTIuMTY4LjEuMTAwCiAgICAKICAgIE5vdGUgb3ZlciBDOiAzLiBESENQIFJlcXVlc3QKICAgIEMtPj5TOiBBY2VpdG8gMTkyLjE2OC4xLjEwMAogICAgCiAgICBOb3RlIG92ZXIgUzogNC4gREhDUCBBY2tub3dsZWRnZQogICAgUy0+PkM6IENvbmZpcm1hZG8hIExlYXNlIHBvciBwb3IgdGVtcG8gZGV0ZXJtaW5hZG88YnIvPkdhdGV3YXk6IDE5Mi4xNjguMS4xPGJyLz5ETlM6IDguOC44Ljg=](../img/intro-superficial-redes/image7.png)
+```mermaid
+sequenceDiagram
+    participant C as Cliente
+    participant S as Servidor DHCP
+    
+    Note over C: 1. DHCP Discover
+    C->>S: Broadcast: Preciso de um IP!
+    
+    Note over S: 2. DHCP Offer
+    S->>C: Ofereço 192.168.1.100
+    
+    Note over C: 3. DHCP Request
+    C->>S: Aceito 192.168.1.100
+    
+    Note over S: 4. DHCP Acknowledge
+    S->>C: Confirmado! Lease por tempo determinado<br/>Gateway: 192.168.1.1<br/>DNS: 8.8.8.8
+```
 
 #### Processo DHCP (DORA)
 
@@ -679,7 +795,18 @@ IP e MAC são endereços complementares que operam em camadas diferentes do mode
 
 #### Relação e Cooperação
 
-![Z3JhcGggVEQKICAgIEFbQXBsaWNhw6fDo28gcXVlciBlbnZpYXIgZGFkb3M8YnIvPnBhcmEgSVAgMTkyLjE2OC4xLjIwXSAtLT4gQntEZXN0aW5vIG5hPGJyLz5tZXNtYSByZWRlP30KICAgIEIgLS0+fFNpbXwgQ1tQcmVjaXNhIGRvIE1BQyBkbyBkZXN0aW5vXQogICAgQiAtLT58TsOjb3wgRFtQcmVjaXNhIGRvIE1BQyBkbyBnYXRld2F5XQogICAgQyAtLT4gRVtDb25zdWx0YSBBUlA6PGJyLz5RdWFsIE1BQyB0ZW0gMTkyLjE2OC4xLjIwP10KICAgIEQgLS0+IEZbQ29uc3VsdGEgQVJQOjxici8+UXVhbCBNQUMgdGVtIDE5Mi4xNjguMS4xP10KICAgIEUgLS0+IEdbUmVjZWJlIHJlc3Bvc3RhOjxici8+QkI6QkI6QkI6QkI6QkI6QkJdCiAgICBGIC0tPiBIW1JlY2ViZSByZXNwb3N0YTo8YnIvPkdHOkdHOkdHOkdHOkdHOkdHXQogICAgRyAtLT4gSVtFbnZpYSBxdWFkcm8gRXRoZXJuZXQ8YnIvPnBhcmEgTUFDIEJCOkJCOkJCOkJCOkJCOkJCXQogICAgSCAtLT4gSltFbnZpYSBxdWFkcm8gRXRoZXJuZXQ8YnIvPnBhcmEgTUFDIEdHOkdHOkdHOkdHOkdHOkdHXQ==](../img/intro-superficial-redes/8.png)
+```mermaid
+graph TD
+    A[Aplicação quer enviar dados<br/>para IP 192.168.1.20] --> B{Destino na<br/>mesma rede?}
+    B -->|Sim| C[Precisa do MAC do destino]
+    B -->|Não| D[Precisa do MAC do gateway]
+    C --> E[Consulta ARP:<br/>Qual MAC tem 192.168.1.20?]
+    D --> F[Consulta ARP:<br/>Qual MAC tem 192.168.1.1?]
+    E --> G[Recebe resposta:<br/>BB:BB:BB:BB:BB:BB]
+    F --> H[Recebe resposta:<br/>GG:GG:GG:GG:GG:GG]
+    G --> I[Envia quadro Ethernet<br/>para MAC BB:BB:BB:BB:BB:BB]
+    H --> J[Envia quadro Ethernet<br/>para MAC GG:GG:GG:GG:GG:GG]
+```
 
 #### Protocolo ARP
 
@@ -724,7 +851,31 @@ Quando dois computadores estão na **mesma rede local**, a comunicação é dire
 
 #### Fluxo Passo a Passo
 
-![c2VxdWVuY2VEaWFncmFtCiAgICBwYXJ0aWNpcGFudCBBIGFzIFBDIEE8YnIvPjE5Mi4xNjguMS4xMDxici8+TUFDOiBBQTpBQTpBQTpBQTpBQTpBQQogICAgcGFydGljaXBhbnQgUyBhcyBTd2l0Y2gKICAgIHBhcnRpY2lwYW50IEIgYXMgUEMgQjxici8+MTkyLjE2OC4xLjIwPGJyLz5NQUM6IEJCOkJCOkJCOkJCOkJCOkJCCiAgICAKICAgIE5vdGUgb3ZlciBBOiAxLiBBcGxpY2HDp8OjbyBxdWVyIGVudmlhcjxici8+ZGFkb3MgcGFyYSAxOTIuMTY4LjEuMjAKICAgIAogICAgTm90ZSBvdmVyIEE6IDIuIFZlcmlmaWNhOiBtZXNtYSByZWRlPzxici8+MTkyLjE2OC4xLjEwICYgMjU1LjI1NS4yNTUuMDxici8+PSAxOTIuMTY4LjEuMDxici8+MTkyLjE2OC4xLjIwICYgMjU1LjI1NS4yNTUuMDxici8+PSAxOTIuMTY4LjEuMDxici8+4pyTIE1lc21hIHJlZGUhCiAgICAKICAgIEEtPj5TOiAzLiBBUlAgUmVxdWVzdCAoYnJvYWRjYXN0KTo8YnIvPlF1ZW0gdGVtIDE5Mi4xNjguMS4yMD8KICAgIFMtPj5COiBBUlAgUmVxdWVzdCAoYnJvYWRjYXN0KQogICAgQi0+PlM6IDQuIEFSUCBSZXBseTogU291IGV1ITxici8+TUFDOiBCQjpCQjpCQjpCQjpCQjpCQgogICAgUy0+PkE6IEFSUCBSZXBseQogICAgCiAgICBOb3RlIG92ZXIgQTogNS4gQXJtYXplbmEgZW0gY2FjaGUgQVJQCiAgICAKICAgIEEtPj5TOiA2LiBRdWFkcm8gRXRoZXJuZXQ6PGJyLz5TUkNfTUFDOiBBQTpBQTpBQTpBQTpBQTpBQTxici8+RFNUX01BQzogQkI6QkI6QkI6QkI6QkI6QkI8YnIvPlBheWxvYWQ6IFBhY290ZSBJUAogICAgCiAgICBOb3RlIG92ZXIgUzogNy4gU3dpdGNoIGNvbnN1bHRhIHRhYmVsYSBNQUM8YnIvPmUgZW5jYW1pbmhhIGFwZW5hcyBwYXJhIHBvcnRhIGRlIEIKICAgIAogICAgUy0+PkI6IFF1YWRybyBFdGhlcm5ldAogICAgCiAgICBOb3RlIG92ZXIgQjogOC4gSW50ZXJmYWNlIGRlIEIgcmVjZWJlLDxici8+dmVyaWZpY2EgTUFDLCBwcm9jZXNzYSBwYWNvdGU=](../img/intro-superficial-redes/9.png)
+```mermaid
+sequenceDiagram
+    participant A as PC A<br/>192.168.1.10<br/>MAC: AA:AA:AA:AA:AA:AA
+    participant S as Switch
+    participant B as PC B<br/>192.168.1.20<br/>MAC: BB:BB:BB:BB:BB:BB
+    
+    Note over A: 1. Aplicação quer enviar<br/>dados para 192.168.1.20
+    
+    Note over A: 2. Verifica: mesma rede?<br/>192.168.1.10 & 255.255.255.0<br/>= 192.168.1.0<br/>192.168.1.20 & 255.255.255.0<br/>= 192.168.1.0<br/>✓ Mesma rede!
+    
+    A->>S: 3. ARP Request (broadcast):<br/>Quem tem 192.168.1.20?
+    S->>B: ARP Request (broadcast)
+    B->>S: 4. ARP Reply: Sou eu!<br/>MAC: BB:BB:BB:BB:BB:BB
+    S->>A: ARP Reply
+    
+    Note over A: 5. Armazena em cache ARP
+    
+    A->>S: 6. Quadro Ethernet:<br/>SRC_MAC: AA:AA:AA:AA:AA:AA<br/>DST_MAC: BB:BB:BB:BB:BB:BB<br/>Payload: Pacote IP
+    
+    Note over S: 7. Switch consulta tabela MAC<br/>e encaminha apenas para porta de B
+    
+    S->>B: Quadro Ethernet
+    
+    Note over B: 8. Interface de B recebe,<br/>verifica MAC, processa pacote
+```
 
 #### Camadas Envolvidas
 
@@ -980,10 +1131,3 @@ nslookup google.com
 # Porta e conexões
 netstat -an
 ```
-
----
-
-**Fim do Documento**
-
-*Este documento foi elaborado como material educativo para introdução à infraestrutura de redes de computadores. Para aprofundamento, consulte as referências citadas.*
-
