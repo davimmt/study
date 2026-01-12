@@ -476,7 +476,6 @@ Pense no **DNS como uma agenda telefônica gigante da Internet**:
 
 #### Hierarquia DNS
 
-```
 ```mermaid
 graph TD
     Root[". (root)"]
@@ -488,7 +487,6 @@ graph TD
     .org --> wikipedia
     .net --> cloudflare
     google --> www
-```
 ```
 
 #### Processo de Resolução DNS
