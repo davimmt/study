@@ -55,9 +55,9 @@
 
 Do ponto de vista de **hardware**, um computador é um sistema eletrônico composto por componentes físicos interconectados que trabalham em conjunto para processar dados. Os principais componentes incluem:
 
-- **CPU (Central Processing Unit)**: unidade de processamento central
-- **Memória RAM**: armazenamento temporário de dados
-- **Armazenamento**: discos rígidos ou SSDs para persistência
+- **CPU (Central Processing Unit)**: cérebro do computador, executa instruções e coordena todas as operações do sistema.
+- **Memória RAM (Random Access Memory)**: espaço de armazenamento volátil e ultrarrápido usado para guardar temporariamente dados e programas em uso, acelerando o processamento
+- **Armazenamento**: discos rígidos (HDs) ou unidades de estado sólido (SSDs) onde os dados e programas são gravados de forma persistente, mesmo quando o computador está desligado
 - **Placa-mãe**: interconecta todos os componentes
 - **Interface de Rede**: permite comunicação com outros dispositivos
 - **Dispositivos de Entrada/Saída**: teclado, mouse, monitor, etc.
@@ -103,7 +103,7 @@ Computadores se comunicam através de **sinais elétricos, ópticos ou ondas de 
 
 ### 2.1 Interface de Rede
 
-A **interface de rede** (Network Interface) é o componente de hardware e software que permite a um computador conectar-se a uma rede. Ela é responsável por:
+A **interface de rede** é o componente de hardware e software que permite a um computador conectar-se a uma rede. Ela é responsável por:
 
 - Converter dados digitais em sinais transmissíveis
 - Receber e decodificar sinais da rede
@@ -240,7 +240,7 @@ Total de Hosts:      254 endereços utilizáveis
 
 #### Endereços IP Privados
 
-São reservados para uso em redes internas e **não são roteáveis** na Internet. Definidos pela RFC 1918:
+São reservados para uso em redes internas e **não são roteáveis** (ideal e convencionalmente) na Internet:
 
 | Classe | Faixa de Endereços | Máscara Padrão | Notação CIDR |
 |--------|-------------------|----------------|--------------|
@@ -294,16 +294,6 @@ Pense em uma **LAN como um condomínio fechado**:
 - **Para falar com alguém fora**, precisa passar pela portaria/entrada (roteador/gateway)
 - **Todos compartilham a mesma infraestrutura** (cabos, switches, Wi-Fi)
 - **Endereços internos** funcionam apenas dentro do condomínio (IPs privados)
-
-**Características:**
-
-| Característica | Descrição |
-|---------------|-----------|
-| Alcance | Até alguns quilômetros |
-| Velocidade | Alta (100 Mbps - 10 Gbps+) |
-| Propriedade | Privada (uma organização) |
-| Topologia | Estrela, barramento, anel |
-| Tecnologia comum | Ethernet, Wi-Fi |
 
 ![](https://linuxtiwary.com/wp-content/uploads/2020/08/lab1.png)
 
@@ -529,7 +519,11 @@ sequenceDiagram
 
 ### 4.2 NAT - Network Address Translation
 
-**NAT** (Network Address Translation) é uma técnica que permite múltiplos dispositivos em uma rede privada compartilharem um único endereço IP público/privado (capaz de accesar a rede alvo).
+**NAT** (Network Address Translation) é uma técnica que altera os endereços IP dos pacotes quando eles passam de uma rede para outra, permitindo a comunicação entre redes diferentes.
+
+**Exemplos clássicos de uso do NAT:**
+- Compartilhar um único IP público entre vários dispositivos de uma rede doméstica.
+- Permitir que diversos servidores internos acessem a internet usando um único endereço externo.
 
 #### Analogia: NAT como Recepcionista de Empresa
 
@@ -571,25 +565,9 @@ sequenceDiagram
     NAT->>PC: SRC: 93.184.216.34:80<br/>DST: 192.168.1.10:5000
 ```
 
-#### Tabela de Tradução NAT
-
-| IP Privado:Porta | IP Público:Porta | Estado |
-|------------------|------------------|--------|
-| 192.168.1.10:5000 | 200.150.100.5:10000 | ESTABELECIDA |
-| 192.168.1.11:5001 | 200.150.100.5:10001 | ESTABELECIDA |
-| 192.168.1.10:5002 | 200.150.100.5:10002 | ESTABELECIDA |
-
-#### Tipos de NAT
-
-1. **NAT Estático**: Mapeamento 1:1 permanente
-2. **NAT Dinâmico**: Mapeamento de pool de IPs públicos
-3. **PAT (Port Address Translation)**: Também chamado NAT Overload - usa portas diferentes
-
 **Limitações:**
 
-- Dificulta conexões iniciadas de fora (servidores internos)
-- Quebra princípio end-to-end da Internet
-- Pode causar problemas com alguns protocolos (FTP, SIP)
+O NAT funciona como uma barreira extra: ele [por padrão] impede que dispositivos externos iniciem conexões diretas com os computadores internos da rede. Por isso, alguns protocolos que dependem de conexões diretas, como FTP e SIP, podem não funcionar corretamente por causa dessas restrições.
 
 **Fonte:** Srisuresh, P., & Egevang, K. (2001). *RFC 3022 - Traditional IP Network Address Translator*. IETF.
 
@@ -747,6 +725,15 @@ O administrador configura manualmente:
 
 O **DHCP** (Dynamic Host Configuration Protocol) atribui automaticamente configurações de rede.
 
+#### Processo DHCP (DORA)
+
+| Etapa | Nome | Descrição |
+|-------|------|-----------|
+| 1 | **D**iscover | Cliente busca servidor DHCP (broadcast) |
+| 2 | **O**ffer | Servidor oferece configuração |
+| 3 | **R**equest | Cliente solicita formalmente o IP ofertado |
+| 4 | **A**cknowledge | Servidor confirma a atribuição (request aceita) |
+
 #### Analogia: DHCP como Recepção de Hotel
 
 Pense no **DHCP como a recepção de um hotel**:
@@ -775,15 +762,6 @@ sequenceDiagram
     Note over S: 4. DHCP Acknowledge
     S->>C: Confirmado! Lease por tempo determinado<br/>Gateway: 192.168.1.1<br/>DNS: 8.8.8.8
 ```
-
-#### Processo DHCP (DORA)
-
-| Etapa | Nome | Descrição |
-|-------|------|-----------|
-| 1 | **D**iscover | Cliente busca servidor DHCP (broadcast) |
-| 2 | **O**ffer | Servidor oferece configuração |
-| 3 | **R**equest | Cliente aceita oferta |
-| 4 | **A**cknowledge | Servidor confirma atribuição |
 
 #### Informações Fornecidas pelo DHCP
 
@@ -1064,6 +1042,7 @@ O modelo de referência existe para **organizar e padronizar** como a comunicaç
 #### Mapeamento entre Modelos
 
 ![](https://www.researchgate.net/publication/327483011/figure/fig2/AS:11431281398641971@1745530538265/The-logical-mapping-between-OSI-basic-reference-model-and-the-TCP-IP-stack.tif)
+![](https://miro.medium.com/v2/resize:fit:720/format:webp/1*DYArjQ8KxrduUqKSMhlB0g.png)
 
 #### Tabela Comparativa
 
