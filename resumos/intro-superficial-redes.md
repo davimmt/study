@@ -35,9 +35,14 @@
    - 5.5 [Fluxo de Comunicação na Mesma Rede](#55-fluxo-de-comunicação-na-mesma-rede)
    - 5.6 [Fluxo de Comunicação entre Redes Diferentes](#56-fluxo-de-comunicação-entre-redes-diferentes)
 
-6. [Referências](#6-referências)
+6. [Modelos de Referência de Redes](#6-modelos-de-referência-de-redes)
+   - 6.1 [Comparação: Modelo OSI vs TCP/IP](#61-comparação-modelo-osi-vs-tcpip)
+   - 6.2 [As Camadas e Suas Funções](#62-as-camadas-e-suas-funções)
+   - 6.3 [Encapsulamento de Dados](#63-encapsulamento-de-dados)
 
-7. [Apêndices](#apêndices)
+7. [Referências](#7-referências)
+
+8. [Apêndices](#apêndices)
    - A. [Resumo das Analogias](#apêndice-a-resumo-das-analogias)
    - B. [Glossário](#apêndice-b-glossário)
    - C. [Comandos Úteis](#apêndice-c-comandos-úteis)
@@ -1036,7 +1041,112 @@ Cada pacote IP tem um contador **TTL** que:
 
 ---
 
-## 6. Referências
+## 6. Modelos de Referência de Redes
+
+Para organizar a comunicação em redes, foram criados **modelos em camadas** que dividem o processo de rede em etapas hierárquicas. Os dois modelos principais são **OSI** (7 camadas) e **TCP/IP** (4 camadas).
+
+O modelo de referência existe para **organizar e padronizar** como a comunicação ocorre entre sistemas, dividindo o processo em camadas com funções específicas. Facilita a interoperabilidade, análise de problemas e desenvolvimento de redes e protocolos, garantindo que cada etapa (camada) tenha uma responsabilidade clara.
+
+### 6.1 Comparação: Modelo OSI vs TCP/IP
+
+#### Analogia Geral
+
+**Modelo OSI** = detalhado
+- 7 camadas bem separadas
+- Criado pela ISO em 1984
+- Usado para estudo e documentação
+
+**Modelo TCP/IP** = simplificado
+- 4 camadas combinadas
+- Criado pelo DoD nos anos 1970
+- Usado na Internet real
+
+#### Mapeamento entre Modelos
+
+![](https://www.researchgate.net/publication/327483011/figure/fig2/AS:11431281398641971@1745530538265/The-logical-mapping-between-OSI-basic-reference-model-and-the-TCP-IP-stack.tif)
+
+#### Tabela Comparativa
+
+| Aspecto | Modelo OSI | Modelo TCP/IP |
+|---------|-----------|---------------|
+| Camadas | 7 camadas separadas | 4 camadas combinadas |
+| Desenvolvimento | ISO (1984) | DARPA/DoD (anos 1970) |
+| Uso | Ensino e documentação | Internet real |
+| Exemplo de uso | "Problema na camada 2" (troubleshooting) | Configurar IP, TCP, HTTP |
+
+### 6.2 As Camadas e Suas Funções
+
+| OSI | TCP/IP | Nome | Função | Protocolos | Analogia |
+|-----|--------|------|--------|-----------|----------|
+| 7,6,5 | 4 | **Aplicação** | Interface com usuário, formatação | HTTP, DNS, FTP | Atendente da loja |
+| 4 | 3 | **Transporte** | Entrega confiável, controle de fluxo | TCP, UDP | Gerente de expedição |
+| 3 | 2 | **Rede/Internet** | Roteamento entre redes | IP, ICMP, ARP | GPS/Planejador de rotas |
+| 2 | 1 | **Enlace** | Comunicação local, endereço MAC | Ethernet, Wi-Fi | Motorista local |
+| 1 | 1 | **Física** | Transmissão de bits | Cabos, sinais | Estrada física |
+
+### 6.3 Encapsulamento de Dados
+
+**Encapsulamento** é o processo onde cada camada adiciona seu próprio cabeçalho aos dados.
+
+**Analogia**: Como empacotar um presente para envio pelos Correios - cada etapa adiciona uma camada de embalagem.
+
+#### Unidades de Dados por Camada
+
+| Camada | Nome da Unidade | O que adiciona |
+|--------|-----------------|----------------|
+| Aplicação | **Dados** | Conteúdo (HTTP, email, etc) |
+| Transporte | **Segmento** (TCP) / **Datagrama** (UDP) | Portas origem/destino |
+| Internet/Rede | **Pacote** | IPs origem/destino, TTL |
+| Enlace | **Quadro** (Frame) | MACs origem/destino, CRC |
+| Física | **Bits** | Sinais elétricos/ópticos |
+
+#### Processo de Encapsulamento
+
+**Processo de ENVIO (encapsulamento):**
+
+| Ordem | Camada                | Cabeçalho Adicionado           | Exemplo após encapsulamento            |
+|-------|-----------------------|--------------------------------|----------------------------------------|
+| 1     | Aplicação             | Nenhum (só os dados)           | `Dados`                                |
+| 2     | Transporte (TCP/UDP)  | Portas origem/destino          | `[TCP] + Dados`                        |
+| 3     | Rede (IP)             | IP de origem/destino, TTL      | `[IP] + [TCP] + Dados`                 |
+| 4     | Enlace (Ethernet/Wi-Fi) | MACs, FCS/CRC                 | `[Ethernet] + [IP] + [TCP] + Dados`    |
+| 5     | Física                | Sinais elétricos/ópticos       | `010101... (bits transmitidos)`        |
+
+**Processo de RECEPÇÃO (desencapsulamento):**
+
+| Ordem | Camada                | Cabeçalho Removido      | O que a camada faz                                  |
+|-------|-----------------------|------------------------|-----------------------------------------------------|
+| 1     | Física                | —                      | Recebe bits                                         |
+| 2     | Enlace                | Ethernet               | Remove Ethernet, verifica MAC, entrega IP           |
+| 3     | Rede                  | IP                     | Remove IP, verifica endereço, entrega Segmento TCP  |
+| 4     | Transporte (TCP/UDP)  | TCP/UDP                | Remove TCP, verifica porta, entrega Dados           |
+| 5     | Aplicação             | —                      | Processa Dados                                      |
+
+#### Vantagens da Arquitetura em Camadas
+
+- **Modularidade**: Trocar tecnologia de uma camada sem afetar outras
+- **Exemplo**: Mudar de Ethernet para Wi-Fi não afeta IP, TCP ou HTTP
+- **Troubleshooting**: Verificar problemas camada por camada sistematicamente
+- **Interoperabilidade**: Diferentes fabricantes seguem mesmo padrão
+
+#### Diagnóstico por Camadas
+
+Quando há problema de rede, verificar em ordem:
+
+1. **Física**: Cabo conectado? LED aceso?
+2. **Enlace**: Switch funcionando?
+3. **Rede**: Tem IP? Ping funciona? (`ip addr`, `ping 8.8.8.8`)
+4. **Transporte**: Porta aberta? (`telnet`)
+5. **Aplicação**: DNS resolve? (`nslookup`)
+
+**Fontes:** 
+- ISO/IEC 7498-1:1994. *OSI Basic Reference Model*.
+- Cerf, V., & Kahn, R. (1974). *A Protocol for Packet Network Intercommunication*.
+- Tanenbaum, A. S., & Wetherall, D. (2010). *Computer Networks* (5th ed.). Pearson.
+
+---
+
+## 7. Referências
 
 ### Livros Acadêmicos
 
