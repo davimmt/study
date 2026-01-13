@@ -1,4 +1,4 @@
-# Introdução à Infraestrutura de Redes
+# Introdução Superficial à Infraestrutura de Redes
 
 ## Sumário
 

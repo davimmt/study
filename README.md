@@ -3,6 +3,7 @@
 ## [Resumos](resumos)
 - [AWS Certifications Overview](resumos/aws-certifications-overview.md)
 - [AWS Cloud Practitioner (CLF-C01) - Linux Academy](resumos/aws-cloud-practitioner--clf-c01.md)
+- [Introdução Superficial à Infraestrutura de Redes](resumos/intro-superficial-redes.md)
 - [Administração de Sistemas Linux: Redes e Segurança](resumos/administração-de-sistemas-linux_redes-e-segurança.md)
 - [Network Routing Fundamentals - Linux Academy](resumos/network-routing-fundamentals.md)
 - [Subnetting Fundamentals - Linux Academy](resumos/subnetting-fundamentals.md)
