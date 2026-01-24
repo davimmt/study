@@ -5,17 +5,18 @@
 1. [Core AI/ML Concepts](#1-core-aiml-concepts)
 2. [Data Fundamentals](#2-data-fundamentals)
 3. [Machine Learning Fundamentals](#3-machine-learning-fundamentals)
-4. [Feature Engineering & Data Preparation](#4-feature-engineering--data-preparation)
-5. [Model Training & Optimization](#5-model-training--optimization)
-6. [Model Deployment & MLOps](#6-model-deployment--mlops)
-7. [Model Evaluation Metrics](#7-model-evaluation-metrics)
-8. [Model Fit Patterns](#8-model-fit-patterns)
-9. [Responsible AI & Bias](#9-responsible-ai--bias)
-10. [AWS AI/ML & GenAI Services](#10-aws-aiml--genai-services)
-11. [SageMaker Deep Dive](#11-sagemaker-deep-dive)
-12. [Security & Compliance](#12-security--compliance)
-13. [Cost Optimization & Operations](#13-cost-optimization--operations)
-14. [Summary & Key Takeaways](#14-summary--key-takeaways)
+4. [Generative AI Fundamentals](#4-generative-ai-fundamentals)
+5. [Feature Engineering & Data Preparation](#5-feature-engineering--data-preparation)
+6. [Model Training & Optimization](#6-model-training--optimization)
+7. [Model Deployment & MLOps](#7-model-deployment--mlops)
+8. [Model Evaluation Metrics](#8-model-evaluation-metrics)
+9. [Model Fit Patterns](#9-model-fit-patterns)
+10. [Responsible AI & Bias](#10-responsible-ai--bias)
+11. [AWS AI/ML & GenAI Services](#11-aws-aiml--genai-services)
+12. [SageMaker Deep Dive](#12-sagemaker-deep-dive)
+13. [Key Algorithms & Techniques](#13-key-algorithms--techniques)
+14. [Cost Optimization & Pricing](#14-cost-optimization--pricing)
+15. [Summary & Key Takeaways](#15-summary--key-takeaways)
 
 # 1. Core AI/ML Concepts
 
@@ -83,7 +84,130 @@ Data → ML Model → Output
 
 ---
 
-# 4. ML Model Development Lifecycle
+# 4. Generative AI Fundamentals
+
+## Core Concepts
+
+**Tokens**
+- Individual units of text (words, subwords, or characters) that LLMs process
+- Text is broken down into tokens for model input
+
+**Chunking**
+- Breaks large datasets into smaller, manageable pieces
+- Enables efficient processing of extensive information
+
+**Context Windows**
+- The maximum number of tokens an LLM can process at once
+- Determines how much information the model can consider simultaneously
+
+**Vectors**
+- Numerical arrays in n-dimensional space
+- Mathematical representation of data points
+
+**Embeddings**
+- Specially trained vectors that encode semantic meaning
+- Capture relationships and context between words/concepts
+
+## Transformer Architecture
+
+**Transformer-based LLMs**
+- Use neural networks to process input data
+- Generate human-understandable output
+- Enable attention mechanisms for context understanding
+- Foundation of modern large language models
+
+## Generative AI Model Types
+
+**Foundation Models (FM)**
+- Large-scale, general-purpose pre-trained models
+- Serve as base for various downstream tasks
+- Can be fine-tuned for specific applications
+
+**Multi-modal Models**
+- Extension of foundation models
+- Handle and integrate multiple data types (text, images, audio, video)
+- Enable cross-modal understanding and generation
+
+**Multi-modal Embeddings**
+- Power multi-modal search capabilities
+- Enable recommendation systems
+- Support personalization across different data types
+
+**Diffusion Models**
+- Primarily used for high-quality image generation
+- Work through forward and reverse diffusion processes
+- Transform noisy images into clear, detailed outputs
+
+## Foundation Model Lifecycle
+
+```
+Data Selection → Model Selection → Pre-training → Fine-tuning → Evaluation → Deployment → Feedback
+                                                                                          ↓
+                                                                                    ← ← ← ←
+```
+
+**Stages:**
+1. **Data Selection**: Curate and prepare training datasets
+2. **Model Selection**: Choose appropriate architecture and size
+3. **Pre-training**: Train on large-scale datasets
+4. **Fine-tuning**: Adapt model to specific tasks or domains
+5. **Evaluation**: Test performance and quality
+6. **Deployment**: Release to production environment
+7. **Feedback**: Collect usage data for continuous improvement
+
+## Advantages of Generative AI
+
+**Adaptability**
+- Can be fine-tuned for various tasks and domains
+- Flexible across different use cases
+
+**Responsiveness**
+- Generates contextually relevant outputs
+- Adapts to user inputs dynamically
+
+**Simplicity**
+- Often requires minimal prompt engineering
+- Accessible to non-technical users
+
+## Challenges and Limitations
+
+**Hallucinations**
+- Models may generate plausible but incorrect information
+- Require fact-checking and validation
+
+**Lack of Interpretability**
+- Difficult to understand decision-making process
+- "Black box" nature of neural networks
+
+**Nondeterminism**
+- Same input may produce different outputs
+- Can affect consistency and reliability
+
+## Business Performance Metrics
+
+**Efficiency**
+- Related to resource utilization (compute, memory, time)
+- Measures operational cost-effectiveness
+
+**Accuracy**
+- Percentage of correct predictions or outputs
+- Quality of generated content
+
+**Conversion Rate**
+- Percentage of users taking desired actions
+- Measures business impact of AI implementations
+
+**Average Revenue per User (ARPU)**
+- Financial metric tied to monetization
+- Indicates revenue generation effectiveness
+
+**Customer Lifetime Value (CLV)**
+- Long-term value of AI impact on customer relationships
+- Measures sustained business benefits
+
+---
+
+# 5. ML Model Development Lifecycle
 
 ## Complete Pipeline
 ```
@@ -112,7 +236,7 @@ Fetch → Clean → Prepare → Train/Tune → Evaluate → Deploy → Monitor
 
 ---
 
-# 5. Data Preparation & Feature Engineering
+# 6. Data Preparation & Feature Engineering
 
 ## Exploratory Data Analysis (EDA)
 - **Purpose**: Identify patterns, correlations, and anomalies before training
@@ -143,7 +267,7 @@ Fetch → Clean → Prepare → Train/Tune → Evaluate → Deploy → Monitor
 
 ---
 
-# 6. Model Training & Optimization
+# 7. Model Training & Optimization
 
 ## Parameters
 - **Definition**: Internal model values representing data relationships
@@ -171,7 +295,7 @@ Fetch → Clean → Prepare → Train/Tune → Evaluate → Deploy → Monitor
 
 ---
 
-# 7. Model Evaluation Metrics
+# 8. Model Evaluation Metrics
 
 ## Classification Model Metrics
 
@@ -255,7 +379,7 @@ Fetch → Clean → Prepare → Train/Tune → Evaluate → Deploy → Monitor
 
 ---
 
-# 8. Model Fit Patterns
+# 9. Model Fit Patterns
 
 ## Underfitting
 - **Problem**: Model doesn't learn enough from training data
@@ -269,7 +393,7 @@ Fetch → Clean → Prepare → Train/Tune → Evaluate → Deploy → Monitor
 
 ---
 
-# 9. Model Fairness & Bias
+# 10. Model Fairness & Bias
 
 ## Understanding Bias in ML
 
@@ -296,7 +420,7 @@ Fetch → Clean → Prepare → Train/Tune → Evaluate → Deploy → Monitor
 
 ---
 
-# 10. MLOps (Machine Learning Operations)
+# 11. MLOps (Machine Learning Operations)
 
 ## Definition
 Set of practices for managing the complete ML lifecycle
@@ -317,7 +441,7 @@ Set of practices for managing the complete ML lifecycle
 
 ---
 
-# 11. AWS AI/ML Services Portfolio
+# 12. AWS AI/ML & GenAI Services Portfolio
 
 ## Vision Services
 
@@ -378,9 +502,38 @@ Set of practices for managing the complete ML lifecycle
 - Uses **Recipes** (algorithms) to generate recommendations
 - Based on user activity and behavior patterns
 
+## Generative AI Services
+
+**Amazon Bedrock**
+- Fully managed foundation model service
+- Access pre-trained GenAI models via API calls
+- No infrastructure management required
+- Supports multiple foundation model providers
+- **PartyRock**: Interactive playground to test models and configurations without code
+
+**Amazon Q**
+- AI-powered assistant for business and development
+
+**Amazon Q Business (with QuickSight)**
+- Dashboard generation
+- Executive summaries
+- Data stories and insights
+- Natural language business intelligence
+
+**Amazon Q Developer**
+- Code generation and assistance
+- Automation of development tasks
+- Integration with development workflows
+- Accelerates software development
+
+**Amazon SageMaker**
+- Fully managed platform for building, training, and deploying ML models at scale
+- Write code in notebook environment
+- End-to-end ML workflow management
+
 ---
 
-# 12. Amazon SageMaker Ecosystem
+# 13. Amazon SageMaker Deep Dive
 
 ## Overview
 Comprehensive platform to prepare, build, train, tune, and deploy ML models from scratch
@@ -406,6 +559,16 @@ Comprehensive platform to prepare, build, train, tune, and deploy ML models from
   - Quick model generation
   - Transparent explainability
   - Notebook code generation
+
+## SageMaker JumpStart
+- **Purpose**: Quick-start ML development with pre-built solutions
+- **ML Workflow Stage**: Model selection and deployment
+- **Features**:
+  - Built-in algorithms and pre-trained models
+  - Access to foundation models
+  - Customizable solutions for common ML tasks
+  - One-click deployment templates
+  - Reduces time from idea to production
 
 ## SageMaker Data Wrangler
 - **Purpose**: Transform raw data into ML-ready format
@@ -482,7 +645,7 @@ Comprehensive platform to prepare, build, train, tune, and deploy ML models from
 
 ---
 
-# 13. Key Algorithms & Techniques
+# 14. Key Algorithms & Techniques
 
 ## Clustering
 **K-Means Clustering**
@@ -510,39 +673,103 @@ Comprehensive platform to prepare, build, train, tune, and deploy ML models from
 
 ---
 
-# 14. Summary & Key Takeaways
+# 15. Cost Optimization & Pricing Models
+
+## GenAI Pricing Strategies
+
+**Token-Based Pricing**
+- Pay per token processed (input and output)
+- Scales with actual usage
+- Common for API-based services
+- Variable costs based on model size and complexity
+
+**Provisioned Throughput**
+- Reserve dedicated capacity
+- Predictable performance and costs
+- Better for consistent, high-volume workloads
+- Guaranteed availability
+
+**Custom Models**
+- Pricing for fine-tuning and customization
+- Training costs separate from inference
+- Storage costs for custom model artifacts
+- May include minimum commitment periods
+
+## Cost Optimization Best Practices
+
+**Model Selection**
+- Choose appropriate model size for task complexity
+- Smaller models for simpler tasks reduce costs
+- Balance performance vs. cost requirements
+
+**Efficient Prompt Design**
+- Minimize token usage with concise prompts
+- Reduce context window requirements
+- Optimize for token efficiency
+
+**Caching and Reuse**
+- Cache frequent queries and responses
+- Reuse embeddings when possible
+- Leverage feature stores for common features
+
+**Monitoring and Optimization**
+- Track usage patterns and costs
+- Identify optimization opportunities
+- Right-size infrastructure and throughput
+
+---
+
+# 16. Summary & Key Takeaways
 
 ## Exam Focus Areas
 
 1. **AI/ML Fundamentals**
-   - Understand the hierarchy: AI ⊃ ML ⊃ DL
+   - Understand the hierarchy: AI ⊃ ML ⊃ DL ⊃ GenAI
    - Know when to use supervised vs unsupervised learning
    - Grasp the complete ML lifecycle
+   - Understand transformer architecture and LLMs
 
-2. **Data & Feature Engineering**
+2. **Generative AI Concepts**
+   - Foundation models and their lifecycle
+   - Tokens, embeddings, and context windows
+   - Multi-modal models and diffusion models
+   - Advantages and limitations (hallucinations, nondeterminism)
+
+3. **Data & Feature Engineering**
    - Data preparation is 70-80% of ML work
    - Feature engineering significantly impacts model performance
    - EDA identifies critical patterns before training
+   - Chunking strategies for large datasets
 
-3. **Model Evaluation**
+4. **Model Evaluation**
    - Choose metrics appropriate to problem type
    - Understand confusion matrix deeply
    - Recognize when accuracy is misleading (imbalanced data)
+   - Business metrics: efficiency, accuracy, conversion rate, ARPU, CLV
 
-4. **AWS Services Selection**
+5. **AWS Services Selection**
    - Match business problems to appropriate AWS AI services
    - Understand SageMaker components and their purposes
    - Know deployment options and their use cases
+   - Bedrock for managed foundation models
+   - Amazon Q for business intelligence and development
 
-5. **Responsible AI**
+6. **Responsible AI**
    - Identify sources of bias
    - Understand fairness implications
    - Know AWS tools for bias detection (Clarify)
+   - Address hallucinations in GenAI models
 
-6. **MLOps Best Practices**
+7. **MLOps Best Practices**
    - Continuous monitoring is essential
    - Version control for models and data
    - Automate ML workflows with Pipelines
+
+8. **Cost Optimization**
+   - Understand pricing models (token-based, provisioned throughput)
+   - Optimize prompt design for efficiency
+   - Right-size models for use cases
+   - Monitor usage and costs
 
 ---
 

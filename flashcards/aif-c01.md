@@ -734,3 +734,426 @@ Match the business problem and use case to the appropriate service based on data
 One class is significantly more represented than others, making accuracy an unreliable metric
 
 </details>
+
+---
+
+## Set 21: Generative AI Fundamentals
+
+**Q74:** What are tokens in the context of LLMs?
+
+<details>
+<summary>Show Answer</summary>
+
+Individual units of text (words, subwords, or characters) that LLMs process; text is broken down into tokens for model input
+
+</details>
+
+**Q75:** What is chunking in GenAI?
+
+<details>
+<summary>Show Answer</summary>
+
+Breaking large datasets into smaller, manageable pieces to enable efficient processing of extensive information
+
+</details>
+
+**Q76:** What is a context window?
+
+<details>
+<summary>Show Answer</summary>
+
+The maximum number of tokens an LLM can process at once; determines how much information the model can consider simultaneously
+
+</details>
+
+**Q77:** What's the difference between vectors and embeddings?
+
+<details>
+<summary>Show Answer</summary>
+
+Vectors are numerical arrays in n-dimensional space; embeddings are specially trained vectors that encode semantic meaning and capture relationships between words/concepts
+
+</details>
+
+**Q78:** What are the stages of the Foundation Model Lifecycle?
+
+<details>
+<summary>Show Answer</summary>
+
+Data Selection → Model Selection → Pre-training → Fine-tuning → Evaluation → Deployment → Feedback (loop back)
+
+</details>
+
+---
+
+## Set 22: GenAI Models & Advantages
+
+**Q79:** What are multi-modal models?
+
+<details>
+<summary>Show Answer</summary>
+
+Extension of foundation models that can handle and integrate multiple data types (text, images, audio, video) for cross-modal understanding
+
+</details>
+
+**Q80:** What are diffusion models used for?
+
+<details>
+<summary>Show Answer</summary>
+
+Primarily for high-quality image generation; work through forward and reverse diffusion processes to transform noisy images into clear outputs
+
+</details>
+
+**Q81:** Name three advantages of Generative AI
+
+<details>
+<summary>Show Answer</summary>
+
+Adaptability (fine-tune for various tasks), Responsiveness (contextually relevant outputs), Simplicity (minimal prompt engineering needed)
+
+</details>
+
+**Q82:** What are three key challenges of Generative AI?
+
+<details>
+<summary>Show Answer</summary>
+
+Hallucinations (plausible but incorrect info), Lack of Interpretability (black box nature), Nondeterminism (same input may produce different outputs)
+
+</details>
+
+---
+
+## Set 23: Interpretability vs Explainability
+
+**Q83:** What is Interpretability in AI?
+
+<details>
+<summary>Show Answer</summary>
+
+Understanding HOW the model works internally; the degree to which humans can understand the internal mechanics and observe how inputs transform to outputs
+
+</details>
+
+**Q84:** What is Explainability in AI?
+
+<details>
+<summary>Show Answer</summary>
+
+Understanding WHY a specific output was generated; uses post-hoc methods (SHAP, LIME) to explain predictions even if model is complex
+
+</details>
+
+**Q85:** A company must ensure it has a mechanism to observe the inner workings of a model understandable to humans. What is this concept?
+
+<details>
+<summary>Show Answer</summary>
+
+Interpretability (NOT Explainability) - focuses on understanding the model's internal mechanics and decision-making process
+
+</details>
+
+**Q86:** What is Transparency in AI?
+
+<details>
+<summary>Show Answer</summary>
+
+Being open about algorithms used, training data/processes, and decision-making criteria; enables interpretability
+
+</details>
+
+**Q87:** Which models have high interpretability and which have low?
+
+<details>
+<summary>Show Answer</summary>
+
+High: Decision trees (easy to visualize, understand HOW). Low: Neural networks (black box, use explainability techniques to understand WHY)
+
+</details>
+
+---
+
+## Set 24: Responsible AI & Bias Types
+
+**Q88:** Name four types of bias in ML
+
+<details>
+<summary>Show Answer</summary>
+
+Measurement bias (faulty data), Sampling bias (unrepresentative data), Confirmation bias (selective evidence), Observer bias (subjective influence)
+
+</details>
+
+**Q89:** What is sampling bias?
+
+<details>
+<summary>Show Answer</summary>
+
+When training data is not representative of the entire population; causes model to fail on underrepresented groups
+
+</details>
+
+**Q90:** What is observer bias?
+
+<details>
+<summary>Show Answer</summary>
+
+When the person collecting/labeling data allows their subjective opinions to influence how they record or interpret the data
+
+</details>
+
+**Q91:** What's the difference between high bias and high variance?
+
+<details>
+<summary>Show Answer</summary>
+
+High bias = underfitting (too simple, poor on both training and test); High variance = overfitting (too complex, learns noise, poor on test data)
+
+</details>
+
+**Q92:** How do you fix underfitting?
+
+<details>
+<summary>Show Answer</summary>
+
+Increase number of features, use more complex model (decision trees, random forests, neural networks), train longer
+
+</details>
+
+**Q93:** How do you fix overfitting?
+
+<details>
+<summary>Show Answer</summary>
+
+Select fewer relevant features, get more training data, use data augmentation (artificially increase dataset by transforming existing data)
+
+</details>
+
+---
+
+## Set 25: GenAI Risks
+
+**Q94:** What are hallucinations in GenAI?
+
+<details>
+<summary>Show Answer</summary>
+
+When GenAI creates believable but untrue content; AI predicts patterns without understanding, so always double-check responses
+
+</details>
+
+**Q95:** What is prompt leaking?
+
+<details>
+<summary>Show Answer</summary>
+
+When the model discloses context/history of prior interactions or reveals internal instructions and system prompts
+
+</details>
+
+**Q96:** What is model exposure?
+
+<details>
+<summary>Show Answer</summary>
+
+Unintended release of sensitive/confidential information from training data or previous prompts
+
+</details>
+
+**Q97:** What is IP infringement risk in GenAI?
+
+<details>
+<summary>Show Answer</summary>
+
+Models trained on copyrighted materials may accidentally replicate copyrighted work, leading to legal issues
+
+</details>
+
+---
+
+## Set 26: AWS GenAI Services
+
+**Q98:** What is Amazon Bedrock?
+
+<details>
+<summary>Show Answer</summary>
+
+Fully managed foundation model service; access pre-trained GenAI models via API without infrastructure management; supports multiple FM providers
+
+</details>
+
+**Q99:** What is PartyRock?
+
+<details>
+<summary>Show Answer</summary>
+
+Interactive playground within Amazon Bedrock to test models and configurations without code
+
+</details>
+
+**Q100:** What does Amazon Q Business do?
+
+<details>
+<summary>Show Answer</summary>
+
+AI assistant for business intelligence with QuickSight; generates dashboards, executive summaries, and data stories using natural language
+
+</details>
+
+**Q101:** What does Amazon Q Developer do?
+
+<details>
+<summary>Show Answer</summary>
+
+Code generation and assistance, automation of development tasks, integration with development workflows to accelerate software development
+
+</details>
+
+**Q102:** What is SageMaker JumpStart?
+
+<details>
+<summary>Show Answer</summary>
+
+Quick-start ML development with built-in algorithms, pre-trained models, access to foundation models, and one-click deployment templates
+
+</details>
+
+---
+
+## Set 27: Responsible AI Tools
+
+**Q103:** What does SageMaker Clarify provide?
+
+<details>
+<summary>Show Answer</summary>
+
+Detects bias in data and predictions; provides explainability (WHY predictions made) using post-hoc methods; visualizes feature importance
+
+</details>
+
+**Q104:** What is SageMaker Ground Truth used for?
+
+<details>
+<summary>Show Answer</summary>
+
+Data labeling with mix of human labelers and machine assistance; Ground Truth Plus uses subject matter experts for complex tasks
+
+</details>
+
+**Q105:** What are SageMaker Model Cards?
+
+<details>
+<summary>Show Answer</summary>
+
+Documentation tool for model details: purpose, risk ratings, limitations, ethical considerations, and performance metrics
+
+</details>
+
+**Q106:** What is Amazon Augmented AI (A2I)?
+
+<details>
+<summary>Show Answer</summary>
+
+Combines AI speed with human accuracy; triggers human review based on random sampling or low confidence scores (e.g., <50%)
+
+</details>
+
+**Q107:** What do Bedrock Guardrails protect against?
+
+<details>
+<summary>Show Answer</summary>
+
+Offensive language, biased content, PII (block or mask), hallucinations, prompt attacks, denied topics, and profanity
+
+</details>
+
+**Q108:** What evaluation type tests if an LLM encodes biases about gender, age, or ethnicity?
+
+<details>
+<summary>Show Answer</summary>
+
+Prompt Stereotyping (uses FMEval library to test if model treats people differently based on demographic characteristics)
+
+</details>
+
+---
+
+## Set 28: Cost Optimization & Pricing
+
+**Q109:** What are the three main GenAI pricing strategies?
+
+<details>
+<summary>Show Answer</summary>
+
+Token-based pricing (pay per token processed), Provisioned throughput (reserve dedicated capacity), Custom models (fine-tuning and training costs)
+
+</details>
+
+**Q110:** When should you use token-based pricing?
+
+<details>
+<summary>Show Answer</summary>
+
+For variable usage that scales with actual consumption; common for API-based services; costs vary by model size and complexity
+
+</details>
+
+**Q111:** When should you use provisioned throughput?
+
+<details>
+<summary>Show Answer</summary>
+
+For consistent high-volume workloads needing predictable performance and costs; guaranteed availability with reserved capacity
+
+</details>
+
+**Q112:** Name three cost optimization strategies for GenAI
+
+<details>
+<summary>Show Answer</summary>
+
+Choose appropriate model size for task, minimize token usage with concise prompts, cache frequent queries and reuse embeddings
+
+</details>
+
+---
+
+## Set 29: Business Metrics for AI
+
+**Q113:** What does Efficiency measure in AI systems?
+
+<details>
+<summary>Show Answer</summary>
+
+Resource utilization (compute, memory, time); measures operational cost-effectiveness
+
+</details>
+
+**Q114:** What is Conversion Rate in AI context?
+
+<details>
+<summary>Show Answer</summary>
+
+Percentage of users taking desired actions; measures business impact of AI implementations
+
+</details>
+
+**Q115:** What is Customer Lifetime Value (CLV)?
+
+<details>
+<summary>Show Answer</summary>
+
+Long-term value of AI impact on customer relationships; measures sustained business benefits
+
+</details>
+
+**Q116:** What is ARPU in AI metrics?
+
+<details>
+<summary>Show Answer</summary>
+
+Average Revenue per User; financial metric tied to monetization indicating revenue generation effectiveness
+
+</details>
