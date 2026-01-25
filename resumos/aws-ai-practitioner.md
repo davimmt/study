@@ -13,9 +13,14 @@
 9. [Model Fit Patterns](#9-model-fit-patterns)
 10. [Responsible AI & Fairness](#10-responsible-ai--fairness)
 11. [AWS AI/ML & GenAI Services](#11-aws-aiml--genai-services)
-12. [SageMaker Deep Dive](#12-sagemaker-deep-dive)
-13. [Key Algorithms & Techniques](#13-key-algorithms--techniques)
-14. [Cost Optimization & Pricing](#14-cost-optimization--pricing)
+12. [Amazon SageMaker Deep Dive](#12-amazon-sagemaker-deep-dive)
+13. [Amazon Bedrock Deep Dive](#13-amazon-bedrock-deep-dive)
+14. [Key Algorithms & Techniques](#14-key-algorithms--techniques)
+15. [Applications of Foundation Models](#15-applications-of-foundation-models)
+16. [Prompt Engineering](#16-prompt-engineering)
+17. [Training & Fine-tuning Foundation Models](#17-training--fine-tuning-foundation-models)
+18. [Evaluating Foundation Model Performance](#18-evaluating-foundation-model-performance)
+19. [Cost Optimization & Pricing](#19-cost-optimization--pricing)
 
 Appendix A: [Summary & Key Takeaways](#a-summary--key-takeaways)<br>
 Appendix B: [Keywords & Quick Reference](#b-keywords--quick-reference)<br>
@@ -300,6 +305,8 @@ Fetch → Clean → Prepare → Train/Tune → Evaluate → Deploy → Monitor
 
 # 8. Model Evaluation Metrics
 
+**Note**: This section covers traditional ML metrics. For Foundation Model-specific evaluation metrics (ROUGE, BLEU, BERTScore), see [Section 18](#18-evaluating-foundation-model-performance).
+
 ## Classification Model Metrics
 
 ### Confusion Matrix Components
@@ -409,33 +416,16 @@ Fetch → Clean → Prepare → Train/Tune → Evaluate → Deploy → Monitor
   - Ethical labeling with neutral, objective annotators
 
 ### Explainability
-- **Definition**: Understanding WHY a specific output was generated
-- Uses post-hoc methods like SHAP (SHapley Additive exPlanations) and LIME (Local Interpretable Model-agnostic Explanations)
-- Explains predictions even if model is complex or opaque
-- Focuses on explaining outputs, not model internals
-- **Example**: "Loan denied because credit score < 600 AND income < threshold"
+- Understanding WHY a specific output was generated using post-hoc methods (SHAP, LIME).
+- Explains predictions without needing model transparency.
 
-### Interpretability
-- **Definition**: Understanding HOW the model works internally
-- Degree to which humans can understand model mechanics
-- Ability to observe inner workings: how inputs transform to outputs
-- Inherently understandable models (e.g., decision trees)
+### Interpretability  
+- Understanding HOW the model works internally.
+- Observe how inputs transform to outputs.
+- Inherently clear models like decision trees.
 
 ### Transparency
-- Being open about how the system works:
-  - Algorithms used
-  - Training data and processes
-  - Decision-making criteria
-- Enables interpretability
-- Provides access to understand the system
-
-### Key Distinction Table
-
-| Concept | Focus | Definition | Example |
-|---------|-------|------------|---------|
-| **Interpretability** | HOW | Understand internal mechanics; observe how inputs → outputs | Decision tree showing each decision node |
-| **Explainability** | WHY | Understand specific predictions; post-hoc methods (SHAP, LIME) | Feature importance for a loan rejection |
-| **Transparency** | ACCESS | Open about algorithms, data, processes | Published model architecture and training data sources |
+- Open access to algorithms, training data, processes. Enables interpretability.
 
 ### Robustness and Veracity
 - **Robustness**: Model adapts to challenging conditions
@@ -455,71 +445,25 @@ Fetch → Clean → Prepare → Train/Tune → Evaluate → Deploy → Monitor
 
 ## Bias and Variance
 
-### Understanding Bias
-- **Definition**: Difference between predicted values and actual values
-- **High Bias = Underfitting**
-  - Model too simple to capture data patterns
-  - Performs poorly on both training AND test data
-  - Consistently misses the target in the same direction
-  
-**Solutions for High Bias:**
-- Increase number of features
-- Use more complex models (decision trees, random forests, neural networks)
-- Train for longer periods
+**Bias** = Gap between predicted and actual values  
+- High Bias = **Underfitting** (too simple, poor on training + test)  
+- Fix: More features, complex models, longer training
 
-### Understanding Variance
-- **Definition**: How much predictions change with different training datasets
-- **High Variance = Overfitting**
-  - Model too complex, learns noise and irrelevant patterns
-  - Performs well on training data, poorly on test data
-  - Too sensitive to fluctuations in training data
+**Variance** = Sensitivity to training data changes  
+- High Variance = **Overfitting** (too complex, learns noise, good on training but poor on test)  
+- Fix: Fewer features, more data, data augmentation, regularization, cross-validation
 
-**Solutions for High Variance:**
-- Select fewer, more relevant features
-- Increase training data (more examples)
-- Data augmentation (artificially increase dataset size by transforming existing data while preserving labels)
-- Use regularization techniques
-- Cross-validation
-
-### Goal: Balanced Model
-- Low bias + Low variance
-- Generalizes well to new data without memorizing training data
-- Avoids extremes of underfitting and overfitting
+**Goal**: Low bias + low variance = generalizes without memorizing
 
 ## Types of Bias in ML
 
-### 1. Measurement Bias
-- **Problem**: Capturing faulty or inaccurate data
-- **Example**: Uncalibrated blood pressure device consistently showing lower readings
-- **Impact**: Model learns from incorrect measurements
-
-### 2. Sampling Bias
-- **Problem**: Training data not representative of the population
-- **Example**: Health model trained only on data from healthy lifestyle individuals
-- **Impact**: Model fails on underrepresented groups (e.g., rural applicants vs urban)
-- **Most common in**: Imbalanced datasets
-
-### 3. Confirmation Bias
-- **Problem**: Focusing only on data that supports existing beliefs
-- **Example**: Hiring model that only looks at candidates with specific degrees
-- **Impact**: Ignores contradicting evidence, perpetuates assumptions
-
-### 4. Observer Bias
-- **Problem**: Collector/labeler's subjective opinions influence data recording
-- **Example**: Loan officer with racial bias giving lower ratings to certain groups
-- **Impact**: Personal biases get embedded in training data
-
-### 5. Training Data Bias
-- Data doesn't equally represent different demographic groups
-- Leads to skewed predictions
-
-### 6. Historical Bias
-- Prejudice embedded in historical data
-- Perpetuates existing societal inequalities
-
-### 7. Algorithmic Bias
-- Introduced by model architecture or logic
-- Can amplify existing biases
+**Measurement Bias**: Faulty data capture (e.g., uncalibrated devices)  
+**Sampling Bias**: Unrepresentative training data; common in imbalanced datasets  
+**Confirmation Bias**: Only using data supporting existing beliefs  
+**Observer Bias**: Labeler's subjective opinions influence annotations  
+**Training Data Bias**: Unequal demographic representation  
+**Historical Bias**: Prejudice embedded in historical data  
+**Algorithmic Bias**: Model architecture amplifies biases
 
 **Mitigation Strategies:**
 - Use diverse, representative datasets
@@ -531,75 +475,36 @@ Fetch → Clean → Prepare → Train/Tune → Evaluate → Deploy → Monitor
 
 ### High Interpretability Models
 **Decision Trees**
-- Easy to visualize with flow chart structure
-- Can follow decision path from root to leaf
-- Humans can understand HOW the model works
-- Transparent decision-making process
+- Easy to visualize and understand HOW the model works
 - **Trade-off**: Lower performance (simpler models)
 
 ### Low Interpretability Models
 **Neural Networks**
 - Complex, "black box" architecture
-- Hard to understand internal mechanics
-- Multiple layers of interconnected neurons
 - **Solution**: Use post-hoc explainability techniques (SHAP, LIME) to explain WHY
 - **Trade-off**: Higher performance (capture intricate patterns)
 
 ### Performance Trade-offs
 - **Interpretability ↑ = Performance ↓**: Simpler models are more understandable but less powerful
 - **Complexity ↑ = Interpretability ↓**: Complex models perform better but harder to interpret
-- **Too much transparency = Security vulnerabilities**: Exposing model details can reveal exploitable weaknesses
+- **Transparency ↑ = Security ↓**: Exposing model details can reveal exploitable weaknesses
 
 ## Generative AI Risks
 
-### Hallucinations
-- **Problem**: Creates believable but false content
-- **Cause**: AI predicts patterns without understanding information
-- **Mitigation**: Always double-check AI responses, use guardrails
-
-### Prompt Leaking
-- **Problem**: Model discloses context/history of prior interactions
-- **Risk**: Reveals internal instructions or system prompts
-- **Example**: Exposing data sources when asked about instructions
-
-### Model Exposure
-- **Problem**: Unintended release of sensitive/confidential information
-- **Risk**: Could expose training data or previous user prompts
-- **Example**: Revealing company's confidential business strategies
-
-### Intellectual Property Infringement
-- **Problem**: Models trained on copyrighted materials
-- **Risk**: May accidentally replicate copyrighted work
-- **Legal Impact**: Issues for both model creators and users
+**Hallucinations**: Believable but false content; always fact-check  
+**Prompt Leaking**: Reveals internal instructions or conversation history  
+**Model Exposure**: Unintended release of training data or confidential info  
+**Intellectual Property Infringement**: Replicating copyrighted materials from training data
 
 ## Human-Centered Design (HCD)
 
-### Definition
-- Methodology that puts users at the center of design process
-- Ensures AI is effective, understandable, and aligned with human needs
+User-focused methodology ensuring AI is effective and aligned with human needs.
 
-### Design for Amplified Decision-Making
-- Help people make better choices, especially in high-pressure situations
-- Principles: Clarity, simplicity, usability, reflexivity
-- AI assists and enhances human capabilities (doesn't replace)
-
-### Design for Unbiased Decision-Making
-- Create transparent and fair decision-making processes
-- Train decision-makers to recognize and address biases
-- Make factors influencing decisions visible and auditable
-
-### Design for Human and AI Learning
-**Cognitive Apprenticeship**
-- AI learns from human feedback (RLHF - Reinforcement Learning from Human Feedback)
-- Iterative improvement through human guidance
-
-**Personalization**
-- Customize learning experiences to fit individual needs and styles
-- Adapt to user preferences and capabilities
-
-**User-Centered Design**
-- Make tools intuitive and accessible
-- Support diverse learners including those with disabilities or language barriers
+**Amplified Decision-Making**: AI assists (doesn't replace) with clarity, simplicity, usability  
+**Unbiased Decision-Making**: Transparent, auditable processes  
+**Cognitive Apprenticeship**: AI learns from human feedback (RLHF)
+**Personalization**: Adapt to fit individual needs and styles 
+**User-Centered**: Intuitive, accessible for diverse users
 
 ## AWS Tools for Responsible AI
 
@@ -781,6 +686,11 @@ Set of practices for managing the complete ML lifecycle
 - No infrastructure management required
 - Supports multiple foundation model providers
 - **PartyRock**: Interactive playground to test models and configurations without code
+- **Bedrock Agents**: Automate multi-step workflows with memory retention and action schemas
+- **Bedrock Guardrails**: Safety barriers to filter offensive content, PII, hallucinations, and prompt attacks
+- **Bedrock Model Distillation**: Transfer knowledge from larger teacher model to smaller, more efficient student model
+- **Bedrock Prompt Caching**: Cache prompts to reduce latency and costs for repeated or similar queries
+- **Provisioned Throughput**: Reserved dedicated capacity with predictable costs, required for fine-tuned models
 
 **Amazon Q**
 - AI-powered assistant for business and development
@@ -804,7 +714,7 @@ Set of practices for managing the complete ML lifecycle
 
 ---
 
-# 13. Amazon SageMaker Deep Dive
+# 12. Amazon SageMaker Deep Dive
 
 ## Overview
 Comprehensive platform to prepare, build, train, tune, and deploy ML models from scratch
@@ -916,6 +826,82 @@ Comprehensive platform to prepare, build, train, tune, and deploy ML models from
 
 ---
 
+# 13. Amazon Bedrock Deep Dive
+
+## Overview
+Fully managed service providing access to foundation models from multiple providers through a single API
+
+## Foundation Model Access
+- **Multi-Provider Support**: Amazon, AI21 Labs, Anthropic, Cohere, Meta, Mistral AI, Stability AI
+- **Single API**: Unified interface for all models
+- **Serverless**: No infrastructure management, automatic scaling
+- **PartyRock**: No-code playground for testing models and configurations
+
+## Bedrock Agents
+- **Purpose**: Automate multi-step tasks using GenAI
+- **Capabilities**:
+  - Multi-step workflow orchestration
+  - Memory retention across conversation turns
+  - Custom action schema definition
+  - API and database integration
+- **Use Cases**: Customer service, data analysis, task automation
+
+## Bedrock Guardrails
+- **Purpose**: Safety barriers for responsible AI usage
+- **Protection**:
+  - Content filtering (offensive, biased, harmful content)
+  - PII detection and masking
+  - Hallucination prevention
+  - Prompt attack defense (injection, jailbreaking, leaking)
+  - Denied topics configuration
+
+## Bedrock Model Distillation
+- **Purpose**: Transfer knowledge from large "teacher" to efficient "student" model
+- **Benefits**: Lower cost, faster inference, easier deployment
+- **Use Cases**: Edge deployment, real-time apps, mobile/IoT
+
+## Bedrock Prompt Caching
+- **Purpose**: Reduce latency and costs for repeated queries
+- **Benefits**:
+  - Store and reuse prompt components
+  - Pay once for cached tokens
+  - Faster responses
+- **Use Cases**: Chatbots with system prompts, RAG systems, multi-turn conversations
+
+## Provisioned Throughput
+- **Purpose**: Reserved dedicated capacity with predictable performance
+- **Features**:
+  - Guaranteed availability, no cold starts
+  - Predictable costs (commitment-based pricing)
+  - **Required for fine-tuned Bedrock models**
+- **Use Cases**: High-volume production, consistent low latency, fine-tuned models
+
+## Inference Parameters
+Control model output behavior via Bedrock API calls:
+
+**Temperature (0.0 - 1.0)**
+- Controls randomness and creativity
+- Low (0.0-0.3): Deterministic, predictable (coding, factual tasks)
+- High (0.8-1.0): Creative, random (stories, marketing)
+
+**Top-k (0-500)**
+- Limits sampling to k most likely tokens
+- Lower k = more focused, higher k = more diverse
+- Typical: 20-50 for balanced output
+
+**Top-p (0.0 - 1.0)**
+- Nucleus sampling: cumulative probability cutoff
+- Dynamic adaptation based on context
+- Typical: 0.9-0.95 for natural text
+
+## Model Customization Hierarchy
+1. **Pre-trained** (Lowest cost): Use models as-is
+2. **Prompt Engineering**: Optimize prompts, no retraining
+3. **RAG**: Combine with external knowledge base
+4. **Fine-tuning** (Highest cost): Customize with labeled data, requires provisioned throughput
+
+---
+
 # 14. Key Algorithms & Techniques
 
 ## Clustering
@@ -944,7 +930,441 @@ Comprehensive platform to prepare, build, train, tune, and deploy ML models from
 
 ---
 
-# 15. Cost Optimization & Pricing Models
+# 15. Applications of Foundation Models
+
+> **Foundation**: Builds on [Generative AI Fundamentals](#4-generative-ai-fundamentals), focusing on practical application and deployment.
+
+## Design Considerations for Model Selection
+
+### Selection Criteria
+
+**Modality**
+- Type of data the model handles (text, images, audio)
+- **Claude (Bedrock)**: Chatbots, document summarization, translation
+- **Rekognition**: Image recognition, face detection, content moderation
+- **Transcribe**: Speech-to-text; **Polly**: Text-to-speech
+
+**Latency**
+- How quickly the model processes requests
+- **Low latency**: Chatbots, real-time responses
+- **High latency acceptable**: Batch data analysis
+
+**Multilingual Support**
+- Models supporting multiple languages for global audiences
+- Critical for international applications
+
+**Model Size**
+- **Large models**: More accurate, require extensive computational resources
+- **Small models**: More efficient, easier to deploy
+
+**Model Complexity**
+- **Simple tasks**: Lighter models
+- **Complex tasks**: Robust multi-layer models
+
+**Customization**
+- Fine-tuning or few-shot learning capabilities
+- Tied to cost and computational demand
+
+**Input/Output Length**
+- Models vary in capacity to handle input size
+- Longer contexts = more computational resources and costs
+
+### Inference Parameters
+
+**Temperature** (0.0 - 1.0)
+- Controls randomness and creativity in outputs
+- **Low (0.2)**: Deterministic, predictable (coding, factual tasks)
+- **High (0.8)**: Creative, random (story generation, marketing)
+- Higher temperature = more creative; Lower temperature = more predictable
+
+**Top-k** (0-500 in AWS)
+- Number of most likely candidates for next token
+- **Lower k**: Smaller pool = more likely outputs
+- **Higher k**: Larger pool = less likely outputs
+- Example: k=10 means model considers top 10 tokens
+
+**Top-p** (0.0 - 1.0)
+- Percentage of most likely candidates for next token
+- **Lower p**: Fewer options = more likely outputs
+- **Higher p**: More options = less likely outputs
+- Example: p=0.9 means top 90% of probability distribution
+
+**Input/Output Length**
+- **Short**: Less computational demand and cost
+- **Long**: More computational demand and cost
+
+## Retrieval-Augmented Generation (RAG)
+
+### Definition
+- Foundation model paired with external knowledge source
+- Database, document repository, or structured data
+- Model retrieves information and augments prompt with external data
+
+### Knowledge Base
+- Structured repository of information
+- Company documents, FAQs, research papers, technical manuals
+- Acts as external source during inference
+- Can be built from data in **Amazon S3**
+
+### Use Cases
+- **Customer support**: Answer questions using up-to-date FAQs/policies
+- **Documentation**: Retrieve info from technical manuals
+- **Research**: Query large databases for insights
+
+### Key Benefits
+- Ensures up-to-date, context-aware, accurate responses
+- **Amazon Bedrock** supports seamless integration with external data
+- Combines retrieval with generation
+
+## Vector Storage & Databases
+
+### Vectors & Embeddings
+- **Vectors**: Numerical array of embeddings
+- **Embeddings**: Mathematical representations of data capturing semantic meaning
+- Vector databases store and manage embeddings
+
+### Vector Database Functionality
+- Use vector search algorithms to index and query based on similarity
+- Instead of exact matches, find semantically similar content
+- Enable semantic search capabilities
+
+### AWS Services for Vector Storage
+
+**Amazon OpenSearch Service**
+- Integration with full-text search
+- Combines semantic and keyword-based searches
+- Scalable for large vector datasets
+
+**Amazon Aurora (PostgreSQL)**
+- Extends relational DB to manage vector data
+- Personalized recommendations
+- Combines structured and vector data
+
+**Amazon Neptune**
+- Graph database with relationships between embeddings
+- Connect entities through vector similarity
+
+**Amazon DocumentDB**
+- Flexible, schemaless storage for embeddings
+- MongoDB-compatible
+
+**Amazon RDS for PostgreSQL**
+- **pgvector extension** for vector similarity search
+- SQL-based vector operations
+
+## Model Customization Approaches
+
+Understanding different customization methods helps select the right approach based on requirements and budget. [See Cost Optimization & Pricing](#19-cost-optimization--pricing) for detailed cost analysis.
+
+**Customization Ranking (Lowest to Highest Cost):**
+1. **In-context Learning (Prompting)**: Use prompts to influence outputs without retraining
+2. **RAG**: Combine pre-trained model with external data sources
+3. **Fine-tuning**: Update pre-trained model with task-specific dataset (requires provisioned throughput in Bedrock)
+4. **Pre-training**: Create model from scratch (only for specialized domains)
+
+## Amazon Bedrock Agents
+
+### Definition
+- Automate multi-step workflows using generative AI
+- Follow pre-defined instructions
+- Interact with data sources
+- Generate outputs based on goals
+
+### Key Features
+
+**Memory Retention**
+- Personalized interactions based on conversation history
+- Context awareness across sessions
+
+**Action Schema**
+- Asynchronous task handling
+- Execute complex workflows
+
+**Prompt Engineering**
+- Refining responses dynamically
+- Optimize for specific tasks
+
+**RAG Integration**
+- Fetch data from company sources
+- Dynamically generate code for complex queries
+- Orchestrate tasks via API calls
+
+### Benefits
+- Automate repetitive tasks
+- Reduce manual effort
+- Multi-system integration
+- Consistent task execution
+
+### Example Use Case
+Customer asks order status → Agent retrieves from DB → Analyzes shipping data → Responds with real-time updates
+
+---
+
+# 16. Prompt Engineering
+
+## Fundamentals
+
+### Core Concepts
+
+**Context**
+- Frames task with relevant background information
+- Increases relevance and accuracy of responses
+- Example: "Explain cloud computing" vs "Explain cloud computing to a beginner"
+
+**Instructions**
+- Clear directions set expectations
+- Define format, tone, and content
+- Be specific: "Place red folder on top shelf" vs "Put folder somewhere easy to find"
+
+**Negative Prompts**
+- Explicitly guide what NOT to include
+- Example: "Explain cloud computing without using technical terminology"
+- Helps filter unwanted content
+
+**Model Latent Space**
+- Internal representation of knowledge
+- Mental map connecting concepts
+- Like library indexing system clustering related ideas
+
+## Prompt Engineering Techniques
+
+### Zero-shot Prompting
+- Give task without any examples
+- Relies on model's general knowledge
+- Example: "Describe a dog" → broad, undirected answer
+
+### Single-shot Prompting
+- Provide ONE example in prompt
+- Example: "Here's how to describe a cat: [example]. Now describe a dog"
+- More focused response
+
+### Few-shot Prompting
+- Provide MULTIPLE examples (more than one)
+- Guide model with pattern from examples
+- Best when you know desired output format
+- More examples = better pattern recognition
+
+### Chain-of-thought Prompting
+- Ask model to break down complex problem into logical steps
+- Helps understand thought process leading to answer
+- Example: "Describe a dog. Break down your explanation into smaller steps"
+- Useful for math problems, complex reasoning
+
+### Prompt Templates
+- Standardize prompt generation process
+- Translate user input into instructions
+- Use placeholders for dynamic content
+- Example: "Describe a [type of animal] including [specific traits]"
+- Useful for customer support, repeated tasks
+
+## Best Practices
+
+### Response Quality Improvement
+- Be **specific and concise** with prompts
+- Clear prompts = higher quality responses
+- Avoid ambiguity
+
+### Experimentation
+- Try different prompts to discover best results
+- Refine prompts iteratively
+- Start basic, then refine based on outputs
+
+### Guardrails
+- Use explicit instructions to avoid unwanted results
+- Example: "List benefits of renewable energy, but don't include political opinions"
+- Reduces bias, keeps responses aligned
+
+### Multiple Comments
+- Break complex ideas into smaller steps
+- Use follow-up prompts instead of one long prompt
+- Step-by-step queries improve depth and structure
+
+## Risks and Limitations
+
+### Exposure
+- Sensitive data inadvertently revealed through prompts
+- **Mitigation**: Avoid prompts targeting sensitive/proprietary information
+
+### Poisoning
+- Maliciously inserting false/harmful data during training
+- Causes biased, inaccurate, or dangerous outputs
+- **Mitigation**: Filter training data, continuous evaluation, detect harmful data
+
+### Hijacking
+- Attacker manipulates prompt to divert model behavior
+- Forces unintended or harmful outputs
+- **Mitigation**: Enforce usage policies, monitor prompts for misuse
+
+### Jailbreaking
+- Using clever prompts to bypass safety constraints
+- Attempts to override safeguards
+- **Mitigation**: Train with robust guardrails, continuous testing for vulnerabilities
+
+---
+
+# 17. Training & Fine-tuning Foundation Models
+
+## Key Elements
+
+### Pre-training
+- Initial stage: model learns from vast unstructured data
+- Develops general capabilities (language patterns, coherent responses)
+- Resource-intensive (requires massive compute)
+- Typically done by large companies like AWS
+
+### Fine-tuning
+- Customize pre-trained model with task-specific data
+- Refines knowledge for particular use case
+- **In Bedrock**: Requires high-quality labeled datasets
+- **Must purchase provisioned throughput** to use fine-tuned model
+
+### Continuous Pre-training
+- LLMs learn new information while retaining existing knowledge
+- Keeps model updated over time
+- Prevents becoming outdated
+- Example: Chatbot updated with latest support tickets
+
+## Fine-tuning Methods
+
+### Instruction Tuning
+- Further training with guidelines/directives
+- Adapt nuanced understanding of specific tasks
+- Follow instructions better
+- Example: Tune chatbot to be more empathetic to complaints
+
+### Domain Adaptation
+- Take general-purpose model, train on industry-specific data
+- Adapt for healthcare, finance, legal, etc.
+- Specializes model for particular field
+- Improves accuracy in domain-specific language
+
+### Transfer Learning
+- Take model pre-trained on one task, fine-tune for related task
+- Reuse fundamental knowledge without training from scratch
+- Works when tasks share similarities
+- Example: Model trained on general text → fine-tune for finance equations
+
+## Data Preparation for Fine-tuning
+
+### Data Curation
+- Select and organize relevant, accurate, high-quality data
+- Remove noise and redundancy
+- Focus on what's essential
+- Example: Legal text model → filter out fiction/blogs
+
+### Data Governance
+- Policies, processes, practices for quality, accuracy, ethical use
+- Adherence to privacy regulations
+- Uphold ethical standards
+- Maintain data lineage and documentation
+
+### Data Size & Quality
+- More data isn't always better
+- **Quality matters more than quantity**
+- **Representativeness** crucial (capture wide range of scenarios, prevent bias)
+- Balanced datasets improve generalization
+
+### Data Labeling
+- Annotate data with tags/categories
+- Help model understand specific patterns
+- Example: Tag emails as "spam" or "not spam"
+- High-quality labeling critical for supervised learning
+
+### Reinforcement Learning from Human Feedback (RLHF)
+- Train models to align with human preferences
+- Human evaluators score responses
+- Model adapts based on scores
+- **Reward model** created to predict response quality
+- Also called: **Cognitive Apprenticeship**
+- Iterative improvement process
+
+---
+
+# 18. Evaluating Foundation Model Performance
+
+**Note**: This section covers Foundation Model-specific evaluation metrics. For traditional ML metrics (Precision, Recall, F1, MAE, RMSE), see [Section 8](#8-model-evaluation-metrics).
+
+## Evaluation Methods
+
+### Human Evaluation
+- People assess outputs based on specific criteria
+- Judge relevance, quality, coherence
+- Example: Rate chatbot for politeness, helpfulness
+- **Pros**: Insightful, nuanced feedback
+- **Cons**: Time-consuming, subjective, labor-intensive
+
+### Benchmark Datasets
+- Pre-built collections of labeled data
+- Test against industry standards
+- Predefined tasks model must complete
+- **Pros**: Objective, scalable, faster, less biased
+- **Cons**: Might lack specificity for niche applications
+- Help detect bias
+
+## Performance Metrics
+
+### ROUGE (Recall-Oriented Understudy for Gisting Evaluation)
+- Measures overlap between generated and reference texts
+- Used for **summarization tasks**
+- Emphasizes **recall** of critical phrases
+- **ROUGE-N**: Number of matching n-grams
+  - n=1 for unigrams (single words)
+  - n=2 for bigrams (two-word sequences)
+- **Remember**: ROUGE for **recall** (recallability)
+- Tests: Can generated text recall reference text accurately?
+
+### BLEU (Bilingual Evaluation Understudy)
+- Primarily for **machine translation**
+- Evaluates how closely translation matches reference
+- Compares word sequences
+- Evaluates overlap of n-grams
+- Score ranges 0-1 (1 is best)
+- Focuses on **quality of text**
+- **Remember**: BLEU for **bilingual** (translation)
+
+### BERTScore
+- Newer metric using **embeddings**
+- Leverages pre-trained BERT models
+  - Bidirectional Encoder Representations from Transformers
+- Compares **semantic similarity** between generated and reference
+- Effective for tasks requiring nuanced understanding
+- Works well for paraphrasing tasks
+- Core meaning retained even with different word choice
+- **Remember**: BERT is **bonding** (bond strength between related words/sentences)
+
+### Perplexity
+- Measures how well probability model predicts a sample
+- **Lower perplexity = better model**
+- Common metric for evaluating Large Language Models (LLMs)
+- Indicates model's uncertainty in predictions
+- Perplexity of 1 = perfect prediction (knows exactly what comes next)
+- Higher perplexity = model is more "perplexed" or uncertain
+- Used to compare different language models on same test set
+- **Remember**: Lower is better - less perplexed = more confident predictions
+
+## Business Objective Alignment
+
+### Productivity
+- How efficiently model performs tasks
+- High-quality outputs with minimal human intervention
+- Higher productivity = better alignment with business objectives
+- Measure: Time saved, tasks automated
+
+### User Engagement
+- How often and deeply users interact with model
+- Complexity of prompts provided
+- Amount of active refinement of responses
+- Higher engagement = model providing value
+- User modifications/feedback = positive (guides to better results)
+
+### Task Engineering
+- How effectively model completes specific tasks aligned with business
+- Smooth and accurate task completion = good alignment
+- Measure: Success rate, error reduction, consistency
+
+---
+
+# 19. Cost Optimization & Pricing Models
 
 ## GenAI Pricing Strategies
 
@@ -965,6 +1385,36 @@ Comprehensive platform to prepare, build, train, tune, and deploy ML models from
 - Training costs separate from inference
 - Storage costs for custom model artifacts
 - May include minimum commitment periods
+
+## Model Customization Cost Analysis
+
+### Pre-training (Highest Cost)
+- **Approach**: Creating model from scratch using vast dataset
+- **Cost**: Very High (massive compute power, storage, time)
+- **Who**: Only large companies with significant resources
+- **When to use**: Domain-specific needs where pre-trained models don't exist
+- **Example**: Training a specialized medical diagnosis model from scratch
+
+### Fine-tuning (Moderate Cost)
+- **Approach**: Update pre-trained model with smaller task-specific dataset
+- **Cost**: Moderate (leverages existing model weights)
+- **AWS Requirement**: Must purchase provisioned throughput for fine-tuned Bedrock models
+- **When to use**: Adapting general model to specialized tasks
+- **Example**: Fine-tuning GPT for legal document analysis
+
+### RAG - Retrieval-Augmented Generation (Lower Cost)
+- **Approach**: Combine pre-trained model with external data sources
+- **Cost**: Lower than fine-tuning (no model modification required)
+- **When to use**: Real-time updates, proprietary data integration
+- **Example**: Customer support chatbot with access to company knowledge base
+
+### In-context Learning / Prompting (Lowest Cost)
+- **Approach**: No model retraining, uses prompts to influence outputs
+- **Cost**: Low (pay only for inference tokens)
+- **When to use**: Flexible, quick adaptations without retraining
+- **Example**: Few-shot prompting for specific formatting tasks
+
+**Cost Ranking: Pre-training >> Fine-tuning > RAG > In-context Learning**
 
 ## Cost Optimization Best Practices
 
@@ -999,51 +1449,104 @@ Comprehensive platform to prepare, build, train, tune, and deploy ML models from
    - Understand transformer architecture and LLMs
 
 2. **Generative AI Concepts**
-   - Foundation models and their lifecycle
+   - Foundation models and their lifecycle (data selection → model selection → pre-training → fine-tuning → evaluation → deployment → feedback)
    - Tokens, embeddings, and context windows
    - Multi-modal models and diffusion models
    - Advantages and limitations (hallucinations, nondeterminism)
 
-3. **Data & Feature Engineering**
+3. **Foundation Model Applications**
+   - Selection criteria: modality, latency, multilingual support, model size/complexity, customization, input/output length
+   - Inference parameters: Temperature (creativity), Top-k (number of candidates), Top-p (percentage of candidates)
+   - RAG: Combines retrieval from knowledge base with generation
+   - Vector databases for semantic search (OpenSearch, Aurora, Neptune, DocumentDB, RDS PostgreSQL)
+   - Bedrock Agents for multi-step task automation
+   - Customization cost ranking: Pre-training (highest) > Fine-tuning > RAG > In-context learning (lowest)
+
+4. **Prompt Engineering**
+   - Techniques: Zero-shot, single-shot, few-shot, chain-of-thought, templates
+   - Components: Context, instructions, negative prompts
+   - Best practices: Specific/concise, experimentation, guardrails, multiple comments
+   - Risks: Exposure, poisoning, hijacking, jailbreaking
+
+5. **Training & Fine-tuning Foundation Models**
+   - Fine-tuning methods: Instruction tuning, domain adaptation, transfer learning
+   - RLHF (Reinforcement Learning from Human Feedback) / Cognitive Apprenticeship
+   - Data preparation: Curation, governance, representativeness, labeling
+   - Must purchase provisioned throughput for fine-tuned Bedrock models
+
+6. **Foundation Model Evaluation**
+   - ROUGE: Summarization tasks, focuses on recall
+   - BLEU: Machine translation, evaluates overlap of n-grams (0-1 score)
+   - BERTScore: Semantic similarity using embeddings
+   - Perplexity: Model prediction confidence, lower = better (common for LLMs)
+   - Human evaluation: Insightful but time-consuming
+   - Benchmark datasets: Objective, scalable, industry standards
+   - Business alignment: Productivity, user engagement, task engineering
+
+7. **Data & Feature Engineering**
    - Data preparation is 70-80% of ML work
    - Feature engineering significantly impacts model performance
    - EDA identifies critical patterns before training
    - Chunking strategies for large datasets
 
-4. **Model Evaluation**
+8. **Model Evaluation (Traditional ML)**
    - Choose metrics appropriate to problem type
    - Understand confusion matrix deeply
    - Recognize when accuracy is misleading (imbalanced data)
-   - Business metrics: efficiency, accuracy, conversion rate, ARPU, CLV
+   - Precision, Recall, F1 Score, AUC-ROC, AUC-PR
+   - Regression metrics: MAE, RMSE, R²
 
-5. **AWS Services Selection**
+9. **AWS Services Selection**
    - Match business problems to appropriate AWS AI services
-   - Understand SageMaker components and their purposes
-   - Know deployment options and their use cases
-   - Bedrock for managed foundation models
+   - Rekognition (vision), Textract (OCR), Comprehend (NLP), Translate, Transcribe (ASR), Polly (TTS)
+   - Lex (chatbots), Forecast (time-series), Kendra (semantic search), Personalize (recommendations)
    - Amazon Q for business intelligence and development
 
-6. **Responsible AI**
-   - Interpretability: HOW the model works (observe inner workings)
-   - Explainability: WHY specific predictions (post-hoc methods like SHAP/LIME)
+10. **Amazon SageMaker Deep Dive**
+   - Comprehensive ML platform for end-to-end workflows
+   - Studio (IDE), Pipelines (workflow automation), AutoML/Autopilot (automated tuning)
+   - JumpStart (pre-trained models), Data Wrangler (data prep), Feature Store (feature management)
+   - Ground Truth (data labeling), Clarify (bias detection), Model Monitor (drift detection)
+   - Deployment options: Real-time, Asynchronous, Batch Transform, Serverless
+   - Know when to use each deployment type based on latency and traffic patterns
+
+11. **Amazon Bedrock Deep Dive**
+   - Fully managed foundation model service with multi-provider support
+   - PartyRock: No-code playground for testing models
+   - **Inference Parameters**: Control model behavior via API (Temperature, Top-k, Top-p)
+     - Temperature: Controls creativity/randomness (0=deterministic, 1=creative)
+     - Top-k: Limits token pool to k most likely options
+     - Top-p: Dynamic cutoff based on cumulative probability
+   - **Bedrock Agents**: Automate multi-step workflows with memory and reasoning
+   - **Bedrock Guardrails**: Safety barriers for content filtering, PII protection, hallucination prevention
+   - **Model Distillation**: Transfer knowledge from large teacher to efficient student model
+   - **Prompt Caching**: Reduce latency and costs for repeated/similar queries
+   - **Provisioned Throughput**: Required for fine-tuned models, guaranteed capacity
+   - Model customization hierarchy: Pre-trained < Prompt Engineering < RAG < Fine-tuning
+
+13. **Responsible AI**
+   - Difference between Interpretability (HOW) and Explainability (WHY)
    - Transparency: Access to algorithms, data, processes
    - Understand bias vs variance (underfitting vs overfitting)
-   - Know 4 types of bias: Measurement, Sampling, Confirmation, Observer
-   - GenAI risks: Hallucinations, Prompt leaking, Model exposure, IP infringement
+   - Know types of bias: Measurement, Sampling, Confirmation, Observer, Training Data, Historical, Algorithmic
+   - GenAI risks: Hallucinations, Prompt leaking, Model exposure, IP infringement, Prompt stereotyping
    - AWS tools: Clarify (bias detection, explainability), Ground Truth (labeling), 
      Model Cards (documentation), Model Monitor (drift detection), A2I (human review),
-     Bedrock Guardrails (content filtering)
+     Bedrock Guardrails (content filtering), FMEval (prompt stereotyping)
    - Human-Centered Design principles
 
-7. **MLOps Best Practices**
-   - Continuous monitoring is essential
+14. **MLOps Best Practices**
+   - Continuous monitoring is essential (data drift, bias drift, model drift)
    - Version control for models and data
-   - Automate ML workflows with Pipelines
+   - Automate ML workflows with SageMaker Pipelines
+   - CI/CD for ML models
 
-8. **Cost Optimization**
-   - Understand pricing models (token-based, provisioned throughput)
-   - Optimize prompt design for efficiency
+15. **Cost Optimization**
+   - Understand pricing models (token-based, provisioned throughput, custom models)
+   - Customization cost ranking: Pre-training (highest) > Fine-tuning > RAG > In-context learning (lowest)
+   - Optimize prompt design for efficiency (minimize tokens)
    - Right-size models for use cases
+   - Caching and reuse strategies
    - Monitor usage and costs
 
 ---
@@ -1052,290 +1555,287 @@ Comprehensive platform to prepare, build, train, tune, and deploy ML models from
 
 ## Core Concepts
 
-**Artificial Intelligence (AI)**: Technology enabling computers to mimic human intelligence
+**AI (Artificial Intelligence)**: Technology to mimic human intelligence  
+**ML (Machine Learning)**: Systems learn from data, no explicit programming  
+**DL (Deep Learning)**: ML using neural networks, complex patterns  
+**NLP (Natural Language Processing)**: AI for human-computer language interaction  
+**GenAI (Generative AI)**: AI systems create new content from training data  
+**FM (Foundation Models)**: Large-scale, general-purpose, pre-trained models  
+**LLM (Large Language Models)**: FM specialized in language, transformers, massive datasets  
 
-**Machine Learning (ML)**: Systems that learn from data without explicit programming
+**Supervised Learning**: Train with labeled data to predict outcomes  
+**Unsupervised Learning**: Find patterns in unlabeled data  
+**Reinforcement Learning**: Learn optimal actions through rewards/penalties  
+**Semi-supervised Learning**: Train with mix of labeled + unlabeled data  
+**Self-supervised Learning**: Model generates own labels from data
 
-**Deep Learning (DL)**: ML subset using neural networks for complex pattern recognition
+## Data Types
 
-**Natural Language Processing (NLP)**: AI field focused on human-computer language interaction
-
-**Generative AI (GenAI)**: Systems that create new content based on training data
-
-**Foundation Models (FM)**: Large-scale, general-purpose pre-trained models serving as blueprints
-
-**Large Language Models (LLM)**: Deep learning models specialized in understanding and generating human language using transformers and massive datasets
+**Structured Data**: Organized in predefined format  
+**Tabular Data**: Organized in rows and columns (databases, spreadsheets)  
+**Time Series Data**: Data points indexed by time (graphs N/t)  
+**Unstructured Data**: No predefined format or schema  
+**Text Data**: Documents, emails, natural language  
+**Image Data**: Photos, graphics, visual content  
+**Audio Data**: Sound files, speech, music  
+**Video Data**: Moving images with audio
 
 ## GenAI Concepts
 
-**Tokens**: Individual units of text (words, subwords, or characters) that LLMs process
+**Tokens**: Individual text units (words, subwords, characters) for LLM processing  
+**Tokenization**: Process of breaking text into tokens  
+**Chunking**: Breaking large datasets into smaller manageable pieces  
+**Context Window**: Maximum tokens LLM can process simultaneously  
+**Vectors**: Numerical arrays representing data in n-dimensional space  
+**Embeddings**: Vectors trained to encode semantic meaning and relationships  
+**Multi-modal Models**: Models handling multiple data types (text, image, audio, video)  
+**Diffusion Models**: Generate images using forward/reverse diffusion processes  
+**Transformer**: Neural network architecture using attention mechanisms  
+**Nondeterminism**: Same input can produce different outputs
 
-**Chunking**: Breaking large datasets into smaller, manageable pieces for efficient processing
+## Responsible AI
 
-**Context Windows**: Maximum number of tokens an LLM can process at once
-
-**Embeddings**: Specially trained vectors that encode semantic meaning and capture relationships
-
-**Multi-modal Models**: Models that handle and integrate multiple data types (text, images, audio, video)
-
-**Diffusion Models**: Used for high-quality image generation through forward and reverse diffusion processes
-
-**Transformer Architecture**: Neural network architecture that processes input data to generate human-understandable output
-
-## Responsible AI Core Dimensions
-
-**Interpretability**: Understanding HOW the model works internally; observe inner workings and how inputs transform to outputs
-
-**Explainability**: Understanding WHY a specific output was generated; uses post-hoc methods like SHAP and LIME to explain predictions
-
-**Transparency**: Being open about algorithms, training data/processes, and decision-making criteria; enables interpretability
-
-**Fairness**: Ensuring AI doesn't unfairly impact different subpopulations; requires diverse, balanced, representative datasets
-
-**Robustness**: Model's ability to adapt to challenging conditions and maintain performance
-
-**Veracity**: Decisions based on accurate, real-time information; ensures reliability and truthfulness
-
-**Controllability**: AI systems align with human values; humans maintain ultimate control
-
-**Environmental Sustainability**: Choose energy-efficient infrastructure (AWS Trainium for training, Inferentia for inference)
+**Interpretability**: Understanding HOW model works internally, observe inner workings  
+**Explainability**: Understanding WHY specific output generated, post-hoc (SHAP & LIME)  
+**Transparency**: Open disclosure about algorithms, data, training processes  
+**Fairness**: No unfair impact on subpopulations, diverse balanced datasets  
+**Robustness**: Model adapts to challenging conditions, maintains performance  
+**Veracity**: Decisions based on accurate real-time information  
+**Controllability**: Humans maintain ultimate control over AI systems  
+**Environmental Sustainability**: Energy-efficient infrastructure (AWS Trainium, Inferentia)
 
 ## Bias & Variance
 
-**Bias**: Difference between predicted and actual values; high bias = underfitting (too simple)
-
-**Variance**: How much predictions change with different training datasets; high variance = overfitting (too complex)
-
-**Underfitting**: Model doesn't learn enough; poor performance on both training and test data
-
-**Overfitting**: Model learns noise and irrelevant patterns; good on training, poor on test data
-
-**Data Augmentation**: Artificially increase dataset size by applying transformations while preserving labels
-
-**Balanced Model**: Low bias + low variance; generalizes well without memorizing
+**Bias**: Gap between predicted and actual values, high bias = underfitting  
+**Variance**: Model sensitivity to training data changes, high variance = overfitting  
+**Underfitting**: Model too simple, poor performance on training + test data  
+**Overfitting**: Model too complex, learns noise, good on training but poor on test  
+**Data Augmentation**: Increase dataset size via transformations, preserve labels  
+**Balanced Model**: Low bias + low variance, generalizes well to new data  
+**Regularization**: Technique to reduce overfitting by penalizing complexity  
+**Cross-validation**: Test model performance on multiple data splits
 
 ## Types of Bias
 
-**Measurement Bias**: Capturing faulty or inaccurate data (e.g., uncalibrated device)
-
-**Sampling Bias**: Training data not representative of population; most common in imbalanced datasets
-
-**Confirmation Bias**: Focusing only on data that supports existing beliefs; ignoring contradicting evidence
-
-**Observer Bias**: Collector/labeler's subjective opinions influence data recording
-
-**Training Data Bias**: Data doesn't equally represent different demographic groups
-
-**Historical Bias**: Prejudice embedded in historical data; perpetuates societal inequalities
-
-**Algorithmic Bias**: Introduced by model architecture or logic; can amplify existing biases
+**Measurement Bias**: Faulty or inaccurate data capture (uncalibrated devices)  
+**Sampling Bias**: Training data unrepresentative of population, imbalanced datasets  
+**Confirmation Bias**: Focusing only on data supporting existing beliefs  
+**Observer Bias**: Labeler's subjective opinions influence data recording  
+**Training Data Bias**: Unequal demographic representation in training data  
+**Historical Bias**: Prejudice embedded in historical data  
+**Algorithmic Bias**: Model architecture/logic amplifies existing biases
 
 ## GenAI Risks
 
-**Hallucinations**: Creating believable but false content; AI predicts patterns without understanding
+**Hallucinations**: Model generates believable but false content  
+**Prompt Leaking**: Model reveals internal instructions or conversation history  
+**Model Exposure**: Unintended release of sensitive training data or prompts  
+**IP (Intellectual Property) Infringement**: Replicating copyrighted materials from training  
+**Prompt Stereotyping**: Model encodes gender/age/ethnicity biases (test with FMEval)  
+**Poisoning**: Malicious insertion of false/harmful data during training  
+**Hijacking**: Attacker manipulates prompts to divert model behavior  
+**Jailbreaking**: Using clever prompts to bypass safety constraints
 
-**Prompt Leaking**: Model discloses context/history of prior interactions or reveals internal instructions
+## FM (Foundation Model) Applications & Inference
 
-**Model Exposure**: Unintended release of sensitive/confidential information from training data or prompts
+**Modality**: Type of data model handles (text, image, audio)  
+**Latency**: Model processing speed, low latency = real-time responses  
+**Temperature**: Controls randomness/creativity (0-1), low = predictable, high = creative  
+**Top-k**: Number of most likely token candidates, lower = more likely outputs  
+**Top-p**: Percentage of most likely token candidates for next token  
+**RAG (Retrieval-Augmented Generation)**: FM paired with external knowledge source  
+**Knowledge Base**: Structured info repository for RAG (company docs, FAQs)  
+**Vector Database**: Stores and manages embeddings for similarity search
 
-**IP Infringement**: Accidentally replicating copyrighted work due to training on copyrighted materials
+## Prompt Engineering
 
-**Prompt Stereotyping**: Testing if LLM encodes biases about gender, age, or ethnicity (uses FMEval library)
+**Context**: Background information to frame the task  
+**Instructions**: Clear directions setting format/tone/content expectations  
+**Negative Prompts**: Explicit guidance on what NOT to include  
+**Model Latent Space**: Internal representation of model's knowledge  
+**Zero-shot Prompting**: Give task without examples, relies on general knowledge  
+**Single-shot Prompting**: Provide ONE example to guide response  
+**Few-shot Prompting**: Provide MULTIPLE examples to establish pattern  
+**Chain-of-thought Prompting**: Ask model to break problem into logical steps  
+**Prompt Templates**: Standardized prompts with placeholders for dynamic content
 
-## ML Workflow & Lifecycle
+## Training & Customization
 
-**Exploratory Data Analysis (EDA)**: Identify patterns, correlations, and anomalies before training through visualization
+**Pre-training**: Train model from scratch on vast data, highest cost  
+**Fine-tuning**: Customize pre-trained model with task-specific data, moderate cost  
+**Continuous Pre-training**: LLM learns new information while retaining existing knowledge  
+**In-context Learning**: Use prompts to influence outputs, no retraining, lowest cost  
+**Instruction Tuning**: Further training to follow instructions better  
+**Domain Adaptation**: Train general model on industry-specific data (healthcare, finance)  
+**Transfer Learning**: Use pre-trained model, fine-tune for related task  
+**Data Curation**: Select and organize relevant, accurate, high-quality data  
+**Data Governance**: Policies for data quality, accuracy, ethical use, privacy compliance  
+**RLHF (Reinforcement Learning from Human Feedback)**: Train models using human guidance (Cognitive Apprenticeship)  
+**Reward Model**: Predicts response quality based on human evaluator scores
 
-**Feature Engineering**: Transform raw data into ML-friendly format; select and transform variables
+## FM (Foundation Model) Evaluation Metrics
 
-**Feature Selection**: Filter relevant features from dataset
+**ROUGE (Recall-Oriented Understudy for Gisting Evaluation)**: Measures overlap for summarization, emphasizes recall  
+**BLEU (Bilingual Evaluation Understudy)**: Evaluates machine translation, n-grams overlap, score 0-1  
+**BERTScore**: Uses embeddings to compare semantic similarity, effective for paraphrasing  
+**Perplexity**: Measures how well probability model predicts sample, lower = better, common for LLMs  
+**Human Evaluation**: People assess outputs, insightful but subjective and time-consuming  
+**Benchmark Datasets**: Pre-built labeled collections to test against industry standards  
+**Productivity**: How efficiently model performs tasks with minimal human intervention  
+**User Engagement**: Frequency and depth of user interactions with model  
+**Task Engineering**: How effectively model completes specific business-aligned tasks
 
-**Feature Extraction**: Derive new features from existing variables
+## ML Workflow
 
-**Dimensionality Reduction**: Simplify dataset by combining features (e.g., PCA)
-
-**Normalization**: Rescale values to range [0, 1]
-
-**Standardization**: Transform data using mean and standard deviation (z-score)
-
-**Hyperparameters**: Configuration settings specified before training (learning rate, batch size, epochs)
-
-**Parameters**: Internal model values learned automatically during training (weights, biases)
+**EDA (Exploratory Data Analysis)**: Find patterns, correlations, anomalies before training  
+**Correlation Matrix**: Quantify relationships between variables  
+**Feature Engineering**: Transform raw data → ML-ready format  
+**Feature Selection**: Filter relevant features from dataset  
+**Feature Extraction**: Derive new features from existing variables  
+**Dimensionality Reduction**: Simplify dataset by combining features  
+**PCA (Principal Component Analysis)**: Reduce dimensions, preserve variance  
+**Categorical Encoding**: Convert categorical values → numerical format  
+**Normalization**: Rescale values to range [0,1]  
+**Standardization**: Transform data using mean/std (z-score)  
+**Hyperparameters**: Settings before training (learning rate, batch size, epochs)  
+**Parameters**: Values learned during training (weights, biases)  
+**Grid Search**: Test all possible hyperparameter combinations  
+**Random Search**: Randomly sample hyperparameter combinations  
+**Active Learning**: Smart sample selection, minimize labeling effort
 
 ## Model Evaluation
 
-**Confusion Matrix**: Table showing TP, TN, FP, FN to evaluate classification model performance
-
-**Precision**: TP/(TP+FP); proportion of correct positive predictions; use for fraud detection
-
-**Recall (Sensitivity)**: TP/(TP+FN); proportion of actual positives correctly identified; use for medical diagnosis
-
-**F1 Score**: Harmonic mean of precision and recall; balances both metrics
-
-**AUC-ROC**: Plots TP rate vs FP rate; measures ability to distinguish between classes
-
-**AUC-PR**: Plots Precision vs Recall; more informative than AUC-ROC for imbalanced datasets
-
-**Imbalanced Datasets**: One class significantly over-represented; makes accuracy unreliable
-
-**MAE (Mean Absolute Error)**: Arithmetic mean of absolute differences between actual and predicted
-
-**RMSE (Root Mean Squared Error)**: Square root of MSE; penalizes larger errors more heavily
-
-**R² (R-Squared)**: Measures how well model predictions fit actual data; ranges 0-1
+**TP (True Positive)**: Model correctly predicted positive class  
+**TN (True Negative)**: Model correctly predicted negative class  
+**FP (False Positive)**: Model incorrectly predicted positive (Type I error)  
+**FN (False Negative)**: Model incorrectly predicted negative (Type II error)  
+**Confusion Matrix**: Table showing TP, TN, FP, FN for classification evaluation  
+**Precision**: TP/(TP+FP), use for fraud detection (minimize false positives)  
+**Recall (Sensitivity)**: TP/(TP+FN), use for medical diagnosis (minimize false negatives)  
+**F1 Score**: Harmonic mean of precision and recall, balances both metrics  
+**AUC-ROC (Area Under Curve - ROC)**: Plots TP rate vs FP rate, measures class distinction ability  
+**AUC-PR (Area Under Curve - Precision-Recall)**: Plots Precision vs Recall, better for imbalanced datasets  
+**Imbalanced Dataset**: One class significantly over-represented, makes accuracy unreliable  
+**MAE (Mean Absolute Error)**: Average absolute differences between predicted and actual  
+**RMSE (Root Mean Squared Error)**: Square root of MSE, penalizes larger errors more heavily  
+**R² (R-Squared)**: Measures how well predictions fit actual data, ranges 0-1  
+**MSE (Mean Squared Error)**: Average of squared differences between predicted and actual
 
 ## AWS AI Services
 
-**Amazon Rekognition**: Analyze images and videos for face detection, object recognition, content moderation
+**Rekognition**: Analyze images/videos for face detection, object recognition, content moderation  
+**Textract**: OCR to extract text/data from documents, understands forms/tables  
+**Comprehend**: NLP service for text analysis, sentiment, entity recognition, tokenization, POS  
+**Translate**: Neural machine translation service supporting 75+ languages  
+**Transcribe**: ASR to convert speech-to-text with custom vocabulary support  
+**Polly**: TTS service converts text to lifelike voices in multiple languages  
+**Lex**: Build conversational interfaces and chatbots  
+**Forecast**: Time-series forecasting using historical data  
+**Kendra**: Intelligent enterprise search using semantic search and NLP  
+**Personalize**: Real-time personalized recommendations using Recipes (pre-built algorithms)  
+**Amazon Q Business**: BI assistant for dashboard generation and executive summaries  
+**Amazon Q Developer**: AI assistant for code generation and development automation
 
-**Amazon Textract**: Extract text and data from documents; OCR with form and table understanding
+## Amazon Bedrock
 
-**Amazon Comprehend**: NLP service for text analysis, classification, sentiment analysis, entity recognition
+**Bedrock**: Fully managed FM service with API access, no infrastructure management  
+**PartyRock**: Interactive Bedrock playground for testing models without code  
+**Bedrock Agents**: Automate multi-step workflows with memory retention and action schemas  
+**Bedrock Guardrails**: Safety barriers filtering offensive content, PII, hallucinations, and prompt attacks  
+**Bedrock Model Distillation**: Transfer knowledge from larger teacher model to smaller student model for efficiency  
+**Bedrock Prompt Caching**: Cache prompts to reduce latency and costs for repeated similar queries  
+**Provisioned Throughput**: Reserved dedicated capacity with predictable costs, required for fine-tuned Bedrock models
 
-**Amazon Translate**: Neural machine translation supporting 75+ languages
+## Amazon SageMaker
 
-**Amazon Transcribe**: Speech-to-text conversion (ASR) with custom vocabulary
+### SageMaker Development & Training
 
-**Amazon Polly**: Text-to-speech (TTS) with lifelike voices in multiple languages
+**Studio**: ML IDE with Jupyter notebooks, provides unified workspace for ML development  
+**Pipelines**: Design and automate ML workflows with CI/CD and version control  
+**AutoML (Autopilot)**: Automates model selection and hyperparameter tuning with minimal intervention  
+**JumpStart**: Pre-trained models and FMs with one-click deployment templates  
+**Data Wrangler**: Transform raw data to ML-ready format with 300+ built-in transformations  
+**Feature Store**: Centralized repository for storing, managing, and sharing ML features  
+**AMT (Automatic Model Tuning)**: Automates hyperparameter optimization process
 
-**Amazon Lex**: Build conversational interfaces (chatbots); integrates with Connect and Comprehend
+### SageMaker Data & Model Management
 
-**Amazon Forecast**: Time-series forecasting using historical data
+**Ground Truth**: Data labeling service with human-in-the-loop annotation and active learning  
+**Ground Truth Plus**: Provides subject matter experts for complex labeling tasks  
+**Model Cards**: Documents model purpose, risks, limitations, ethics, and performance metrics  
+**Model Monitor**: Continuously monitors deployed models, detects drift (data, bias, performance)
 
-**Amazon Kendra**: Intelligent enterprise search using NLP for semantic search
+### SageMaker Deployment Options
 
-**Amazon Personalize**: Real-time personalized recommendations using Recipes (algorithms)
+**Synchronous (Real-time)**: Instant response with low latency (<100ms) for chatbots/fraud/recommendations  
+**Asynchronous**: Background processing with variable response time for large files/images/videos  
+**Batch Transform**: Process entire datasets asynchronously, cost-effective for overnight processing  
+**Serverless**: Auto-scales to zero when idle, pay-per-use for sporadic traffic and prototypes  
+**Endpoints**: Infrastructure for serving deployed models  
+**Auto-scaling**: Automatically adjusts capacity based on traffic
 
-**Amazon Bedrock**: Fully managed foundation model service; access pre-trained GenAI models via API without infrastructure management
+### SageMaker Responsible AI
 
-**PartyRock**: Interactive playground within Bedrock to test models without code
+**Clarify**: Detects bias in datasets/models, provides explainability (WHY) using SHAP/LIME  
+**A2I (Amazon Augmented AI)**: Combines AI with human review via random sampling or confidence threshold triggers
 
-**Amazon Q Business**: AI assistant for business intelligence; dashboard generation, executive summaries
+## Responsible AI Tools & Methods
 
-**Amazon Q Developer**: Code generation, automation, development task assistance
+**PII (Personally Identifiable Information)**: Sensitive personal data like SSN, address, phone number  
+**FMEval (Foundation Model Evaluations)**: Library to test FMs, includes Prompt Stereotyping detection  
+**SHAP (SHapley Additive exPlanations)**: Post-hoc method explaining predictions via feature importance  
+**LIME (Local Interpretable Model-agnostic Explanations)**: Post-hoc method explaining individual local predictions
 
-## SageMaker Components
+## Algorithms
 
-**SageMaker Studio**: Integrated Development Environment (IDE) for ML; unified workspace with Jupyter notebooks
-
-**SageMaker Pipelines**: Design, orchestrate, and automate end-to-end ML workflows with version control and CI/CD
-
-**SageMaker AutoML (Autopilot)**: Automate model selection and hyperparameter tuning with minimal manual intervention
-
-**SageMaker JumpStart**: Built-in algorithms, pre-trained models, access to foundation models, one-click deployment
-
-**SageMaker Data Wrangler**: Transform raw data into ML-ready format; 300+ built-in transformations for tabular, image, text, time series data
-
-**SageMaker Feature Store**: Centralized repository for storing, managing, and sharing ML features across teams
-
-**SageMaker Ground Truth**: Data labeling service with human-in-the-loop annotation and active learning
-
-**Ground Truth Plus**: Subject matter experts for complex labeling tasks
-
-**SageMaker Clarify**: Detect bias in datasets and models; provides explainability (WHY predictions made) using post-hoc methods
-
-**SageMaker Model Cards**: Document model details (purpose, risk ratings, limitations, ethical considerations, performance metrics)
-
-**SageMaker Model Monitor**: Continuous monitoring of deployed models; detects data drift, bias drift, performance degradation
-
-**SageMaker AMT (Automatic Model Tuning)**: Automated hyperparameter optimization
-
-## SageMaker Deployment
-
-**Synchronous Inference (Real-time Endpoints)**: Instant response, low latency (<100ms), predictable traffic; use for chatbots, recommendations, fraud detection
-
-**Asynchronous Inference**: Background processing, variable response time, unpredictable workloads; use for large files, images, videos
-
-**Batch Transform**: Asynchronous processing of entire datasets, high latency acceptable, cost-effective; use for overnight processing
-
-**Serverless Inference**: Auto-scaling (including to zero), pay-per-use, unpredictable usage patterns; use for sporadic traffic, prototypes
-
-## Responsible AI Tools
-
-**Amazon Augmented AI (A2I)**: Combines AI speed with human accuracy; trigger human review by random sampling or confidence threshold
-
-**Bedrock Guardrails**: Safety barriers for GenAI; filter offensive language, biased content, PII, hallucinations, prompt attacks
-
-**FMEval (Foundation Model Evaluations)**: Library to test custom and pre-built datasets; includes Prompt Stereotyping assessment
-
-**SHAP (SHapley Additive exPlanations)**: Post-hoc method to explain model predictions
-
-**LIME (Local Interpretable Model-agnostic Explanations)**: Post-hoc method to explain individual predictions
-
-## Algorithms & Techniques
-
-**K-Means Clustering**: Unsupervised algorithm that partitions data into K clusters by minimizing within-cluster variance
-
-**Linear Regression**: Supervised learning for continuous predictions; models linear relationship between variables
-
-**PCA (Principal Component Analysis)**: Reduces dimensionality while preserving variance; used for visualization and preprocessing
-
-**Association Rule Mining (Apriori)**: Discovers relationships in transactional data; common in market basket analysis
-
-**Decision Trees**: High interpretability model with flow chart structure; easy to visualize and understand
-
-**Neural Networks**: Low interpretability model; complex "black box" but higher performance
-
-**Random Forests**: Ensemble of decision trees; reduces overfitting while maintaining good performance
+**K-Means Clustering**: Unsupervised algorithm partitioning data into K clusters, minimizes within-cluster variance  
+**Linear Regression**: Supervised learning for continuous predictions, models linear relationships  
+**PCA (Principal Component Analysis)**: Reduces dimensionality while preserving variance  
+**Apriori (Association Rule Mining)**: Discovers relationships in transactional data for market basket analysis  
+**Decision Trees**: High interpretability model with flow chart structure, easy to visualize  
+**Neural Networks**: Low interpretability "black box" model with high performance  
+**Random Forests**: Ensemble of decision trees, reduces overfitting while maintaining performance
 
 ## MLOps
 
-**MLOps**: Set of practices for managing ML lifecycle with automation, consistency, reliability, version control
+**MLOps (Machine Learning Operations)**: Practices for managing ML lifecycle with automation, consistency, version control  
+**Data Drift**: When incoming production data differs significantly from training data  
+**Bias Drift**: When model starts favoring certain groups over time  
+**Feature Drift**: When feature distributions change in production environment  
+**Model Drift**: When model performance degrades over time  
+**CI/CD (Continuous Integration/Continuous Deployment)**: Automated integration and deployment pipelines for ML models
 
-**Data Drift**: When incoming production data differs significantly from training data
+## Cost & Business Metrics
 
-**Bias Drift**: When model starts favoring certain groups over time
-
-**Feature Drift**: When feature distributions change in production
-
-**Model Drift**: When model performance degrades over time
-
-**CI/CD for ML**: Continuous Integration and Continuous Deployment for machine learning models
-
-## Cost & Pricing
-
-**Token-Based Pricing**: Pay per token processed (input and output); scales with actual usage
-
-**Provisioned Throughput**: Reserve dedicated capacity; predictable performance and costs for consistent high-volume workloads
-
-**Custom Models Pricing**: Costs for fine-tuning, training, and storing custom model artifacts
-
-**ARPU (Average Revenue per User)**: Financial metric indicating revenue generation effectiveness
-
-**CLV (Customer Lifetime Value)**: Long-term value of AI impact on customer relationships
-
-**Conversion Rate**: Percentage of users taking desired actions; measures business impact
+**Token-Based Pricing**: Pay per token processed (input tokens + output tokens)  
+**Provisioned Throughput**: Reserved dedicated capacity with predictable costs for high-volume workloads  
+**Custom Models Pricing**: Costs for fine-tuning, training, and storing custom model artifacts  
+**ARPU (Average Revenue per User)**: Financial metric indicating revenue generation effectiveness per user  
+**CLV (Customer Lifetime Value)**: Long-term value of AI impact on customer relationships  
+**Conversion Rate**: Percentage of users taking desired actions, measures business impact  
+**Efficiency**: Resource utilization metrics (compute, memory, time)  
+**Accuracy**: Percentage of correct predictions or quality of generated content  
+**CSAT (Customer Satisfaction)**: User satisfaction metric from surveys  
+**ROI (Return on Investment)**: Financial return from AI investment  
+**Response Time**: Model latency metric  
+**Training Sessions**: Number of ML model training iterations
 
 ## Human-Centered Design
 
-**HCD (Human-Centered Design)**: Methodology that puts users at center of design process
+**HCD (Human-Centered Design)**: Methodology putting users at center to ensure effective, aligned AI  
+**Cognitive Apprenticeship**: AI learns from human feedback through RLHF process  
+**Amplified Decision-Making**: AI assists humans to make better choices with clarity/simplicity/usability  
+**Subgroup Analysis**: Examine model performance across different demographic groups and protected attributes
 
-**Cognitive Apprenticeship**: AI learns from human feedback (RLHF - Reinforcement Learning from Human Feedback)
+## Governance & Infrastructure
 
-**RLHF (Reinforcement Learning from Human Feedback)**: Training technique where AI improves through human guidance
-
-**Amplified Decision-Making**: AI helps people make better choices (clarity, simplicity, usability, reflexivity)
-
-**Subgroup Analysis**: Examine model performance across different groups including protected attributes
-
-## Governance
-
-**Model Versioning**: Track changes to models over time
-
-**Audit Trails**: Maintain records of model decisions and changes
-
-**Open-Source Models**: Publicly available architecture, training methods, and datasets
-
-**Open Data Licensing**: Clear rules on how datasets can be used
-
-**Hugging Face**: Repository platform for NLP models and transformers
-
-**Kaggle**: Hub for datasets and ML competitions
-
-## Energy Efficiency
-
-**AWS Trainium**: Specialized hardware optimized for ML model training with minimal energy consumption
-
+**Model Versioning**: Track changes to models over time for reproducibility  
+**Audit Trails**: Maintain records of model decisions and changes for compliance  
+**Open-Source Models**: Publicly available model architecture, training methods, and datasets  
+**Open Data Licensing**: Clear rules defining how datasets can be used and shared  
+**Hugging Face**: Repository platform for NLP models and transformers  
+**Kaggle**: Hub for datasets, ML competitions, and community collaboration  
+**AWS Trainium**: Specialized hardware optimized for ML model training with energy efficiency  
 **AWS Inferentia**: Specialized hardware optimized for inference/production workloads with energy efficiency
 
 ---
