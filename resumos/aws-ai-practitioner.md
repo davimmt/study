@@ -21,6 +21,7 @@
 17. [Training & Fine-tuning Foundation Models](#17-training--fine-tuning-foundation-models)
 18. [Evaluating Foundation Model Performance](#18-evaluating-foundation-model-performance)
 19. [Cost Optimization & Pricing](#19-cost-optimization--pricing)
+20. [Security, Compliance & Governance for AI Systems](#20-security-compliance--governance-for-ai-systems)
 
 Appendix A: [Summary & Key Takeaways](#a-summary--key-takeaways)<br>
 Appendix B: [Keywords & Quick Reference](#b-keywords--quick-reference)<br>
@@ -556,6 +557,8 @@ Set of practices for managing the complete ML lifecycle
 - Reduced operational risk
 - Better model governance
 
+**AWS Implementation**: See [SageMaker Pipelines](#sagemaker-pipelines), [SageMaker Model Monitor](#sagemaker-model-monitor), and [Security Section](#20-security-compliance--governance-for-ai-systems) for CI/CD practices.
+
 ---
 
 # 12. AWS AI/ML & GenAI Services Portfolio
@@ -858,6 +861,9 @@ Control model output behavior via Bedrock API calls:
 - Typical: 0.9-0.95 for natural text
 
 ## Model Customization Hierarchy
+
+Ranked from lowest to highest cost. For detailed cost analysis, see [Cost Optimization & Pricing](#19-cost-optimization--pricing).
+
 1. **Pre-trained** (Lowest cost): Use models as-is
 2. **Prompt Engineering**: Optimize prompts, no retraining
 3. **RAG**: Combine with external knowledge base
@@ -934,27 +940,13 @@ Control model output behavior via Bedrock API calls:
 
 ### Inference Parameters
 
-**Temperature** (0.0 - 1.0)
-- Controls randomness and creativity in outputs
-- **Low (0.2)**: Deterministic, predictable (coding, factual tasks)
-- **High (0.8)**: Creative, random (story generation, marketing)
-- Higher temperature = more creative; Lower temperature = more predictable
+Control model output behavior during API calls. For detailed explanations of Temperature, Top-k, and Top-p, see [Bedrock Deep Dive - Inference Parameters](#inference-parameters).
 
-**Top-k** (0-500 in AWS)
-- Number of most likely candidates for next token
-- **Lower k**: Smaller pool = more likely outputs
-- **Higher k**: Larger pool = less likely outputs
-- Example: k=10 means model considers top 10 tokens
-
-**Top-p** (0.0 - 1.0)
-- Percentage of most likely candidates for next token
-- **Lower p**: Fewer options = more likely outputs
-- **Higher p**: More options = less likely outputs
-- Example: p=0.9 means top 90% of probability distribution
-
-**Input/Output Length**
-- **Short**: Less computational demand and cost
-- **Long**: More computational demand and cost
+**Quick Reference**:
+- **Temperature** (0.0-1.0): Creativity/randomness control (low = predictable, high = creative)
+- **Top-k** (0-500): Number of token candidates (lower = focused, higher = diverse)
+- **Top-p** (0.0-1.0): Cumulative probability threshold (lower = confident, higher = exploratory)
+- **Input/Output Length**: Impacts computational cost
 
 ## Retrieval-Augmented Generation (RAG)
 
@@ -1027,39 +1019,10 @@ Understanding different customization methods helps select the right approach ba
 
 ## Amazon Bedrock Agents
 
-### Definition
-- Automate multi-step workflows using generative AI
-- Follow pre-defined instructions
-- Interact with data sources
-- Generate outputs based on goals
+Automate multi-step workflows using generative AI. For detailed features, see [Bedrock Agents in Bedrock Deep Dive](#bedrock-agents).
 
-### Key Features
-
-**Memory Retention**
-- Personalized interactions based on conversation history
-- Context awareness across sessions
-
-**Action Schema**
-- Asynchronous task handling
-- Execute complex workflows
-
-**Prompt Engineering**
-- Refining responses dynamically
-- Optimize for specific tasks
-
-**RAG Integration**
-- Fetch data from company sources
-- Dynamically generate code for complex queries
-- Orchestrate tasks via API calls
-
-### Benefits
-- Automate repetitive tasks
-- Reduce manual effort
-- Multi-system integration
-- Consistent task execution
-
-### Example Use Case
-Customer asks order status → Agent retrieves from DB → Analyzes shipping data → Responds with real-time updates
+**Key Capabilities**: Memory retention, action schema, RAG integration, multi-system orchestration  
+**Example Use Case**: Customer asks order status → Agent retrieves from DB → Analyzes shipping data → Responds with real-time updates
 
 ---
 
@@ -1136,6 +1099,7 @@ Customer asks order status → Agent retrieves from DB → Analyzes shipping dat
 - Use explicit instructions to avoid unwanted results
 - Example: "List benefits of renewable energy, but don't include political opinions"
 - Reduces bias, keeps responses aligned
+- For technical implementation, see [Bedrock Guardrails](#bedrock-guardrails)
 
 ### Multiple Comments
 - Break complex ideas into smaller steps
@@ -1143,6 +1107,8 @@ Customer asks order status → Agent retrieves from DB → Analyzes shipping dat
 - Step-by-step queries improve depth and structure
 
 ## Risks and Limitations
+
+For comprehensive security practices, see [Security, Compliance & Governance](#20-security-compliance--governance-for-ai-systems).
 
 ### Exposure
 - Sensitive data inadvertently revealed through prompts
@@ -1403,6 +1369,335 @@ Customer asks order status → Agent retrieves from DB → Analyzes shipping dat
 
 ---
 
+# 20. Security, Compliance & Governance for AI Systems
+
+## IAM (Identity and Access Management)
+
+**IAM Policies**
+- JSON-formatted documents attached to users, groups, roles
+- Define granular access control to AWS resources
+- Support conditional access and fine-grained permissions
+
+**Access Control Models**
+- **RBAC (Role-Based Access Control)**: Assign permissions based on job function, scales well
+- **ABAC (Attribute-Based Access Control)**: Use tags for fine-grained control, dynamic access
+- **Principle of Least Privilege**: Grant minimal access needed
+- **Temporary Access**: Use IAM roles (recommended) vs long-term credentials (access keys)
+
+## Security Services for AI Systems
+
+**AWS KMS (Key Management Service)**
+- Create, store, manage cryptographic keys
+- **Key Types**:
+  - Customer-managed keys: Full control, view metadata
+  - AWS-managed keys: Manage keys, no metadata access
+  - AWS-owned keys: AWS internal use, no customer access
+
+**AWS CloudHSM**
+- Dedicated hardware for cryptographic operations
+- Required for government/defense compliance (FedRAMP)
+
+**Amazon Macie**
+- Discover, identify, classify sensitive data in S3
+- Detect PII (phone, credit cards, SSN)
+- Uses ML and managed/custom identifiers (RegEx)
+
+**AWS PrivateLink**
+- Private connectivity between VPCs and AWS services
+- Avoid public internet traversal, reduces attack surface
+
+**Shared Responsibility Model**
+- **Customer Responsibilities**: Data, traffic, platforms, apps, OS, network config, firewalls, encryption, IAM
+- **AWS Responsibilities**: Physical datacenters, compute, storage, networking, global infrastructure
+
+## Data History & Lineage
+
+**Data Origins**
+- Where data was collected, cleaned, curated, processed, transformed
+- Critical for identifying quality issues and potential biases
+
+**Data Source Citation**
+- Acknowledge source (datasets, web pages, databases)
+- Identify terms of service, licensing, ensure legal compliance
+
+**Data Lineage**
+- Track complete data history: collection → transformation → movement through systems
+- Enables documentation, transparency, and audit trails
+
+**Data Cataloging**
+- Organize datasets, models, terms of service, licensing, sources, metadata
+- **SageMaker Model Cards**: Document origins, citations, lineage, training data details, performance metrics, intended use, risk rating
+
+## Secure Data Engineering
+
+**Data Quality & Integrity**
+- **Accuracy**: Exclude misinformation, speculation, incorrect data
+- **Completeness**: Ensure no missing critical information
+- **Modification Monitoring**: Track and detect malicious data tampering
+
+**Defense-in-Depth Strategy**
+1. **IAM**: Manage identities, roles, groups with conditional access
+2. **KMS**: Encryption for confidentiality
+3. **Network Controls**: Firewalls, VPCs, NACLs, Security Groups
+4. **Monitoring**: CloudTrail (API logging), CloudWatch (metrics/visibility)
+
+**Privacy & Compliance Concepts**
+- **PII (Personally Identifiable Information)**: Data that uniquely identifies an individual
+- **PHI (Protected Health Information)**: Subset of PII, includes medical records
+
+## Compliance Frameworks
+
+**US Government & Industry**
+- **NIST (National Institute of Standards and Technology)**:
+  - SP 800 series: Security controls guidance
+  - AI Risk Management Framework: Privacy and responsible AI
+- **HIPAA (Health Insurance Portability and Accountability Act)**:
+  - PHI protection for US citizens
+  - Privacy Rule, Security Rule, Breach Notification Rule
+- **PCI-DSS (Payment Card Industry Data Security Standard)**:
+  - Payment card transaction security
+
+**International Standards**
+- **GDPR (General Data Protection Regulation)**:
+  - EU regulation for online privacy and PII protection
+  - Applies globally to orgs collecting EU citizen data
+  - Data residency requirements
+- **ISO/IEC Standards** (AWS certified):
+  - **27001**: ISMS requirements (certification possible)
+  - **27002**: Guidelines/best practices for 27001
+  - **27017**: Cloud security
+  - **27018**: Cloud privacy
+- **SOC (System and Organization Controls)**:
+  - **SOC 1**: Financial reporting
+  - **SOC 2**: Trust services (CIA triad)
+  - **SOC 3**: Public summary of SOC 2
+  - **Type 1**: Point-in-time snapshot
+  - **Type 2**: Time range report
+
+**AI-Specific Regulations**
+- **EU Artificial Intelligence Act**: First comprehensive AI legal framework
+- **NYC Automated Decision Systems Law**: AI bias protection
+
+**AWS Compliance Tools**
+- **AWS Artifact**: Access compliance documents, reports, certifications
+- **AWS Privacy Reference Architecture**: Guide for designing privacy controls
+
+## Threat Detection & Response
+
+**Threat Types**
+- **Training Data Poisoning**: Inject false, biased, or malicious data into training process
+- **AI System Misuse**: Manipulate input for copyrighted content, misinformation, malicious tasks
+- **Misconfiguration**: Vulnerable IAM, encryption, network access controls
+
+**AWS Security Services**
+
+**Amazon GuardDuty**
+- Intelligent threat detection using AI/ML
+- Detect anomalies, malicious actions, model misuse
+- Monitor for malicious input and unintended output
+- **Input Sanitization**: Clean malicious input early in pipeline
+
+**Amazon Inspector**
+- Identify vulnerabilities across AWS infrastructure
+- **Vulnerability Management Cycle**: Identify → Classify → Prioritize → Remediate → Mitigate
+- Risk scoring for prioritization
+- Security scanning, documentation, monitoring
+
+**Amazon Detective**
+- Security incident investigation
+- Root cause identification
+- Centralized view of security data from AWS logs
+
+**NIST SP 800-61: Incident Response Lifecycle**
+1. **Preparation**: Threat intelligence, deploy defensive controls
+2. **Detection & Analysis**: Monitor and analyze security events
+3. **Containment**: Limit spread of malicious activity
+4. **Eradication**: Remove malware and threats
+5. **Recovery**: Restore systems and services to normal operations
+6. **Post-Incident**: Lessons learned, improve preparation
+
+## Application Security
+
+**OWASP Top 10 for LLM Applications**
+1. **Prompt Injection**: Manipulate LLM with crafty inputs to perform unintended actions
+2. **Insecure Output Handling**: LLM output blindly accepted (enables XSS, remote code execution)
+3. **Training Data Poisoning**: Tamper with training data to compromise model learning
+
+**Amazon Bedrock Guardrails** (Mitigation Strategies):
+- Input sanitization and validation rules
+- Pre-approved prompt templates (prevent manipulation)
+- Fine-grained access controls
+- Rate limiting (prevent model abuse)
+- Output scanning and validation
+
+**MLOps CI/CD Security Pipeline**
+- **Data Preparation**: Validate data to prevent poisoning
+- **Build & Test**: Security testing use cases during model development
+- **Deployment**: Security scanning on test/stage before production
+- **Post-Deployment**: Continuous monitoring and incident response preparation
+
+**Secure Repository Management**
+- Lock down access to data and development code
+- Secure model artifacts
+- Backup known good/secure trained models
+- Enable rollback from corrupted/compromised versions
+
+**AWS Application Security Services**
+
+**AWS WAF (Web Application Firewall)**
+- Protect OSI Layer 7 from web attacks
+- Defends against XSS, SQL injection, remote code execution
+- Web ACLs with custom rules
+
+**AWS Shield**
+- DDoS attack protection (availability)
+- Shield Advanced: Access to AWS DDoS Response Team
+- Integrates with CloudFront, Route 53
+
+**Amazon Cognito**
+- Customer identity and access management
+- User sign up, sign in, access controls
+- **Adaptive Protections**:
+  - Bot detection (AWS WAF integration)
+  - Credential protection (monitor compromised credentials)
+  - Risk-based adaptive authentication (suspicious geolocation)
+  - Advanced logging (auditing for PCI-DSS, HIPAA)
+
+**Infrastructure Security Best Practices**
+- **Encryption**: KMS for data at rest
+- **IAM**: Strong access controls for compute platforms
+- **Edge Devices**: Network segmentation to limit exposure
+
+## Governance, Risk & Compliance (GRC)
+
+**AWS Services for GRC**
+
+**AWS Config**
+- Track configuration changes of resources, services, identities
+- Detect misconfigurations
+- Support compliance audits
+
+**AWS Audit Manager**
+- Continually audit AWS environment
+- Gather evidence for internal/external audits
+- Centrally manage evidence (AWS, multi-cloud, on-prem)
+- Monitor active assessments
+- Track evidence modification (integrity)
+- Generate compliance documents
+
+**AWS Trusted Advisor**
+- Evaluate environment for AWS Well-Architected Framework alignment
+- **Six Pillars**: Operational Excellence, Security, Reliability, Performance Efficiency, Cost Optimization, Sustainability
+- Recommend remediation actions
+- Improve security posture
+
+**AWS CloudTrail**
+- Record all API activity (users and services)
+- Log successful and failed calls
+- Details: source IP, time, actions
+
+**AWS Security Hub**
+- Centralized dashboard for all security services
+- Integration with SIEM platforms
+- Continuous monitoring and aggregated findings
+- Automated incident response (SOAR workflows)
+- Cloud Security Posture Management (CSPM)
+- Align to compliance frameworks (PCI-DSS, NIST SP 800-53)
+
+## Data Governance Strategies
+
+**Data Lifecycle Management**
+1. **Collection**: Gather data from sources
+2. **Processing**: Clean and transform
+3. **Storage**: Secure storage with encryption
+4. **Classification**: Based on sensitivity and compliance requirements
+5. **Consumption**: Use for AI systems, share externally
+6. **Archive**: S3 Intelligent Tiering, Glacier, Glacier Deep Archive
+7. **Disposal**: Responsible deletion when no longer needed
+
+**Data Residency & Sovereignty**
+- **Data Residency**: Geolocation of servers (GDPR compliance requirement)
+- **Data Sovereignty**: Legal governance within nation's borders (e.g., China data laws)
+
+**S3 Object Locking (WORM Model)**
+- Write-once-read-many for data integrity and immutability
+- **Retention Modes**:
+  - **Compliance Mode**: No deletion/modification (even root account) during retention period
+  - **Governance Mode**: Allow deletion/modification with proper permissions
+- **Legal Holds**: Restrict all users until lifted (legal discovery use cases)
+
+**AWS Backup**
+- Disaster recovery and business continuity
+- Supports availability pillar
+- Efficient backup of critical data
+
+**Monitoring Best Practices**
+- **Input/Output Behavior**: Detect prompt injection and model misuse
+- **Performance Metrics**: Identify DDoS and availability attacks
+- **Security Events**: Monitor failed logins, unauthorized data access
+- **Infrastructure**: Compute, network, storage interactions
+- **Compliance**: AI bias, copyright violations, PII exposure
+
+## Governance Protocols
+
+**Policy Framework**
+- **Policy**: Overarching guideline aligned with org values, mission, compliance
+- **Process**: High-level activities to achieve policy objectives
+- **Procedure**: Detailed steps to support processes
+
+**Policy Review Cadence**
+- **Review Aspects**: Performance, data management, model training, human safety, responsible AI
+- **Frequency**: Monthly, quarterly, semiannual, annual (based on risk assessment)
+- **Stakeholders**: Technical teams, leadership, legal, SMEs, end users
+
+**Review Strategies**
+- **Technical Reviews**: Model performance, data quality, algorithms
+- **Non-Technical Reviews**: Compliance, regulatory, legal, policy adherence
+- **Testing**: Validate AI system output and function as intended
+- **Decision-Making**: Clear intervention protocols (e.g., addressing AI bias)
+
+**Transparency & Training**
+- Publish training data, development process, model information
+- Document intended use and limitations
+- Maintain feedback channels (legal, dev, leadership, users)
+- Ongoing team training on responsible/ethical AI practices
+- Regular updates on regulatory/compliance changes
+
+## GenAI Security Scoping Matrix
+
+Framework for securing AI lifecycle based on control level and security responsibility:
+
+**Application Scopes (Purchased AI Solutions)**
+- **Scope 1: Public Consumer App**
+  - Examples: PartyRock, ChatGPT
+  - Control: Minimal (no control over model/data)
+  - Security: Vendor-managed
+
+- **Scope 2: Enterprise App**
+  - Examples: Amazon Q
+  - Control: Customization within vendor constraints
+  - Features: Embedded in org apps, uses company data
+  - Security: Shared responsibility
+
+**Model Scopes (Built AI Solutions)**
+- **Scope 3: Pre-trained Model**
+  - Examples: Amazon Bedrock
+  - Control: Build app with third-party FMs via APIs
+  - Security: Org responsible for app layer
+
+- **Scope 4: Fine-tuned Model**
+  - Examples: SageMaker JumpStart, Bedrock custom models
+  - Control: Fine-tune training data with org data
+  - Security: Org responsible for data and fine-tuning
+
+- **Scope 5: Self-trained Model**
+  - Control: Full control (built from scratch)
+  - Security: Full responsibility for entire AI lifecycle
+
+**Security Principle**: Higher scope = More control = More security responsibility
+
+---
+
 # A. Summary & Key Takeaways
 
 1. **AI/ML Fundamentals**
@@ -1511,6 +1806,17 @@ Customer asks order status → Agent retrieves from DB → Analyzes shipping dat
    - Right-size models for use cases
    - Caching and reuse strategies
    - Monitor usage and costs
+
+16. **Security, Compliance & Governance**
+   - IAM best practices: RBAC, ABAC, principle of least privilege, temporary credentials
+   - Security services: KMS (encryption), Macie (PII detection), GuardDuty (threat detection), Inspector (vulnerability management)
+   - Compliance frameworks: NIST, HIPAA, GDPR, PCI-DSS, ISO 27001/27002, SOC 1/2/3
+   - Data governance: Data lineage, cataloging, S3 Object Locking, lifecycle management
+   - Application security: OWASP Top 10 for LLM, Bedrock Guardrails, WAF, Shield, Cognito
+   - Incident response: NIST SP 800-61 lifecycle (Preparation → Detection → Containment → Eradication → Recovery → Post-Incident)
+   - GenAI Security Scoping Matrix: 5 scopes from public consumer apps to self-trained models
+   - AI bias types: Algorithmic, confirmation, selection bias - require diverse datasets and continuous monitoring
+   - GRC tools: Config, Audit Manager, Trusted Advisor, CloudTrail, Security Hub
 
 ---
 
@@ -1790,7 +2096,55 @@ Customer asks order status → Agent retrieves from DB → Analyzes shipping dat
 **Amplified Decision-Making**: AI assists humans to make better choices with clarity/simplicity/usability  
 **Subgroup Analysis**: Examine model performance across different demographic groups and protected attributes
 
-## Governance & Infrastructure
+## Security, Compliance & Governance
+
+**RBAC (Role-Based Access Control)**: Permissions based on job function  
+**ABAC (Attribute-Based Access Control)**: Fine-grained control using tags  
+**Principle of Least Privilege**: Grant minimal access needed  
+**PII (Personally Identifiable Information)**: Data uniquely identifying individuals  
+**PHI (Protected Health Information)**: PII subset, medical records  
+**NIST**: US govt standards (SP 800 series, AI Risk Management Framework)  
+**HIPAA**: US regulation for PHI protection  
+**GDPR**: EU regulation for PII protection, global applicability  
+**PCI-DSS**: Payment card security standard  
+**ISO/IEC 27001**: ISMS requirements, certification  
+**ISO/IEC 27002**: ISMS guidelines/best practices  
+**SOC 1/2/3**: Audit reports (financial/trust services/public summary)  
+**Data Lineage**: Track data history from collection to AI system use  
+**Data Residency**: Server geolocation compliance (GDPR requirement)  
+**Data Sovereignty**: Legal governance within nation borders  
+**OWASP Top 10 for LLM**: Prompt injection, insecure output handling, training data poisoning  
+**NIST SP 800-61**: Incident Response Lifecycle (6 phases)  
+**GenAI Security Scoping Matrix**: 5 scopes (consumer app to self-trained model)  
+**Algorithmic Bias**: Discriminatory AI outcomes  
+**Confirmation Bias**: Training data reinforces stereotypes  
+**Selection Bias**: Training data doesn't represent population  
+**EU AI Act**: First comprehensive AI legal framework  
+**NYC Automated Decision Systems Law**: AI bias protection
+
+## AWS Security Services
+
+**IAM (Identity and Access Management)**: Manage users, roles, groups access to AWS resources  
+**KMS (Key Management Service)**: Create, store, manage cryptographic keys for encryption  
+**CloudHSM**: Dedicated hardware for cryptographic operations (FedRAMP compliance)  
+**Amazon Macie**: Discover, classify PII in S3 using ML and RegEx identifiers  
+**AWS PrivateLink**: Private VPC connectivity, avoids public internet  
+**Amazon GuardDuty**: AI/ML-based threat detection, anomaly identification  
+**Amazon Inspector**: Vulnerability management with risk scoring  
+**Amazon Detective**: Security incident investigation, root cause analysis  
+**AWS Config**: Track configuration changes, detect misconfigurations  
+**AWS Audit Manager**: Continual GRC auditing, evidence gathering  
+**AWS Trusted Advisor**: Well-Architected Framework alignment, remediation recommendations  
+**AWS CloudTrail**: Log all API activity (users and services)  
+**AWS Security Hub**: Centralized security dashboard, SIEM integration, SOAR workflows, CSPM  
+**AWS WAF**: Web Application Firewall for Layer 7 protection  
+**AWS Shield**: DDoS protection, Shield Advanced with DDoS Response Team  
+**Amazon Cognito**: Customer identity management, adaptive protections (bot detection, risk-based auth)  
+**S3 Object Locking**: WORM model (Write-Once-Read-Many), compliance/governance modes, legal holds  
+**AWS Backup**: Disaster recovery, business continuity  
+**AWS Artifact**: Access compliance documents, reports, certifications
+
+## Infrastructure & Governance
 
 **Model Versioning**: Track changes to models over time for reproducibility  
 **Audit Trails**: Maintain records of model decisions and changes for compliance  
