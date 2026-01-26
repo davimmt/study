@@ -508,85 +508,26 @@ User-focused methodology ensuring AI is effective and aligned with human needs.
 
 ## AWS Tools for Responsible AI
 
-### SageMaker Clarify
-- **Purpose**: Detect bias and provide model explainability
-- **Capabilities**:
-  - Identify underrepresented/overrepresented groups in datasets
-  - Detect bias in model predictions
-  - Visualize prediction distribution across different groups
-  - Analyze features influencing predictions (feature importance)
-  - Show which factors contribute to decisions via bar charts
-- **Explainability**: Provides WHY specific predictions were made using post-hoc methods
+**SageMaker Tools** (see [# 12. Amazon SageMaker Deep Dive](#12-amazon-sagemaker-deep-dive)):
+- **Clarify**: Detect bias and provide model explainability (SHAP, LIME)
+- **Ground Truth**: Data labeling with human-in-the-loop and active learning
+- **Model Cards**: Document model purpose, risks, limitations, and performance
+- **Model Monitor**: Continuous monitoring for data drift, bias drift, and performance degradation
+- **A2I (Augmented AI)**: Human review via random sampling or confidence thresholds
 
-### SageMaker Ground Truth
-- **Purpose**: Data labeling for machine learning
-- **Options**:
-  - Human labelers (Amazon Mechanical Turk, own team, third-party vendors)
-  - Machine assistance (AI suggests labels, humans correct)
-  - Automated labeling (after sufficient labeled data collected)
-- **Ground Truth Plus**: Subject matter experts for complex labeling tasks
-- **Active Learning**: Minimizes labeling effort and cost
+**Bedrock Tools** (see [# 13. Amazon Bedrock Deep Dive](#13-amazon-bedrock-deep-dive)):
+- **Guardrails**: Safety barriers against offensive content, PII, hallucinations, prompt attacks
 
-### SageMaker Model Cards
-- **Purpose**: Document comprehensive model information
-- **Documentation Includes**:
-  - Model purpose and intended use
-  - Risk ratings (high/medium/low/unknown)
-  - Known limitations
-  - Ethical considerations
-  - Performance metrics (accuracy, precision, recall, etc.)
-- Acts as a "cheat sheet" or guide for the model
-
-### SageMaker Model Monitor
-- **Purpose**: Continuous monitoring of deployed models
-- **Post-Deployment Monitoring**:
-  - Compares incoming production data to training data
-  - Detects data drift (when data distribution changes)
-  - Identifies bias drift (emerging biases)
-  - Flags model performance degradation
-- **Alerts**: Notifies when issues are detected
-
-### Amazon Augmented AI (A2I)
-- **Purpose**: Combine AI speed with human accuracy
-- **Human Review Triggers**:
-  - Random sampling (e.g., review 10% of predictions)
-  - Confidence score threshold (e.g., review when confidence < 50%)
-- **Reviewers**: Own employees, third-party providers, AWS Mechanical Turk
-- **Use Case**: Boost model accuracy with human intelligence oversight
-
-### Amazon Bedrock Guardrails
-- **Purpose**: Safety barriers for GenAI models
-- **Protection Against**:
-  - Offensive language and profanity
-  - Biased content
-  - Personally Identifiable Information (PII) - can block or mask
-  - Hallucinated responses
-  - Prompt attacks (attempts to manipulate system)
-  - Denied topics (configurable blocked content)
-- **Accuracy Checks**: Reduce hallucinations by validating relevance and accuracy
-
-### Foundation Model Evaluations (FMEval)
-- **Purpose**: Test and evaluate foundation models
-- **Prompt Stereotyping**: Detect if model encodes biases about gender, age, or ethnicity
-- **Use Case**: Identify when model treats people differently based on demographic characteristics
+**Foundation Model Evaluations (FMEval)**:
+- Test and evaluate foundation models
+- Detect prompt stereotyping (biases about gender, age, ethnicity)
 
 ## AI Governance
 
-### Open-Source Models
-**Benefits for Transparency:**
-- Architecture publicly available
-- Training methods documented
-- Training datasets accessible
-- Promotes fairness, innovation, and accountability
-
-**Platforms:**
-- **Hugging Face**: Repository for NLP models and transformers
-- **Kaggle**: Hub for datasets and ML competitions
-
-**Open Data Licensing:**
-- Clear rules on how datasets can be used
-- Enables reproducibility and validation
-- Supports responsible AI development
+**Open-Source Models:**
+- Publicly available architecture, training methods, and datasets
+- Platforms: Hugging Face (NLP models), Kaggle (datasets and competitions)
+- Open data licensing for reproducibility and validation
 
 ### Governance Tools
 - **Model Cards**: Document model lifecycle and decisions
@@ -773,17 +714,48 @@ Comprehensive platform to prepare, build, train, tune, and deploy ML models from
 - **Purpose**: Data labeling for machine learning
 - **ML Workflow Stage**: Data labeling (data preparation)
 - **Features**:
-  - Human-in-the-loop (manual/hybrid annotation)
+  - Human-in-the-loop (Mechanical Turk, own team, third-party vendors)
+  - Machine assistance (AI suggests labels, humans correct)
   - Active learning to minimize labeling effort and cost
-  - Supports images, text, videos, and more
+  - Automated labeling after sufficient data collected
+- **Ground Truth Plus**: Subject matter experts for complex labeling tasks
 
 ## SageMaker Clarify
 - **Purpose**: Ensure fairness and explainability in ML models
 - **ML Workflow Stage**: Model evaluation and monitoring
 - **Features**:
   - Detect data and model bias
-  - Analyze feature importance
-  - Provide model interpretability tools
+  - Identify underrepresented/overrepresented groups in datasets
+  - Analyze features influencing predictions (feature importance)
+  - Provide model interpretability tools (SHAP, LIME)
+  - Visualize prediction distribution across groups
+  - Show which factors contribute to decisions via charts
+
+## SageMaker Model Cards
+- **Purpose**: Document comprehensive model information
+- **ML Workflow Stage**: Model documentation and governance
+- **Includes**:
+  - Model purpose and intended use
+  - Risk ratings (high/medium/low/unknown)
+  - Known limitations and ethical considerations
+  - Performance metrics (accuracy, precision, recall, etc.)
+
+## SageMaker Model Monitor
+- **Purpose**: Continuous monitoring of deployed models to ensure ongoing quality and performance
+- **ML Workflow Stage**: Post-deployment monitoring
+- **Features**:
+  - Compare production data to training data
+  - Detect data drift and bias drift
+  - Flag model performance degradation
+  - Alert notifications
+
+## Amazon Augmented AI (A2I)
+- **Purpose**: Combine AI speed with human accuracy
+- **ML Workflow Stage**: Model inference and quality assurance
+- **Human Review Triggers**:
+  - Random sampling (e.g., review 10% of predictions)
+  - Confidence score threshold (e.g., review when confidence < 50%)
+- **Reviewers**: Own employees, third-party providers, AWS Mechanical Turk
 
 ## SageMaker Deployment Options
 
@@ -814,15 +786,6 @@ Comprehensive platform to prepare, build, train, tune, and deploy ML models from
   - Auto-scaling (including to zero)
   - Pay-per-use pricing
   - Unpredictable usage patterns
-
-## SageMaker Model Monitor
-- **Purpose**: Continuous monitoring of deployed models to ensure ongoing quality and performance
-- **ML Workflow Stage**: Post-deployment monitoring
-- **Features**:
-  - Detects data quality issues
-  - Identifies feature drift
-  - Monitors bias drift
-  - Flags model performance degradation
 
 ---
 
