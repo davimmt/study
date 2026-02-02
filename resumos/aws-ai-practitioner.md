@@ -1943,7 +1943,7 @@ Framework for securing AI lifecycle based on control level and security responsi
      - Prompt Augmentation: Core step enriching query with retrieved context (happens at inference time)
      - Reranking: Post-processing to enhance relevance and variety, reduce redundancy
    - Vector databases for semantic search (OpenSearch, Aurora, Neptune, DocumentDB, RDS PostgreSQL)
-   - Knowledge base services: OpenSearch (vector DB), Kendra (intelligent search) - NOT S3 or RDS alone
+   - Knowledge base services: OpenSearch (vector DB), Kendra (intelligent search)
    - Bedrock Agents for multi-step task automation
    - Customization cost ranking: Pre-training (highest) > Fine-tuning > RAG > In-context learning (lowest)
 
