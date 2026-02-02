@@ -1157,3 +1157,505 @@ Long-term value of AI impact on customer relationships; measures sustained busin
 Average Revenue per User; financial metric tied to monetization indicating revenue generation effectiveness
 
 </details>
+
+---
+
+## Set 30: AWS Contact Center Services
+
+**Q117:** What is Amazon Connect Contact Lens?
+
+<details>
+<summary>Show Answer</summary>
+
+Provides real-time analytics, sentiment analysis, and transcription for contact center interactions to enhance GenAI outputs
+
+</details>
+
+**Q118:** What is Amazon Q in Connect?
+
+<details>
+<summary>Show Answer</summary>
+
+Generative AI assistant embedded in Amazon Connect that provides real-time guidance for agents and automates post-call documentation
+
+</details>
+
+**Q119:** What is Amazon Connect Wisdom?
+
+<details>
+<summary>Show Answer</summary>
+
+Knowledge management service integrated with Amazon Connect that provides real-time article recommendations for agents
+
+</details>
+
+---
+
+## Set 31: AWS Advanced Services
+
+**Q120:** What is CloudTrail Lake?
+
+<details>
+<summary>Show Answer</summary>
+
+Managed data lake for storing and querying CloudTrail events using SQL; enables audit trail analysis for compliance and investigation
+
+</details>
+
+**Q121:** What is Amazon Titan Multimodal Embeddings G1?
+
+<details>
+<summary>Show Answer</summary>
+
+ML model that generates embeddings for both text AND images, enabling multimodal search capabilities (search by text or image)
+
+</details>
+
+**Q122:** What is Amazon Titan Text Premier?
+
+<details>
+<summary>Show Answer</summary>
+
+Foundation model on Bedrock that can be fine-tuned for specific tasks; requires provisioned throughput for fine-tuned versions
+
+</details>
+
+**Q123:** What is Amazon OpenSearch Serverless?
+
+<details>
+<summary>Show Answer</summary>
+
+Serverless version of OpenSearch Service for search and analytics workloads with no infrastructure management
+
+</details>
+
+---
+
+## Set 32: Classification Algorithms
+
+**Q124:** What is Support Vector Machine (SVM)?
+
+<details>
+<summary>Show Answer</summary>
+
+Powerful classification algorithm that handles high-dimensional data and non-linear relationships; effective for binary classification like churn prediction
+
+</details>
+
+**Q125:** What is Binary Classification?
+
+<details>
+<summary>Show Answer</summary>
+
+Classification task with exactly two possible outcomes (e.g., churn: yes/no, fraud: yes/no, spam: yes/no)
+
+</details>
+
+**Q126:** When should you use SVM?
+
+<details>
+<summary>Show Answer</summary>
+
+When data is well-separated, has high dimensions, or contains non-linear relationships; examples: fraud detection, churn prediction, image classification
+
+</details>
+
+---
+
+## Set 33: ML Experimentation
+
+**Q127:** What is A/B Testing in ML context?
+
+<details>
+<summary>Show Answer</summary>
+
+Controlled experiment comparing model variants by splitting users into groups (A and B) to evaluate performance on predefined metrics before full rollout
+
+</details>
+
+**Q128:** What is Multi-Model Hosting?
+
+<details>
+<summary>Show Answer</summary>
+
+Capability to host multiple model variants simultaneously for A/B testing and experimentation
+
+</details>
+
+**Q129:** What metrics are used in A/B Testing?
+
+<details>
+<summary>Show Answer</summary>
+
+Accuracy, user engagement, response quality, speed; depends on specific objectives and use case
+
+</details>
+
+---
+
+## Set 34: Sequence Generation
+
+**Q130:** What is Beam Search?
+
+<details>
+<summary>Show Answer</summary>
+
+Decoding strategy that explores multiple candidate paths simultaneously to improve quality of generated sequences; trade-off: better quality vs slower generation
+
+</details>
+
+**Q131:** What is Softmax?
+
+<details>
+<summary>Show Answer</summary>
+
+Activation function that converts logits to probability distribution (sum = 1.0); used during training for loss computation
+
+</details>
+
+**Q132:** What is Argmax?
+
+<details>
+<summary>Show Answer</summary>
+
+Function that selects the index with highest value/probability; used during inference for classification (more efficient than softmax for prediction)
+
+</details>
+
+---
+
+## Set 35: Fine-Tuning Techniques
+
+**Q133:** What is PEFT (Parameter-Efficient Fine-Tuning)?
+
+<details>
+<summary>Show Answer</summary>
+
+Updates only a small subset of model parameters; more computationally efficient with lower memory requirements than full fine-tuning
+
+</details>
+
+**Q134:** When should you use PEFT vs Full Fine-Tuning?
+
+<details>
+<summary>Show Answer</summary>
+
+PEFT: Multiple tenants/use cases from single base model, limited resources. Full: Massive datasets with abundant computational resources
+
+</details>
+
+**Q135:** What is Catastrophic Forgetting?
+
+<details>
+<summary>Show Answer</summary>
+
+When model forgets previously learned knowledge during fine-tuning; PEFT mitigates this by keeping most parameters frozen
+
+</details>
+
+**Q136:** What are benefits of PEFT?
+
+<details>
+<summary>Show Answer</summary>
+
+Lower GPU memory, faster training, easier to maintain multiple versions, preserves original knowledge, enables multi-tenant use cases
+
+</details>
+
+---
+
+## Set 36: Advanced Prompt Engineering
+
+**Q137:** What is Prompt Tuning?
+
+<details>
+<summary>Show Answer</summary>
+
+Uses machine learning to learn optimal instructions (soft prompts) for a task; different from manual prompt engineering; doesn't modify model weights
+
+</details>
+
+**Q138:** What's the difference between Prompt Engineering and Prompt Tuning?
+
+<details>
+<summary>Show Answer</summary>
+
+Engineering: Manual, human-driven, uses hard prompts (natural language). Tuning: Automated, ML-driven, uses soft prompts (virtual tokens)
+
+</details>
+
+**Q139:** What are Hard Prompts?
+
+<details>
+<summary>Show Answer</summary>
+
+Natural language instructions manually created by humans for guiding model behavior
+
+</details>
+
+**Q140:** What are Soft Prompts?
+
+<details>
+<summary>Show Answer</summary>
+
+Virtual tokens learned via ML and prepended to input; guides model behavior without modifying weights
+
+</details>
+
+**Q141:** What are Virtual Tokens?
+
+<details>
+<summary>Show Answer</summary>
+
+Learned embeddings (not actual words from vocabulary) prepended to input prompt in prompt tuning technique
+
+</details>
+
+---
+
+## Set 37: RAG Enhancement
+
+**Q142:** What is Prompt Augmentation?
+
+<details>
+<summary>Show Answer</summary>
+
+Core RAG step where user query is enriched with relevant information from retrieved documents to provide domain-specific context to the LLM
+
+</details>
+
+**Q143:** What is Reranking in RAG?
+
+<details>
+<summary>Show Answer</summary>
+
+Post-processing step after initial retrieval that refines results based on semantic similarity to enhance relevance and variety; reduces redundancy
+
+</details>
+
+**Q144:** When does Prompt Augmentation happen?
+
+<details>
+<summary>Show Answer</summary>
+
+At inference time (not training); provides context without fine-tuning the model
+
+</details>
+
+---
+
+## Set 38: Model Compression
+
+**Q145:** What is Pruning?
+
+<details>
+<summary>Show Answer</summary>
+
+Removing redundant or less important parameters from model to reduce size and computational requirements with minimal accuracy loss
+
+</details>
+
+**Q146:** What is Quantization?
+
+<details>
+<summary>Show Answer</summary>
+
+Reducing precision of model weights (e.g., FP32 → FP16 → INT8) to decrease memory footprint; example: 32-bit (4 bytes) → 8-bit (1 byte) = 75% reduction
+
+</details>
+
+**Q147:** What is Knowledge Distillation?
+
+<details>
+<summary>Show Answer</summary>
+
+Training smaller "student" model to mimic larger "teacher" model's behavior; retains significant performance in compact model
+
+</details>
+
+**Q148:** What are the three main model compression techniques?
+
+<details>
+<summary>Show Answer</summary>
+
+Pruning (remove parameters), Quantization (reduce precision), Knowledge Distillation (teacher → student model)
+
+</details>
+
+---
+
+## Set 39: Transformer Architecture
+
+**Q149:** What is Self-Attention in Transformers?
+
+<details>
+<summary>Show Answer</summary>
+
+Mechanism that allows model to focus on specific parts of input sequence by computing attention weights for each token vs all others; captures contextual relationships
+
+</details>
+
+**Q150:** What are Attention Weights?
+
+<details>
+<summary>Show Answer</summary>
+
+Computed for each token in relation to all other tokens; tells model how much "focus" to give each token based on contextual relevance (quadratic complexity O(n²))
+
+</details>
+
+**Q151:** What is Encoder-Decoder Architecture?
+
+<details>
+<summary>Show Answer</summary>
+
+Model design with separate encoder (input processing) and decoder (output generation); excels at text summarization and machine translation
+
+</details>
+
+**Q152:** What is the primary purpose of Self-Attention?
+
+<details>
+<summary>Show Answer</summary>
+
+To understand context and relationships within text by allowing model to focus on relevant parts of input sequence based on contextual relevance
+
+</details>
+
+---
+
+## Set 40: Training Metrics & Optimization
+
+**Q153:** What's the difference between Training Loss and Validation Loss?
+
+<details>
+<summary>Show Answer</summary>
+
+Training Loss: Error on training data (can be misleading). Validation Loss: Error on validation data (better indicator of generalization)
+
+</details>
+
+**Q154:** How do you detect overfitting using loss metrics?
+
+<details>
+<summary>Show Answer</summary>
+
+Training loss decreases but validation loss increases; indicates model is memorizing rather than generalizing
+
+</details>
+
+**Q155:** What is Validation Output Accuracy?
+
+<details>
+<summary>Show Answer</summary>
+
+Percentage of correct predictions on unseen validation data; key metric for determining optimal number of epochs during fine-tuning
+
+</details>
+
+**Q156:** What is Bayesian Optimization?
+
+<details>
+<summary>Show Answer</summary>
+
+Advanced hyperparameter tuning method using probabilistic model; learns from past evaluations to intelligently select next values to test; more efficient than Grid/Random Search
+
+</details>
+
+**Q157:** What is Gradient Descent used for?
+
+<details>
+<summary>Show Answer</summary>
+
+Training model parameters (weights and biases), NOT for tuning hyperparameters; iteratively adjusts parameters to minimize loss function
+
+</details>
+
+---
+
+## Set 41: GenAI Use Cases
+
+**Q158:** What is Image-to-Text Generation?
+
+<details>
+<summary>Show Answer</summary>
+
+Foundation model capability to generate descriptive captions or text descriptions from images; use case: video scene description, accessibility, content moderation
+
+</details>
+
+**Q159:** What are Scene Changes in video processing?
+
+<details>
+<summary>Show Answer</summary>
+
+Technique to identify transitions between different scenes in video content using Amazon Rekognition; workflow: detect scenes → extract frames → generate captions
+
+</details>
+
+**Q160:** What is Action Item Extraction?
+
+<details>
+<summary>Show Answer</summary>
+
+Process of identifying actionable tasks from unstructured text like customer reviews, meeting notes, or support tickets using GenAI
+
+</details>
+
+**Q161:** What is Post-Call Documentation?
+
+<details>
+<summary>Show Answer</summary>
+
+Automated generation of call summaries after contact center interactions; reduces agent after-call work using Amazon Q in Connect and Contact Lens
+
+</details>
+
+**Q162:** What is Customer Segmentation?
+
+<details>
+<summary>Show Answer</summary>
+
+Dividing customers into groups based on behavior patterns using K-Means clustering (unsupervised); use case: marketing campaigns, personalization, retention
+
+</details>
+
+---
+
+## Set 42: AWS Patterns & Governance
+
+**Q163:** What is Cross-Account Access pattern in AWS?
+
+<details>
+<summary>Show Answer</summary>
+
+Secure pattern for accessing resources across AWS accounts: 1) Configure S3 bucket policy in Account A, 2) Create IAM role in Account B with read permissions, 3) Application assumes role
+
+</details>
+
+**Q164:** What is Data Lineage?
+
+<details>
+<summary>Show Answer</summary>
+
+Detailed history tracking data's origin, transformations, and journey through ML pipeline; essential for debugging, reproducibility, auditing, and compliance
+
+</details>
+
+**Q165:** What AWS services support Knowledge Bases with GenAI?
+
+<details>
+<summary>Show Answer</summary>
+
+Amazon OpenSearch Service (vector database) and Amazon Kendra (intelligent search); NOT S3 (object storage) or RDS (relational database)
+
+</details>
+
+**Q166:** When is PEFT ideal for multi-tenant scenarios?
+
+<details>
+<summary>Show Answer</summary>
+
+When creating specialized model versions from same base model for different tenants/domains (legal, medical, financial); saves resources vs full fine-tuning each version
+
+</details>

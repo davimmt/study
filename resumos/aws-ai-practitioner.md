@@ -1,4 +1,4 @@
-# AWS AI Practitioner Certification - Study Guide
+# [AWS AI Practitioner Certification](https://aws.amazon.com/certification/certified-ai-practitioner/)
 
 # Table of Contents
 
@@ -25,7 +25,6 @@
 
 Appendix A: [Summary & Key Takeaways](#a-summary--key-takeaways)<br>
 Appendix B: [Keywords & Quick Reference](#b-keywords--quick-reference)<br>
-Appendix C: [Study Resources](#c-study-resources)<br>
 
 # 1. Core AI/ML Concepts
 
@@ -125,6 +124,42 @@ Data → ML Model → Output
 - Enable attention mechanisms for context understanding
 - Foundation of modern large language models
 
+### Self-Attention Mechanism
+
+**Self-Attention**
+- Core mechanism allowing model to focus (token weight) on specific parts of input sequence
+- Captures contextual relationships within sequence
+- **Purpose**: Understand context and relationships within text
+- Enables parallel processing (unlike sequential RNNs)
+
+**Attention Weights**
+- Computed for each token in relation to all other tokens
+- Tell model how much "focus" or "attention" to give each token
+- Enable dynamic prioritization of input parts
+- Based on contextual relevance to current token being processed
+- Core of self-attention mechanism
+- **Quadratic complexity**: Pairwise calculations between all tokens (O(n²))
+
+### Transformer Architectures
+
+**Encoder-Decoder Architecture**
+- Separate encoder (input processing) and decoder (output generation)
+- **Excels at**: 
+  - Text summarization
+  - Machine translation
+  - Sequence-to-sequence tasks
+- Examples: T5, BART, original Transformer (Vaswani et al., 2017)
+
+**Encoder-only Architecture**
+- Only encoder component, no decoder
+- Good for: Classification, sentiment analysis, named entity recognition
+- Example: BERT
+
+**Decoder-only Architecture**
+- Only decoder component, no encoder
+- Good for: Text generation, completion, creative writing
+- Examples: GPT series, many modern LLMs
+
 ## Generative AI Model Types
 
 **Foundation Models (FM)**
@@ -216,16 +251,18 @@ Data Selection → Model Selection → Pre-training → Fine-tuning → Evaluati
 
 ---
 
-# 5. ML Model Development Lifecycle
+# 5. Feature Engineering & Data Preparation
 
-## Complete Pipeline
+## ML Model Development Lifecycle
+
+### Complete Pipeline
 ```
 Fetch → Clean → Prepare → Train/Tune → Evaluate → Deploy → Monitor
                                                               ↓
                                                          Feedback Loop
 ```
 
-## Phase Descriptions
+### Phase Descriptions
 
 **Prepare (Feature Engineering)**
 - Transform raw data into ML-friendly format
@@ -243,10 +280,6 @@ Fetch → Clean → Prepare → Train/Tune → Evaluate → Deploy → Monitor
 - Identify data quality issues
 - Detect feature drift, bias drift, and model drift
 
----
-
-# 6. Data Preparation & Feature Engineering
-
 ## Exploratory Data Analysis (EDA)
 - **Purpose**: Identify patterns, correlations, and anomalies before training
 - **Activities**: 
@@ -255,7 +288,11 @@ Fetch → Clean → Prepare → Train/Tune → Evaluate → Deploy → Monitor
   - Summarize features
 - **Correlation Matrix**: Quantifies relationships between variables
 
-## Feature Engineering Techniques
+## Feature Engineering
+
+Feature engineering transforms raw data into ML-ready format by selecting and transforming variables to enhance dataset quality for training.
+
+### Techniques
 
 **Feature Selection**
 - Filter relevant features from dataset
@@ -276,7 +313,7 @@ Fetch → Clean → Prepare → Train/Tune → Evaluate → Deploy → Monitor
 
 ---
 
-# 7. Model Training & Optimization
+# 6. Model Training & Optimization
 
 ## Parameters
 - **Definition**: Internal model values representing data relationships
@@ -298,9 +335,42 @@ Fetch → Clean → Prepare → Train/Tune → Evaluate → Deploy → Monitor
 - **Number of Epochs**: Complete iterations through training data
 
 **Hyperparameter Optimization Methods:**
-- **Grid Search**: Tests all possible combinations (exhaustive)
-- **Random Search**: Randomly samples combinations
-- **AWS SageMaker Automatic Model Tuning (AMT)**: Automated optimization
+- **Grid Search**: Tests all possible combinations (exhaustive but computationally expensive)
+- **Random Search**: Randomly samples combinations (faster than grid search)
+- **Bayesian Optimization**:
+  - Advanced hyperparameter tuning method using probabilistic model
+  - Learns from past evaluations to intelligently select next values to test
+  - More efficient than Grid Search or Random Search
+  - Iteratively assesses model performance at various points
+  - Intelligently explores hyperparameter space
+  - **Best for**: Complex models with numerous hyperparameters
+  - Trade-off: More complex to implement, but much more efficient
+- **AWS SageMaker Automatic Model Tuning (AMT)**: Automated optimization using Bayesian optimization
+
+**Note**: Gradient Descent is used for training model parameters (weights/biases), NOT for tuning hyperparameters
+
+---
+
+# 7. Model Deployment & MLOps
+
+## MLOps (Machine Learning Operations)
+
+### Definition
+Set of practices for managing the complete ML lifecycle
+
+### Core Principles
+- **Automation**: Streamline repetitive tasks
+- **Consistency**: Standardized workflows
+- **Reliability**: Robust production systems
+- **Version Control**: Track models, data, and code
+- **Continuous Deployment**: Automated model updates
+- **Monitoring**: Track performance and detect drift
+
+### Benefits
+- Faster time-to-production
+- Improved collaboration between teams
+- Reduced operational risk
+- Better model governance
 
 ---
 
@@ -379,6 +449,30 @@ Fetch → Clean → Prepare → Train/Tune → Evaluate → Deploy → Monitor
 - Range: [0, 1]
 - Values close to 1 indicate strong predictive power
 - Close to 0 means input variable provides little prediction value
+
+## Training & Validation Metrics
+
+**Training Loss**
+- Error metric calculated on training data
+- Model adjusts parameters to minimize this
+- **Limitation**: Low training loss doesn't guarantee good generalization
+- Can be misleading if model is overfitting
+- Should be monitored alongside validation loss
+
+**Validation Loss**
+- Error metric calculated on unseen validation data
+- **Key indicator** of model generalization ability
+- Better predictor of real-world performance than training loss
+- **Overfitting detection**: Training loss ↓ while validation loss ↑
+
+**Validation Output Accuracy**
+- Measures performance on unseen validation data
+- **Key metric** for determining optimal number of epochs during fine-tuning
+- Higher validation accuracy = better generalization
+- Monitor to find peak performance point before overfitting
+- More reliable than training accuracy for model selection
+
+**Best Practice**: Always monitor validation loss/accuracy to stop training at optimal point and prevent overfitting
 
 ## Cross-Functional Metrics
 
@@ -538,30 +632,7 @@ User-focused methodology ensuring AI is effective and aligned with human needs.
 
 ---
 
-# 11. MLOps (Machine Learning Operations)
-
-## Definition
-Set of practices for managing the complete ML lifecycle
-
-## Core Principles
-- **Automation**: Streamline repetitive tasks
-- **Consistency**: Standardized workflows
-- **Reliability**: Robust production systems
-- **Version Control**: Track models, data, and code
-- **Continuous Deployment**: Automated model updates
-- **Monitoring**: Track performance and detect drift
-
-## Benefits
-- Faster time-to-production
-- Improved collaboration between teams
-- Reduced operational risk
-- Better model governance
-
-**AWS Implementation**: See [SageMaker Pipelines](#sagemaker-pipelines), [SageMaker Model Monitor](#sagemaker-model-monitor), and [Security Section](#20-security-compliance--governance-for-ai-systems) for CI/CD practices.
-
----
-
-# 12. AWS AI/ML & GenAI Services Portfolio
+# 11. AWS AI/ML & GenAI Services Portfolio
 
 ## Vision Services
 
@@ -569,6 +640,7 @@ Set of practices for managing the complete ML lifecycle
 - Analyze images and videos
 - Face detection, object recognition, scene analysis
 - Content moderation
+- **Rekognition Custom Labels**: Train custom image recognition models with labeled data (uses SageMaker backend)
 
 **Amazon Textract**
 - Extract text and data from documents
@@ -622,6 +694,22 @@ Set of practices for managing the complete ML lifecycle
 - Uses **Recipes** (algorithms) to generate recommendations
 - Based on user activity and behavior patterns
 
+## Contact Center & Customer Service
+
+**Amazon Connect Contact Lens**
+- Real-time analytics for contact center interactions
+- Sentiment analysis and transcription
+
+**Amazon Q in Connect**
+- GenAI assistant embedded in Amazon Connect
+- Provides real-time guidance for agents during calls
+- Automates post-call documentation
+- Reduces after-call work time
+
+**Amazon Connect Wisdom**
+- Knowledge management for contact center agents
+- Real-time article recommendations during customer interactions
+
 ## Generative AI Services
 
 **Amazon Bedrock**
@@ -635,6 +723,13 @@ Set of practices for managing the complete ML lifecycle
 - **Bedrock Model Distillation**: Transfer knowledge from larger teacher model to smaller, more efficient student model
 - **Bedrock Prompt Caching**: Cache prompts to reduce latency and costs for repeated or similar queries
 - **Provisioned Throughput**: Reserved dedicated capacity with predictable costs, required for fine-tuned models
+
+**Amazon Titan Models**
+- **Amazon Titan Multimodal Embeddings G1**: 
+  - Generates embeddings for both text and images
+  - Enables multimodal search (search by text or image)
+  - Captures semantic meaning across modalities
+  - Used with OpenSearch for semantic search capabilities
 
 **Amazon Q**
 - AI-powered assistant for business and development
@@ -873,11 +968,26 @@ Ranked from lowest to highest cost. For detailed cost analysis, see [Cost Optimi
 
 # 14. Key Algorithms & Techniques
 
+## Classification Algorithms
+
+**Support Vector Machine (SVM)**
+- Powerful supervised classification algorithm
+- Handles high-dimensional data effectively
+- Works well with non-linear relationships
+- Effective for binary classification (e.g., churn prediction, fraud detection)
+- Use case: Data is well-separated, complex decision boundaries needed
+
+**Binary Classification**
+- Classification with exactly two possible outcomes
+- Algorithms: Logistic Regression, SVM, Decision Trees, Random Forest, Neural Networks
+- Metrics: Precision, Recall, F1, AUC-ROC
+
 ## Clustering
 **K-Means Clustering**
 - Unsupervised learning algorithm
 - Partitions data into K clusters
 - Minimizes within-cluster variance
+- Use case: Customer segmentation, pattern discovery
 
 ## Regression
 **Linear Regression**
@@ -890,12 +1000,60 @@ Ranked from lowest to highest cost. For detailed cost analysis, see [Cost Optimi
 - Reduces feature space while preserving variance
 - Creates uncorrelated principal components
 - Used for visualization and preprocessing
+- Addresses curse of dimensionality in high-dimensional data
 
 ## Pattern Discovery
 **Association Rule Mining (e.g., Apriori)**
 - Discovers relationships in transactional data
 - Common in market basket analysis
 - Identifies frequent itemsets and rules
+
+## Model Evaluation & Experimentation
+
+**A/B Testing**
+- Controlled experiment comparing model variants
+- Split users into groups (A and B)
+- Evaluate performance on predefined metrics: accuracy, engagement, response quality, speed
+- Determine which variant performs better
+- Essential before full rollout
+- **Multi-Model Hosting**: Support multiple model variants simultaneously in production
+
+## Sequence Generation & Decoding
+
+**Beam Search**
+- Decoding strategy for generating text sequences
+- Explores multiple candidate paths simultaneously
+- Improves quality of generated sequences
+- Trade-off: Better quality vs slower generation than greedy search
+- Used in machine translation and text generation
+
+**Greedy Search**
+- Selects most probable token at each step
+- Faster but may miss better overall sequences
+- Good for real-time applications with latency constraints
+
+## Model Compression Techniques
+
+Model compression reduces size and computational requirements while maintaining acceptable performance. Critical for edge deployment, mobile devices, and cost optimization.
+
+**Pruning**
+- Remove redundant or less important parameters
+- Techniques: Weight pruning, neuron pruning, structured pruning
+- Reduces model size and computational requirements
+- Trade-off: Minimal accuracy loss for significant size reduction
+- AWS tools: SageMaker Debugger and Experiments
+
+**Quantization**
+- Reduce precision of model weights
+- Convert high precision to lower precision (FP32 → FP16 → INT8)
+- Decreases memory footprint significantly
+- Enables faster inference
+- Trade-off: Small accuracy loss for efficiency gains
+
+**Knowledge Distillation**
+- Transfer knowledge from large "teacher" model to small "student" model
+- Student learns to mimic teacher's behavior and outputs
+- Retains significant performance in compact model
 
 ---
 
@@ -960,16 +1118,37 @@ Control model output behavior during API calls. For detailed explanations of Tem
 - Company documents, FAQs, research papers, technical manuals
 - Acts as external source during inference
 - Can be built from data in **Amazon S3**
+- **Supported AWS Services**: 
+  - Amazon OpenSearch Service (vector database for semantic search)
+  - Amazon Kendra (intelligent enterprise search)
+
+### RAG Workflow Steps
+
+**1. Retrieval Phase**
+- Query vector database for semantically similar documents
+- Use embedding models to convert query to vector
+- Return top-k most relevant documents
+
+**2. Prompt Augmentation**
+- Enrich user query with relevant info from retrieved documents
+- Improves accuracy and relevance without fine-tuning
+
+**3. Generation Phase**
+- Foundation model generates response using augmented prompt
+- Reduces hallucinations with up-to-date data
 
 ### Use Cases
 - **Customer support**: Answer questions using up-to-date FAQs/policies
 - **Documentation**: Retrieve info from technical manuals
 - **Research**: Query large databases for insights
+- **Real-time knowledge**: Access current information without retraining
 
 ### Key Benefits
 - Ensures up-to-date, context-aware, accurate responses
+- No model retraining required for knowledge updates
 - **Amazon Bedrock** supports seamless integration with external data
 - Combines retrieval with generation
+- Lower cost than fine-tuning for dynamic knowledge
 
 ## Vector Storage & Databases
 
@@ -1083,7 +1262,25 @@ Automate multi-step workflows using generative AI. For detailed features, see [B
 - Example: "Describe a [type of animal] including [specific traits]"
 - Useful for customer support, repeated tasks
 
-## Best Practices
+## Advanced Prompt Techniques
+
+### Prompt Engineering vs Prompt Tuning
+
+**Prompt Engineering**
+- Manual, human-driven approach
+- Iterative crafting of prompts
+- Uses **hard prompts** (natural language instructions)
+- Trial-and-error refinement process
+- Requires domain expertise and creativity
+- Flexible and interpretable
+- Lower upfront cost, more time-consuming at scale
+
+**Prompt Tuning**
+- Automated, uses machine learning to learn optimal instructions for a task
+- Uses **soft prompts** (virtual tokens prepended to input)
+- Trains separate small model to generate soft prompts
+- More efficient in context window usage
+- Higher upfront cost, more efficient at scale
 
 ### Response Quality Improvement
 - Be **specific and concise** with prompts
@@ -1154,6 +1351,27 @@ For comprehensive security practices, see [Security, Compliance & Governance](#2
 - Example: Chatbot updated with latest support tickets
 
 ## Fine-tuning Methods
+
+### Full Fine-Tuning
+- Updates ALL model parameters during training
+- **Characteristics**:
+  - Computationally expensive and memory-intensive
+  - High GPU memory requirements
+  - Risk of catastrophic forgetting
+  - Better for massive datasets with abundant resources
+  - Maximum customization potential
+- **When to use**: Large datasets, abundant compute resources, need maximum performance
+
+### PEFT (Parameter-Efficient Fine-Tuning)
+- Updates only a small subset of model parameters (not all)
+- **Characteristics**:
+  - More computationally efficient than full fine-tuning
+  - Significantly less GPU memory required
+  - Mitigates catastrophic forgetting by keeping most parameters frozen
+  - Creates smaller, specialized models from same base model
+  - Preserves original model knowledge better
+  - Easier to maintain and deploy multiple versions
+- **Ideal use case**: Multiple tenants/use cases from single base model
 
 ### Instruction Tuning
 - Further training with guidelines/directives
@@ -1595,6 +1813,7 @@ For comprehensive security practices, see [Security, Compliance & Governance](#2
 - Record all API activity (users and services)
 - Log successful and failed calls
 - Details: source IP, time, actions
+- **CloudTrail Lake**: Managed data lake for CloudTrail events; enables SQL-based queries for advanced audit trail analysis and compliance investigations
 
 **AWS Security Hub**
 - Centralized dashboard for all security services
@@ -1710,27 +1929,41 @@ Framework for securing AI lifecycle based on control level and security responsi
    - Foundation models and their lifecycle (data selection → model selection → pre-training → fine-tuning → evaluation → deployment → feedback)
    - Tokens, embeddings, and context windows
    - Multi-modal models and diffusion models
+   - **Transformer Architecture**: Self-attention mechanism computing attention weights for each token
+     - Attention weights: Tell model how much focus to give each token (quadratic complexity O(n²))
+     - Encoder-Decoder: Best for summarization and translation (T5, BART)
+     - Encoder-only: Classification tasks (BERT)
+     - Decoder-only: Text generation (GPT series)
    - Advantages and limitations (hallucinations, nondeterminism)
 
 3. **Foundation Model Applications**
    - Selection criteria: modality, latency, multilingual support, model size/complexity, customization, input/output length
    - Inference parameters: Temperature (creativity), Top-k (number of candidates), Top-p (percentage of candidates)
-   - RAG: Combines retrieval from knowledge base with generation
+   - **RAG Workflow**: Retrieval → Prompt Augmentation → Generation → (Optional) Reranking
+     - Prompt Augmentation: Core step enriching query with retrieved context (happens at inference time)
+     - Reranking: Post-processing to enhance relevance and variety, reduce redundancy
    - Vector databases for semantic search (OpenSearch, Aurora, Neptune, DocumentDB, RDS PostgreSQL)
+   - Knowledge base services: OpenSearch (vector DB), Kendra (intelligent search) - NOT S3 or RDS alone
    - Bedrock Agents for multi-step task automation
    - Customization cost ranking: Pre-training (highest) > Fine-tuning > RAG > In-context learning (lowest)
 
-4. **Prompt Engineering**
+4. **Prompt Engineering & Advanced Techniques**
    - Techniques: Zero-shot, single-shot, few-shot, chain-of-thought, templates
    - Components: Context, instructions, negative prompts
+   - **Prompt Engineering vs Prompt Tuning**: Manual (hard prompts) vs Automated (soft prompts/virtual tokens)
+   - Soft prompts: ML-learned embeddings that guide behavior without modifying model weights
    - Best practices: Specific/concise, experimentation, guardrails, multiple comments
    - Risks: Exposure, poisoning, hijacking, jailbreaking
 
 5. **Training & Fine-tuning Foundation Models**
+   - **Full Fine-Tuning vs PEFT**: Full updates all parameters (expensive), PEFT updates subset (efficient)
+   - **PEFT (Parameter-Efficient Fine-Tuning)**: Ideal for multiple tenants/use cases, mitigates catastrophic forgetting
+   - **Catastrophic Forgetting**: Model forgets previous knowledge during fine-tuning, solved by freezing parameters
    - Fine-tuning methods: Instruction tuning, domain adaptation, transfer learning
    - RLHF (Reinforcement Learning from Human Feedback) / Cognitive Apprenticeship
    - Data preparation: Curation, governance, representativeness, labeling
    - Must purchase provisioned throughput for fine-tuned Bedrock models
+   - Monitor validation loss/accuracy (not just training loss) to detect overfitting
 
 6. **Foundation Model Evaluation**
    - ROUGE: Summarization tasks, focuses on recall
@@ -1756,9 +1989,13 @@ Framework for securing AI lifecycle based on control level and security responsi
 
 9. **AWS Services Selection**
    - Match business problems to appropriate AWS AI services
-   - Rekognition (vision), Textract (OCR), Comprehend (NLP), Translate, Transcribe (ASR), Polly (TTS)
-   - Lex (chatbots), Forecast (time-series), Kendra (semantic search), Personalize (recommendations)
-   - Amazon Q for business intelligence and development
+   - **Vision**: Rekognition (image/video analysis), Rekognition Custom Labels (custom models), Textract (OCR)
+   - **Language**: Comprehend (NLP), Translate (machine translation)
+   - **Speech**: Transcribe (ASR), Polly (TTS)
+   - **Specialized**: Lex (chatbots), Forecast (time-series), Kendra (semantic search), Personalize (recommendations)
+   - **Contact Center**: Connect Contact Lens (analytics), Q in Connect (agent assistance), Connect Wisdom (knowledge management)
+   - **GenAI**: Amazon Q Business (BI), Amazon Q Developer (code generation)
+   - **Security**: CloudTrail Lake (SQL queries on audit logs)
 
 10. **Amazon SageMaker Deep Dive**
    - Comprehensive ML platform for end-to-end workflows
@@ -1767,10 +2004,12 @@ Framework for securing AI lifecycle based on control level and security responsi
    - Ground Truth (data labeling), Clarify (bias detection), Model Monitor (drift detection)
    - Deployment options: Real-time, Asynchronous, Batch Transform, Serverless
    - Know when to use each deployment type based on latency and traffic patterns
+   - Use Bayesian Optimization for hyperparameter tuning (more efficient than Grid/Random Search)
 
 11. **Amazon Bedrock Deep Dive**
    - Fully managed foundation model service with multi-provider support
    - PartyRock: No-code playground for testing models
+   - **Amazon Titan Models**: Multimodal Embeddings G1 (text+image embeddings), Text Premier (fine-tunable)
    - **Inference Parameters**: Control model behavior via API (Temperature, Top-k, Top-p)
      - Temperature: Controls creativity/randomness (0=deterministic, 1=creative)
      - Top-k: Limits token pool to k most likely options
@@ -1781,6 +2020,15 @@ Framework for securing AI lifecycle based on control level and security responsi
    - **Prompt Caching**: Reduce latency and costs for repeated/similar queries
    - **Provisioned Throughput**: Required for fine-tuned models, guaranteed capacity
    - Model customization hierarchy: Pre-trained < Prompt Engineering < RAG < Fine-tuning
+
+12. **Algorithms & Model Optimization**
+   - **Classification**: SVM (high-dimensional, non-linear data), Binary Classification (two outcomes)
+   - **Experimentation**: A/B Testing with multi-model hosting for comparing variants
+   - **Sequence Generation**: Beam Search (quality) vs Greedy Search (speed)
+   - **Activation Functions**: Softmax (training, probabilities) vs Argmax (inference, selection)
+   - **Model Compression**: Pruning (remove parameters), Quantization (reduce precision), Distillation (teacher→student)
+   - **Hyperparameter Tuning**: Bayesian Optimization (efficient, learns from past), Grid Search (exhaustive), Random Search
+   - Use case: Deploy efficient models on edge devices, reduce costs, faster inference
 
 13. **Responsible AI**
    - Difference between Interpretability (HOW) and Explainability (WHY)
@@ -1860,7 +2108,12 @@ Framework for securing AI lifecycle based on control level and security responsi
 **Multi-modal Models**: Models handling multiple data types (text, image, audio, video)  
 **Diffusion Models**: Generate images using forward/reverse diffusion processes  
 **Transformer**: Neural network architecture using attention mechanisms  
-**Nondeterminism**: Same input can produce different outputs
+**Self-Attention**: Mechanism allowing model to focus on specific input parts by computing attention weights  
+**Attention Weights**: Computed for each token vs all others, tells model how much focus to give each token  
+**Encoder-Decoder Architecture**: Separate encoder (input processing) and decoder (output generation), excels at summarization and translation  
+**Nondeterminism**: Same input can produce different outputs  
+**High-Dimensional Data**: Data with many features/variables, requires algorithms like SVM  
+**Non-Linear Relationships**: Complex patterns that don't follow straight lines, need sophisticated algorithms
 
 ## Responsible AI
 
@@ -1926,12 +2179,20 @@ Framework for securing AI lifecycle based on control level and security responsi
 **Single-shot Prompting**: Provide ONE example to guide response  
 **Few-shot Prompting**: Provide MULTIPLE examples to establish pattern  
 **Chain-of-thought Prompting**: Ask model to break problem into logical steps  
-**Prompt Templates**: Standardized prompts with placeholders for dynamic content
+**Prompt Templates**: Standardized prompts with placeholders for dynamic content  
+**Prompt Engineering**: Manual human-driven approach using hard prompts (natural language)  
+**Prompt Tuning**: Automated ML-driven approach using soft prompts (virtual tokens), doesn't modify model weights  
+**Hard Prompts**: Natural language instructions manually created by humans  
+**Soft Prompts**: Virtual tokens learned via ML, prepended to input, guides behavior without modifying weights  
+**Virtual Tokens**: Learned embeddings (not actual words) prepended to input in prompt tuning
 
 ## Training & Customization
 
 **Pre-training**: Train model from scratch on vast data, highest cost  
 **Fine-tuning**: Customize pre-trained model with task-specific data, moderate cost  
+**Full Fine-Tuning**: Update ALL model parameters, high cost, high performance, risk of catastrophic forgetting  
+**PEFT (Parameter-Efficient Fine-Tuning)**: Update only small subset of parameters, efficient, lower memory, mitigates catastrophic forgetting  
+**Catastrophic Forgetting**: Model forgets previous knowledge when learning new information, common in full fine-tuning  
 **Continuous Pre-training**: LLM learns new information while retaining existing knowledge  
 **In-context Learning**: Use prompts to influence outputs, no retraining, lowest cost  
 **Instruction Tuning**: Further training to follow instructions better  
@@ -1941,6 +2202,12 @@ Framework for securing AI lifecycle based on control level and security responsi
 **Data Governance**: Policies for data quality, accuracy, ethical use, privacy compliance  
 **RLHF (Reinforcement Learning from Human Feedback)**: Train models using human guidance (Cognitive Apprenticeship)  
 **Reward Model**: Predicts response quality based on human evaluator scores
+
+## Model Compression
+
+**Pruning**: Remove redundant parameters to reduce model size with minimal accuracy loss  
+**Quantization**: Reduce weight precision (FP32→FP16→INT8) to decrease memory footprint  
+**Knowledge Distillation**: Transfer knowledge from large teacher to small student model for efficiency
 
 ## FM (Foundation Model) Evaluation Metrics
 
@@ -1988,11 +2255,15 @@ Framework for securing AI lifecycle based on control level and security responsi
 **MAE (Mean Absolute Error)**: Average absolute differences between predicted and actual  
 **RMSE (Root Mean Squared Error)**: Square root of MSE, penalizes larger errors more heavily  
 **R² (R-Squared)**: Measures how well predictions fit actual data, ranges 0-1  
-**MSE (Mean Squared Error)**: Average of squared differences between predicted and actual
+**MSE (Mean Squared Error)**: Average of squared differences between predicted and actual  
+**Training Loss**: Error on training data, can be misleading if overfitting  
+**Validation Loss**: Error on validation data, better indicator of generalization, detect overfitting when it increases  
+**Validation Output Accuracy**: Key metric for determining optimal epochs, measures performance on unseen data
 
 ## AWS AI Services
 
 **Rekognition**: Analyze images/videos for face detection, object recognition, content moderation  
+**Rekognition Custom Labels**: Train custom image recognition models with labeled data  
 **Textract**: OCR to extract text/data from documents, understands forms/tables  
 **Comprehend**: NLP service for text analysis, sentiment, entity recognition, tokenization, POS  
 **Translate**: Neural machine translation service supporting 75+ languages  
@@ -2005,6 +2276,12 @@ Framework for securing AI lifecycle based on control level and security responsi
 **Amazon Q Business**: BI assistant for dashboard generation and executive summaries  
 **Amazon Q Developer**: AI assistant for code generation and development automation
 
+## AWS Contact Center Services
+
+**Amazon Connect Contact Lens**: Real-time analytics, sentiment analysis, transcription for contact centers  
+**Amazon Q in Connect**: GenAI assistant providing real-time agent guidance and post-call documentation automation  
+**Amazon Connect Wisdom**: Knowledge management service with real-time article recommendations for agents
+
 ## Amazon Bedrock
 
 **Bedrock**: Fully managed FM service with API access, no infrastructure management  
@@ -2013,7 +2290,9 @@ Framework for securing AI lifecycle based on control level and security responsi
 **Bedrock Guardrails**: Safety barriers filtering offensive content, PII, hallucinations, and prompt attacks  
 **Bedrock Model Distillation**: Transfer knowledge from larger teacher model to smaller student model for efficiency  
 **Bedrock Prompt Caching**: Cache prompts to reduce latency and costs for repeated similar queries  
-**Provisioned Throughput**: Reserved dedicated capacity with predictable costs, required for fine-tuned Bedrock models
+**Provisioned Throughput**: Reserved dedicated capacity with predictable costs, required for fine-tuned Bedrock models  
+**Amazon Titan Multimodal Embeddings G1**: Generate embeddings for text AND images for multimodal search  
+**Amazon Titan Text Premier**: Foundation model on Bedrock that can be fine-tuned for specific tasks
 
 ## Amazon SageMaker
 
@@ -2055,15 +2334,27 @@ Framework for securing AI lifecycle based on control level and security responsi
 **SHAP (SHapley Additive exPlanations)**: Post-hoc method explaining predictions via feature importance  
 **LIME (Local Interpretable Model-agnostic Explanations)**: Post-hoc method explaining individual local predictions
 
-## Algorithms
+## Algorithms & Techniques
 
+**SVM (Support Vector Machine)**: Classification algorithm for high-dimensional data with non-linear relationships, effective for binary classification  
 **K-Means Clustering**: Unsupervised algorithm partitioning data into K clusters, minimizes within-cluster variance  
 **Linear Regression**: Supervised learning for continuous predictions, models linear relationships  
 **PCA (Principal Component Analysis)**: Reduces dimensionality while preserving variance  
 **Apriori (Association Rule Mining)**: Discovers relationships in transactional data for market basket analysis  
 **Decision Trees**: High interpretability model with flow chart structure, easy to visualize  
 **Neural Networks**: Low interpretability "black box" model with high performance  
-**Random Forests**: Ensemble of decision trees, reduces overfitting while maintaining performance
+**Random Forests**: Ensemble of decision trees, reduces overfitting while maintaining performance  
+**Binary Classification**: Two-class classification (yes/no, fraud/not fraud, churn/not churn)  
+**A/B Testing**: Controlled experiment comparing model variants on predefined metrics  
+**Multi-Model Hosting**: Host multiple model variants simultaneously for experimentation  
+**Beam Search**: Decoding strategy exploring multiple paths simultaneously for better sequence generation quality  
+**Greedy Search**: Select most probable token at each step, faster but may miss better sequences  
+**Softmax**: Activation function converting logits to probability distribution, used during training  
+**Argmax**: Select index with highest probability, used during inference for classification  
+**Prompt Augmentation**: Core RAG step enriching user query with retrieved document context  
+**Reranking**: Post-retrieval step refining results based on semantic similarity to enhance relevance and variety  
+**Bayesian Optimization**: Advanced hyperparameter tuning using probabilistic model, learns from past evaluations  
+**Gradient Descent**: Algorithm for training model parameters (NOT for hyperparameter tuning)
 
 ## MLOps
 
@@ -2136,12 +2427,13 @@ Framework for securing AI lifecycle based on control level and security responsi
 **AWS Audit Manager**: Continual GRC auditing, evidence gathering  
 **AWS Trusted Advisor**: Well-Architected Framework alignment, remediation recommendations  
 **AWS CloudTrail**: Log all API activity (users and services)  
+**CloudTrail Lake**: Managed data lake for CloudTrail events with SQL-based querying for audit trail analysis  
 **AWS Security Hub**: Centralized security dashboard, SIEM integration, SOAR workflows, CSPM  
 **AWS WAF**: Web Application Firewall for Layer 7 protection  
 **AWS Shield**: DDoS protection, Shield Advanced with DDoS Response Team  
 **Amazon Cognito**: Customer identity management, adaptive protections (bot detection, risk-based auth)  
 **S3 Object Locking**: WORM model (Write-Once-Read-Many), compliance/governance modes, legal holds  
-**AWS Backup**: Disaster recovery, business continuity  
+**AWS Backup**: Disaster recovery, business continuity
 **AWS Artifact**: Access compliance documents, reports, certifications
 
 ## Infrastructure & Governance
@@ -2154,12 +2446,3 @@ Framework for securing AI lifecycle based on control level and security responsi
 **Kaggle**: Hub for datasets, ML competitions, and community collaboration  
 **AWS Trainium**: Specialized hardware optimized for ML model training with energy efficiency  
 **AWS Inferentia**: Specialized hardware optimized for inference/production workloads with energy efficiency
-
----
-
-# C. Study Resources
-
-- [AWS AI/ML Services Overview](https://aws.amazon.com/machine-learning/)
-- [SageMaker Documentation](https://docs.aws.amazon.com/sagemaker/)
-- [AWS AI Practitioner Exam Guide](https://aws.amazon.com/certification/certified-ai-practitioner/)
-- [Supervised vs Unsupervised Learning](https://aws.amazon.com/pt/compare/the-difference-between-machine-learning-supervised-and-unsupervised/)
